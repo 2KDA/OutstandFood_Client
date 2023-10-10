@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">OutStandFood</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="facebook_app_id">524912812491457</string>
+    <string name="fb_login_protocol_scheme">fb524912812491457</string>
+    <string name="facebook_client_token">3894d9aadd3b584b52b03a3c6f6a0e28</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_profile">Profile</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    //Headings
+    <string name="heading_one">Quick &amp; Easy Payments</string>
+    <string name="heading_two">Instant Notifications</string>
+    <string name="heading_three">Cashless Payment</string>
+    <string name="heading_fourth">Pay Anywhere</string>
+
+    //Splash
+    <string name="name_splash">Ứng dụng đặt đồ ăn BiFood</string>
+    //Description
+    <string name="desc_one">Grow your Business By Accepting Card Payments with The New Card Reader</string>
+    <string name="desc_two">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
+    <string name="desc_three">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
+    <string name="desc_fourth">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
+
+    //menu
+    <string name="sHome">Home</string>
+    <string name="sOrders">Orders</string>
+    <string name="sMessage">Message</string>
+    <string name="sHistory">History</string>
+    <string name="sProfile">Profile</string>
+
+    //Profile
+    <string name="sNotification">Notification</string>
+    <string name="sGerenal_Notification">Gerenal Notification</string>
+    <string name="sSpecial_Offers">Special Offers</string>
+    <string name="sApp_update">App update</string>
+
+
+    <string name="sSecurity">Security</string>
+    <string name="sRemember_me">Remember me</string>
+    <string name="sCode_pin">Code pin</string>
+    <string name="sChange_pin">CHANGE PIN</string>
+    <string name="sChange_Password">CHANGE PASSWORD</string>
+
+
+    <string name="sLanguage">Language</string>
+    <string name="sEnglish">English</string>
+    <string name="sVietnam">Vietnamese</string>
+
+    <string name="sUpdate">UPDATE</string>
+
+    <string name="sAddress">Address</string>
+    <string name="sAdd_to_address">Add to address</string>
+</resources>

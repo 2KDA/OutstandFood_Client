@@ -10,6 +10,7 @@ import android.outstandfood_client.R;
 import android.outstandfood_client.databinding.ActivityHomeScreenBinding;
 import android.outstandfood_client.databinding.FragmentHomeBinding;
 import android.outstandfood_client.view.screen.fragment.CartFragment;
+import android.outstandfood_client.view.screen.fragment.HistoryFragment;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,6 +31,8 @@ public class Home_Screen extends AppCompatActivity {
 
                 } else if (id == R.id.home_menu_Orders) {
                     replaceFragment(new CartFragment());
+                } else if (id == R.id.home_menu_Wallet) {
+                    replaceFragment(new HistoryFragment());
                 }
                 return true;
             }

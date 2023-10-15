@@ -24,4 +24,5 @@
     <color name="cBg">#F0F0F0</color>
     <color name="cChinh">#1bac4b</color>
     <color name="cGrey">#414141</color>
+    <color name="gray">#c8c7c1</color>
 </resources>

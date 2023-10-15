@@ -59,4 +59,6 @@
 
     <string name="sAddress">Address</string>
     <string name="sAdd_to_address">Add to address</string>
+    <string name="cart">Giỏ hàng</string>
+    <string name="order">Đặt ngay</string>
 </resources>

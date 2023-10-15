@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5sp"
+    android:weightSum="10"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_weight="3">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10sp">
+            <ImageView
+                android:id="@+id/imgFoodC"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="food"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo_app"/>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="6"
+        android:paddingHorizontal="5sp"
+        android:layout_marginStart="3sp">
+
+        <TextView
+            android:id="@+id/tvNameC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bo xot vien"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPriceC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20000"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnRemoveQuantity"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="5sp"
+                android:background="@drawable/border_cart"
+                android:contentDescription="remove"
+                android:src="@drawable/ic_remove" />
+
+            <Button
+                android:id="@+id/btnQuantity"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:text="1"
+                android:layout_margin="5sp"
+                android:background="@drawable/border_cart"
+                />
+            <ImageButton
+                android:id="@+id/btnAddQuantity"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_add"
+                android:layout_margin="5sp"
+                android:contentDescription="add"
+                android:background="@drawable/border_cart"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/btnDeleteC"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_delete"/>
+</LinearLayout>

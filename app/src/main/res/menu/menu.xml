@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_menu_Home"
+        android:icon="@drawable/ic_home_24"
+        android:title="@string/sHome" />
+
+    <item
+        android:id="@+id/home_menu_Orders"
+        android:icon="@drawable/ic_list_24"
+        android:title="@string/sOrders"/>
+
+
+    <item
+        android:id="@+id/home_menu_Wallet"
+        android:icon="@drawable/ic_wallet_24"
+        android:title="@string/sHistory"/>
+
+    <item
+        android:id="@+id/home_menu_Profile"
+        android:icon="@drawable/ic_person_outline_24"
+        android:title="@string/sProfile"/>
+
+<!--    <item android:id="@+id/home_menu_addSanPham"-->
+<!--        android:icon="@drawable/ic_baseline_post_add_24"-->
+<!--        android:title="Add sản phẩm"/>-->
+</menu>

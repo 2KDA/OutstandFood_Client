@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.outstandfood_client.MainActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.view.Adapter_onboarding;
+import android.outstandfood_client.view.screen.home_action_menu.Home_Screen;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class Onboarding_screen extends AppCompatActivity {
                 if (getitem(0) < 2) {
                     mSLideViewPager.setCurrentItem(getitem(1), true);
                 }else{
-                    Intent i = new Intent(Onboarding_screen.this, MainActivity.class);
+                    Intent i = new Intent(Onboarding_screen.this, Home_Screen.class);
                     startActivity(i);
                     finish();
                 }
@@ -56,7 +57,7 @@ public class Onboarding_screen extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Intent i = new Intent(Onboarding_screen.this, MainActivity.class);
+                Intent i = new Intent(Onboarding_screen.this, Home_Screen.class);
                 startActivity(i);
                 finish();
 

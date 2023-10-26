@@ -44,13 +44,12 @@
         app:hintEnabled="false">
 
         <EditText
-            android:text="12"
             android:id="@+id/edt_Login_User"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/bg_edt_login_noselect"
-            android:inputType="textEmailAddress"
-            android:hint="Email"
+
+            android:hint="Username"
             android:textSize="16sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +64,6 @@
         app:hintEnabled="false">
 
         <EditText
-            android:text="12"
             android:id="@+id/edt_Login_Password"
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -85,7 +83,7 @@
         android:layout_marginTop="8dp" />
 
     <Button
-        android:id="@+id/btnLoginEmail"
+        android:id="@+id/btn_Login"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Login"
@@ -98,7 +96,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnLoginEmail"
+        android:layout_below="@+id/btn_Login"
         android:gravity="center"
         android:layout_marginTop="16dp">
 

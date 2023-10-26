@@ -32,7 +32,7 @@ import java.util.concurrent.Executors;
 
 
 public class Register_screen extends AppCompatActivity {
-    private EditText edtFullName, edtUserName, edtPassWord, edtPassWord1,edtPhone,edtEmail;
+    private EditText edtFullName, edtUserName, edtPassWord, edtPassWord1,edtPhone;
     private Button btnDangKy;
     private ImageView register_back;
     @Override
@@ -42,7 +42,6 @@ public class Register_screen extends AppCompatActivity {
         edtUserName = findViewById(R.id.inputUsername);
         edtFullName = findViewById(R.id.inputname);
         edtPhone = findViewById(R.id.inputPhone);
-        edtEmail = findViewById(R.id.inputEmail);
         edtPassWord = findViewById(R.id.inputPassword);
         edtPassWord1 = findViewById(R.id.inputPassword1);
         btnDangKy = findViewById(R.id.btnRegister);
@@ -80,10 +79,9 @@ public class Register_screen extends AppCompatActivity {
                     String password = edtPassWord.getText().toString();
                     String password1 = edtPassWord1.getText().toString();
                     String phone = edtPhone.getText().toString();
-                    String mail = edtEmail.getText().toString();
                     String fullname = edtFullName.getText().toString();
 
-                    if (username.isEmpty() || password.isEmpty() || password1.isEmpty() || phone.isEmpty() || fullname.isEmpty()|| mail.isEmpty()) {
+                    if (username.isEmpty() || password.isEmpty() || password1.isEmpty() || phone.isEmpty() || fullname.isEmpty()) {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -106,15 +104,6 @@ public class Register_screen extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(Register_screen.this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        return;
-                    }
-                    if (!isValidEmail(mail)) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(Register_screen.this, "Email không hợp lệ. Vui lòng kiểm tra lại", Toast.LENGTH_SHORT).show();
                             }
                         });
                         return;
@@ -188,9 +177,5 @@ public class Register_screen extends AppCompatActivity {
     private boolean isValidPhoneNumber(String phoneNumber) {
         String regex = "0[1-9][0-9]{8}";
         return phoneNumber.matches(regex);
-    }
-    private boolean isValidEmail(String email) {
-        String regex = "^(.+)@(.+)$";
-        return email.matches(regex);
     }
 }

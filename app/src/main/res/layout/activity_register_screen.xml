@@ -45,29 +45,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_fullname"
+        android:id="@+id/layout_edtDangKyPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_inputUsername"
-        app:startIconDrawable="@drawable/ic_email"
-        app:endIconMode="clear_text"
-        app:hintEnabled="false"
-        android:layout_marginTop="16dp">
-
-        <EditText
-            android:id="@+id/inputname"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_edt_login_noselect"
-            android:hint="full name"
-            android:inputType="textEmailAddress"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_fullname"
         app:startIconDrawable="@drawable/ic_baseline_phone_24"
         app:endIconMode="clear_text"
         app:hintEnabled="false"
@@ -83,22 +64,22 @@
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_email"
+        android:id="@+id/layout_edtDangKyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_phone"
-        app:startIconDrawable="@drawable/ic_email"
+        android:layout_below="@+id/layout_edtDangKyPhone"
+        app:startIconDrawable="@drawable/ic_person_outline_24"
         app:endIconMode="clear_text"
         app:hintEnabled="false"
         android:layout_marginTop="16dp">
 
         <EditText
-            android:id="@+id/inputEmail"
+            android:id="@+id/inputname"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/bg_edt_login_noselect"
-            android:hint="Email"
-            />
+            android:hint="FullName"
+            android:inputType="textPhonetic"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,7 +87,7 @@
         android:id="@+id/layout_inputPasswordDangKy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_email"
+        android:layout_below="@+id/layout_edtDangKyName"
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:endIconMode="password_toggle"
         app:hintEnabled="false"

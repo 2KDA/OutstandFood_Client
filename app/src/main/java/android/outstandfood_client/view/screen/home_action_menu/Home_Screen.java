@@ -10,7 +10,7 @@ import android.outstandfood_client.R;
 import android.outstandfood_client.databinding.ActivityHomeScreenBinding;
 import android.outstandfood_client.view.screen.fragment.CartFragment;
 import android.outstandfood_client.view.screen.fragment.HistoryFragment;
-import android.outstandfood_client.view.screen.fragment.HomeFragment;
+import android.outstandfood_client.view.screen.fragment.home.HomeFragment;
 import android.outstandfood_client.view.screen.fragment.ProfileFragment;
 import android.view.MenuItem;
 

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.outstandfood_client.models.Food;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,11 +34,13 @@ public class HomeFragment extends Fragment {
 //    private Adapter_Foodtype adapter_FoodType;
 //    private GridView gridView_home_ActionMenu_home_FoodType;
 
+    // Do an giam gia
     private ArrayList<Food> lis_food = new ArrayList<>();
 //    private Adapter_Discount adapter_discount;
-    private RecyclerView recyclerView_home_ActionMenu_home_Discout;
+//    private RecyclerView recyclerView_home_ActionMenu_home_Discout;
 
-//    private Adapter_Recommended adapter_recommended;
+    // Do an vip pro
+   private Adapter_Recommended adapter_recommended;
     private RecyclerView recyclerView_home_ActionMenu_home_Recommended;
 
     private ArrayList<Integer> lis_bannerSale = new ArrayList<>();
@@ -54,12 +55,15 @@ public class HomeFragment extends Fragment {
         tv_home_ActionMenu_homeRecommended_seeAll = view.findViewById(R.id.home_ActionMenu_homeRecommended_seeAll);
 
 //        gridView_home_ActionMenu_home_FoodType = view.findViewById(R.id.home_ActionMenu_home_FoodType);
-        recyclerView_home_ActionMenu_home_Discout = view.findViewById(R.id.home_ActionMenu_home_Discount);
+//        recyclerView_home_ActionMenu_home_Discout = view.findViewById(R.id.home_ActionMenu_home_Discount);
         recyclerView_home_ActionMenu_home_Recommended = view.findViewById(R.id.home_ActionMenu_home_Recommended);
         recyclerView_home_ActionMenu_Special_banner = view.findViewById(R.id.home_ActionMenu_Special_banner);
     }
 
-
+    public static HomeFragment newInstance() {
+        HomeFragment fragment = new HomeFragment();
+        return fragment;
+    }
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -82,7 +86,6 @@ public class HomeFragment extends Fragment {
         AnhXa(view);
 
         //Special-Offers
-
         adapter_special_offers = new Adapter_Special_offers(getContext());
         adapter_special_offers.setData(lis_bannerSale);
 
@@ -94,6 +97,22 @@ public class HomeFragment extends Fragment {
         lis_bannerSale.add(R.drawable.avt_test);
         lis_bannerSale.add(R.drawable.avt_test);
         lis_bannerSale.add(R.drawable.avt_test);
+
+        //Recommended Food
+        adapter_recommended = new Adapter_Recommended(getContext());
+        adapter_recommended.setData(lis_food);
+
+        LinearLayoutManager manager1 = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        recyclerView_home_ActionMenu_home_Recommended.setLayoutManager(manager1);
+        recyclerView_home_ActionMenu_home_Recommended.setAdapter(adapter_recommended);
+
+        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
+        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
+        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
+        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
+        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
+        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
+
 
     }
 

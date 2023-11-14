@@ -49,10 +49,9 @@ public class HomeFragment extends Fragment {
 
 
     public void AnhXa(View view){
-        edt_home_ActionMenu_home_Craving = view.findViewById(R.id.home_ActionMenu_home_Craving);
+//        edt_home_ActionMenu_home_Craving = view.findViewById(R.id.home_ActionMenu_home_Craving);
         img_home_ActionMenu_home_MyCart = view.findViewById(R.id.home_ActionMenu_home_MyCart);
-        tv_home_ActionMenu_homeSpecial_seeAll = view.findViewById(R.id.home_ActionMenu_homeSpecial_seeAll);
-        tv_home_ActionMenu_homeRecommended_seeAll = view.findViewById(R.id.home_ActionMenu_homeRecommended_seeAll);
+//        tv_home_ActionMenu_homeRecommended_seeAll = view.findViewById(R.id.home_ActionMenu_homeRecommended_seeAll);
 
 //        gridView_home_ActionMenu_home_FoodType = view.findViewById(R.id.home_ActionMenu_home_FoodType);
 //        recyclerView_home_ActionMenu_home_Discout = view.findViewById(R.id.home_ActionMenu_home_Discount);
@@ -93,10 +92,10 @@ public class HomeFragment extends Fragment {
         recyclerView_home_ActionMenu_Special_banner.setLayoutManager(manager2);
         recyclerView_home_ActionMenu_Special_banner.setAdapter(adapter_special_offers);
 
-        lis_bannerSale.add(R.drawable.avt_test);
-        lis_bannerSale.add(R.drawable.avt_test);
-        lis_bannerSale.add(R.drawable.avt_test);
-        lis_bannerSale.add(R.drawable.avt_test);
+        lis_bannerSale.add(R.drawable.banner);
+        lis_bannerSale.add(R.drawable.banner_one);
+        lis_bannerSale.add(R.drawable.banner);
+        lis_bannerSale.add(R.drawable.banner_one);
 
         //Recommended Food
         adapter_recommended = new Adapter_Recommended(getContext());

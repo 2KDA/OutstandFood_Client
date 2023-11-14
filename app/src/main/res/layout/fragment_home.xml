@@ -29,30 +29,24 @@
                     android:id="@+id/home_ActionMenu_home_Avt"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/avt_test" />
+                    android:src="@drawable/logo_login" />
             </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Deliver to"
-                android:layout_toRightOf="@id/card_imgAvt"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="7dp"
-                />
+
 
             <TextView
                 android:id="@+id/home_ActionMenu_home_Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ho va ten"
-                android:layout_toRightOf="@id/card_imgAvt"
-                android:textSize="18sp"
-                android:layout_marginTop="25dp"
                 android:layout_marginStart="7dp"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
-
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/card_imgAvt"
+                android:gravity="center_horizontal"
+                android:text="OutStand'Food"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="50dp"
@@ -70,21 +64,31 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="2dp"/>
 
+<!--                <ImageView-->
+<!--                    android:id="@+id/home_ActionMenu_home_MyCart1"-->
+<!--                    android:layout_width="35dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:src="@drawable/ic_email"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginBottom="2dp"/>-->
+
+
+
             </androidx.cardview.widget.CardView>
 
         </RelativeLayout>
 
-        <EditText
-            android:id="@+id/home_ActionMenu_home_Craving"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint=" What are you craving ?"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/home_edtcraving"
-            android:drawableLeft="@drawable/ic_search_24"
-            android:inputType="text"
-            android:autofillHints="craving"
-            android:focusable="false"/>
+<!--        <EditText-->
+<!--            android:id="@+id/home_ActionMenu_home_Craving"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint=" What are you craving ?"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@drawable/home_edtcraving"-->
+<!--            android:drawableLeft="@drawable/ic_search_24"-->
+<!--            android:inputType="text"-->
+<!--            android:autofillHints="craving"-->
+<!--            android:focusable="false"/>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -99,18 +103,7 @@
                 android:text="Special Offers"
                 style="@style/txtTieuDe" />
 
-            <TextView
-                android:id="@+id/home_ActionMenu_homeSpecial_seeAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
-                android:text="See All"
-                android:textColor="@color/cChinh"
-                android:textStyle="bold" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_ActionMenu_Special_banner"
@@ -131,25 +124,7 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Discount Guaranteed!"
-                style="@style/txtTieuDe"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_ActionMenu_home_Discount"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"/>
-
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -164,15 +139,7 @@
                 android:text="Recommended for you"
                 style="@style/txtTieuDe"/>
 
-            <TextView
-                android:id="@+id/home_ActionMenu_homeRecommended_seeAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="See All"
-                android:layout_alignParentRight="true"
-                android:layout_margin="4dp"
-                android:textColor="@color/cChinh"
-                android:textStyle="bold"/>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_ActionMenu_home_Recommended"

@@ -93,9 +93,9 @@ public class HomeFragment extends Fragment {
         recyclerView_home_ActionMenu_Special_banner.setAdapter(adapter_special_offers);
 
         lis_bannerSale.add(R.drawable.banner);
-        lis_bannerSale.add(R.drawable.banner_one);
-        lis_bannerSale.add(R.drawable.banner);
-        lis_bannerSale.add(R.drawable.banner_one);
+//        lis_bannerSale.add(R.drawable.banner_one);
+//        lis_bannerSale.add(R.drawable.banner);
+//        lis_bannerSale.add(R.drawable.banner_one);
 
         //Recommended Food
         adapter_recommended = new Adapter_Recommended(getContext());

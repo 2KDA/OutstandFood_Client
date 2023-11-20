@@ -1,4 +1,4 @@
-<LinearLayout 
+<LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:background="#FFFFFFFF"
@@ -46,7 +46,7 @@
 			android:orientation="vertical">
 		</LinearLayout>
 	</LinearLayout>
-	<ScrollView 
+	<ScrollView
 		android:fillViewport="true"
 		android:id="@+id/rwosdh4hcp6s"
 		android:layout_width="match_parent"
@@ -148,7 +148,6 @@
 								android:layout_width="45dp"
 								android:layout_height="45dp"
 								android:gravity="center"
-								android:background="@drawable/sfff0f0f0sw2cr16bffffffff"
 								android:orientation="vertical">
 								<TextView
 									android:id="@+id/rvfbdan3xb8n"
@@ -184,7 +183,6 @@
 								android:layout_width="45dp"
 								android:layout_height="45dp"
 								android:gravity="center"
-								android:background="@drawable/sfff0f0f0sw2cr16bffffffff"
 								android:orientation="vertical">
 								<TextView
 									android:id="@+id/raupui81lx0d"
@@ -315,7 +313,6 @@
 								android:layout_width="45dp"
 								android:layout_height="45dp"
 								android:gravity="center"
-								android:background="@drawable/sfff0f0f0sw2cr16bffffffff"
 								android:orientation="vertical">
 								<TextView
 									android:id="@+id/r27ekr96jky5"
@@ -351,7 +348,6 @@
 								android:layout_width="45dp"
 								android:layout_height="45dp"
 								android:gravity="center"
-								android:background="@drawable/sfff0f0f0sw2cr16bffffffff"
 								android:orientation="vertical">
 								<TextView
 									android:id="@+id/rgrqraaasgs8"
@@ -482,7 +478,6 @@
 								android:layout_width="45dp"
 								android:layout_height="45dp"
 								android:gravity="center"
-								android:background="@drawable/sfff0f0f0sw2cr16bffffffff"
 								android:orientation="vertical">
 								<TextView
 									android:id="@+id/rpvvea4ovok"
@@ -518,7 +513,6 @@
 								android:layout_width="45dp"
 								android:layout_height="45dp"
 								android:gravity="center"
-								android:background="@drawable/sfff0f0f0sw2cr16bffffffff"
 								android:orientation="vertical">
 								<TextView
 									android:id="@+id/rrb0ffy00yk"
@@ -649,7 +643,6 @@
 								android:layout_width="45dp"
 								android:layout_height="45dp"
 								android:gravity="center"
-								android:background="@drawable/sfff0f0f0sw2cr16bffffffff"
 								android:orientation="vertical">
 								<TextView
 									android:id="@+id/r1nossjkojg1"
@@ -685,7 +678,6 @@
 								android:layout_width="45dp"
 								android:layout_height="45dp"
 								android:gravity="center"
-								android:background="@drawable/sfff0f0f0sw2cr16bffffffff"
 								android:orientation="vertical">
 								<TextView
 									android:id="@+id/ruurfajmdkr"
@@ -733,7 +725,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="65dp"
 		android:gravity="center_vertical"
-		android:background="@drawable/cr20bff53b175"
+
 		android:layout_margin="16dp"
 		android:clickable="true"
 		android:focusable="true"
@@ -741,7 +733,7 @@
 		<View
 			android:layout_width="0dp"
 			android:layout_height="0dp"
-			android:layout_weight="1" 
+			android:layout_weight="1"
 		/>
 		<LinearLayout
 			android:id="@+id/ry84829h72"
@@ -774,7 +766,6 @@
 			android:layout_width="43dp"
 			android:layout_height="22dp"
 			android:gravity="center"
-			android:background="@drawable/cr4bff489e67"
 			android:orientation="vertical">
 			<TextView
 				android:id="@+id/rfzpmt47nd9e"
@@ -797,7 +788,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="70dp"
 		android:gravity="center_vertical"
-		android:background="@drawable/sff808080sw2tl12tr12"
 		android:orientation="horizontal">
 		<LinearLayout
 			android:id="@+id/riw9v1zc1ng"

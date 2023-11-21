@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.outstandfood_client.R;
+
 import android.outstandfood_client.databinding.ActivityHomeScreenBinding;
 import android.outstandfood_client.view.screen.fragment.CartFragment;
 import android.outstandfood_client.view.screen.fragment.HistoryFragment;
@@ -14,9 +16,13 @@ import android.outstandfood_client.view.screen.fragment.home.HomeFragment;
 import android.outstandfood_client.view.screen.fragment.ProfileFragment;
 import android.view.MenuItem;
 
+import android.outstandfood_client.models.User;
+
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home_Screen extends AppCompatActivity {
+
     private ActivityHomeScreenBinding binding;
 
     @Override
@@ -42,9 +48,35 @@ public class Home_Screen extends AppCompatActivity {
         });
     }
 
+
+//    private BottomNavigationView btnNavigation_home_ActionMenu_Main_layout;
+//    User user;
+//    private String userId;
+//    private String username;
+//    private String password;
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_home_screen);
+//
+//        Intent intent = getIntent();
+//        if (intent != null && intent.hasExtra("userData")) {
+//            user = intent.getParcelableExtra("userData");
+//            if (user != null) {
+//                username = user.getUsername();
+//                password = user.getPassword();
+//                userId = user.get_id();
+//            }
+//        }
+
+
+
+
+
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frameLayout, fragment);
         transaction.commit();
     }
+
 }

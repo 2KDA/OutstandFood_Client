@@ -12,6 +12,7 @@ import android.outstandfood_client.R;
 import android.outstandfood_client.databinding.ActivityHomeScreenBinding;
 import android.outstandfood_client.view.screen.fragment.CartFragment;
 import android.outstandfood_client.view.screen.fragment.HistoryFragment;
+import android.outstandfood_client.view.screen.fragment.MenuFragment;
 import android.outstandfood_client.view.screen.fragment.home.HomeFragment;
 import android.outstandfood_client.view.screen.fragment.ProfileFragment;
 import android.view.MenuItem;
@@ -30,17 +31,20 @@ public class Home_Screen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        replaceFragment(new HomeFragment());
         binding.bottomMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.home_menu_Home) {
+                if (id == R.id.home_menu_trangchu) {
                     replaceFragment(new HomeFragment());
-                } else if (id == R.id.home_menu_Orders) {
+                } else if (id == R.id.home_menu_muasam) {
+                    replaceFragment(new MenuFragment());
+                } else if (id == R.id.home_menu_giohang) {
                     replaceFragment(new CartFragment());
-                } else if (id == R.id.home_menu_Wallet) {
+                } else if (id == R.id.home_menu_lichsu) {
                     replaceFragment(new HistoryFragment());
-                } else if (id == R.id.home_menu_Profile) {
+                } else if (id == R.id.home_menu_taikhoan) {
                     replaceFragment(new ProfileFragment());
                 }
                 return true;

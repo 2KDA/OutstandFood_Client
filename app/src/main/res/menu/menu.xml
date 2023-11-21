@@ -1,23 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/home_menu_Home"
+        android:id="@+id/home_menu_trangchu"
         android:icon="@drawable/ic_home_24"
         android:title="@string/sHome" />
 
     <item
-        android:id="@+id/home_menu_Orders"
+        android:id="@+id/home_menu_muasam"
         android:icon="@drawable/ic_list_24"
         android:title="@string/sOrders"/>
 
+    <item
+        android:id="@+id/home_menu_giohang"
+        android:icon="@drawable/ic_list_24"
+        android:title="@string/sMessage"/>
+
 
     <item
-        android:id="@+id/home_menu_Wallet"
+        android:id="@+id/home_menu_lichsu"
         android:icon="@drawable/ic_wallet_24"
         android:title="@string/sHistory"/>
 
     <item
-        android:id="@+id/home_menu_Profile"
+        android:id="@+id/home_menu_taikhoan"
         android:icon="@drawable/ic_person_outline_24"
         android:title="@string/sProfile"/>
 

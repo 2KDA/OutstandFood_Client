@@ -94,7 +94,8 @@ public class HomeFragment extends Fragment {
 
         lis_bannerSale.add(R.drawable.banner);
 //        lis_bannerSale.add(R.drawable.banner_one);
-        lis_bannerSale.add(R.drawable.banner);
+//        lis_bannerSale.add(R.drawable.banner)
+//        lis_bannerSale.add(R.drawable.banner);
 //        lis_bannerSale.add(R.drawable.banner_one);
 
         //Recommended Food

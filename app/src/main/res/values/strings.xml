@@ -31,11 +31,11 @@
     <string name="desc_fourth">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</string>
 
     //menu
-    <string name="sHome">Home</string>
-    <string name="sOrders">Orders</string>
-    <string name="sMessage">Message</string>
-    <string name="sHistory">History</string>
-    <string name="sProfile">Profile</string>
+    <string name="sHome">Trang Chủ</string>
+    <string name="sOrders">Mua Sắm</string>
+    <string name="sMessage">Giỏ Hàng</string>
+    <string name="sHistory">Lịch Sử</string>
+    <string name="sProfile">Tài Khoản</string>
 
     //Profile
     <string name="sNotification">Notification</string>

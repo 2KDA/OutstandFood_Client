@@ -29,7 +29,7 @@
                     android:id="@+id/home_ActionMenu_home_Avt"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/logo_login" />
+                    android:src="@drawable/logovipmax" />
             </androidx.cardview.widget.CardView>
 
 

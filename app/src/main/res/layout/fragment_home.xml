@@ -1,14 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.screen.home_action_menu.home.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.screen.fragment.home.HomeFragment"
+    android:layout_marginBottom="60dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingRight="20dp"
+        android:paddingLeft="20dp">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="30dp"
+                android:id="@+id/card_imgAvt">
+                <ImageView
+                    android:id="@+id/home_ActionMenu_home_Avt"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/logo_login" />
+            </androidx.cardview.widget.CardView>
+
+
+
+            <TextView
+                android:id="@+id/home_ActionMenu_home_Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/card_imgAvt"
+                android:gravity="center_horizontal"
+                android:text="OutStand'Food"
+                android:textColor="@color/black"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="25dp"
+                >
+
+                <ImageView
+                    android:id="@+id/home_ActionMenu_home_MyCart"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_shopping_bag_24"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="2dp"/>
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/home_ActionMenu_home_MyCart1"-->
+<!--                    android:layout_width="35dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:src="@drawable/ic_email"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginBottom="2dp"/>-->
+
+
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+<!--        <EditText-->
+<!--            android:id="@+id/home_ActionMenu_home_Craving"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint=" What are you craving ?"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@drawable/home_edtcraving"-->
+<!--            android:drawableLeft="@drawable/ic_search_24"-->
+<!--            android:inputType="text"-->
+<!--            android:autofillHints="craving"-->
+<!--            android:focusable="false"/>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/home_ActionMenu_Special_tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Special Offers"
+                style="@style/txtTieuDe" />
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_ActionMenu_Special_banner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/home_ActionMenu_Special_tvTitle"
+                android:layout_marginTop="10dp" />
+
+<!--            <GridView-->
+<!--                android:id="@+id/home_ActionMenu_home_FoodType"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="180dp"-->
+<!--                android:numColumns="4"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_below="@+id/home_ActionMenu_Special_banner"/>-->
+
+
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/home_ActionMenu_homeRecommended_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recommended for you"
+                style="@style/txtTieuDe"/>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_ActionMenu_home_Recommended"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/home_ActionMenu_homeRecommended_title"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>

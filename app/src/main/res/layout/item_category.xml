@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/rua7fr18nl1q"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_margin="10sp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/imCate"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/test"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+    <TextView
+        android:id="@+id/rvoos1lxtfg"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@+id/imCate"
+        app:layout_constraintStart_toStartOf="@+id/imCate"
+        app:layout_constraintEnd_toEndOf="@+id/imCate"
+        app:layout_constraintBottom_toBottomOf="@+id/imCate"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Frash Fruits"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,6 @@ dependencies {
 
     //Gif View
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
-
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
 }

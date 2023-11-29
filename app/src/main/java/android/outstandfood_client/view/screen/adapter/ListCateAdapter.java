@@ -3,7 +3,6 @@ package android.outstandfood_client.view.screen.adapter;
 import android.annotation.SuppressLint;
 import android.outstandfood_client.databinding.ItemCategoryBinding;
 import android.outstandfood_client.interfaces.FoodInterface;
-import android.outstandfood_client.models.Category;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ListCateAdapter extends RecyclerView.Adapter<ListCateAdapter.viewHolderCategory> {
-    private ArrayList<Category> list;
+    private ArrayList<String> list;
     private FoodInterface foodInterface;
 
     public ListCateAdapter(FoodInterface foodInterface) {
@@ -22,7 +21,7 @@ public class ListCateAdapter extends RecyclerView.Adapter<ListCateAdapter.viewHo
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setData(ArrayList<Category> list) {
+    public void setData(ArrayList<String> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -36,15 +35,10 @@ public class ListCateAdapter extends RecyclerView.Adapter<ListCateAdapter.viewHo
 
     @Override
     public void onBindViewHolder(@NonNull viewHolderCategory holder, int position) {
-        Category category=list.get(position);
-        if (category==null){
-            return;
-        }
-        holder.binding.tvCate.setText(category.getName());
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             foodInterface.showFood(category.get_id(),category.getName());
+             foodInterface.showFood();
             }
         });
     }

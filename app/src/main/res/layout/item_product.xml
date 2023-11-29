@@ -25,8 +25,7 @@
            app:layout_constraintTop_toBottomOf="@+id/imFood"
            app:layout_constraintStart_toStartOf="parent"
            android:text="ewreewfded"
-           android:layout_marginStart="2sp"
-           android:textSize="20sp"/>
+           android:textSize="20dp"/>
        <TextView
            android:id="@+id/tvPrice"
            android:layout_width="wrap_content"
@@ -34,8 +33,7 @@
            app:layout_constraintTop_toBottomOf="@+id/tvName"
            app:layout_constraintStart_toStartOf="parent"
            android:text="ewreewfded"
-           android:layout_marginStart="2sp"
-           android:textSize="20sp"/>
+           android:textSize="20dp"/>
        <TextView
            android:id="@+id/tvPriceNum"
            android:layout_width="wrap_content"
@@ -44,12 +42,11 @@
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintBottom_toBottomOf="parent"
            android:text="$ 20.545"
-           android:layout_marginStart="2sp"
-           android:textSize="18sp"/>
+           android:textSize="20dp"/>
      <androidx.constraintlayout.widget.ConstraintLayout
-         android:layout_width="40dp"
-         android:layout_height="40dp"
-         android:layout_margin="5sp"
+         android:layout_width="50dp"
+         android:layout_height="50dp"
+         android:layout_margin="10sp"
          app:layout_constraintTop_toBottomOf="@+id/tvPrice"
          app:layout_constraintEnd_toEndOf="parent"
          app:layout_constraintBottom_toBottomOf="parent"

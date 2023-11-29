@@ -17,14 +17,20 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".view.screen.Address.AddOrUpdateAddressActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.screen.Address.ListAddressActivity"
+            android:name=".view.screen.FoodActivity"
             android:exported="false" />
         <activity
             android:name=".view.screen.home_action_menu.Home_Screen"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.screen.Splash_screen"
+            android:exported="false">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -32,18 +38,6 @@
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
-
-        </activity>
-        <activity
-            android:name=".view.screen.Splash_screen"
-            android:exported="true">
-
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
         </activity>
         <activity
             android:name=".view.screen.Onboarding_screen"
@@ -53,9 +47,7 @@
             android:exported="false" />
         <activity
             android:name=".view.screen.Login_screen"
-            android:exported="true">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />

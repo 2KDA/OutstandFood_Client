@@ -28,7 +28,7 @@
                     android:id="@+id/r900havd3wrt"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/profile"
                     android:scaleType="fitXY"
                     />
                 <LinearLayout
@@ -61,7 +61,7 @@
                             android:layout_marginStart="8dp"
                             android:clickable="true"
                             android:focusable="true"
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@drawable/edit"
                             android:scaleType="fitXY"
                             />
                     </LinearLayout>
@@ -97,14 +97,15 @@
                     android:gravity="center_vertical"
                     android:layout_marginHorizontal="16dp"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/roopzgon3ib"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
                         android:scaleType="fitXY"
-                        />
+                        android:src="@drawable/purchase_order" />
+
                     <TextView
                         android:id="@+id/rtqf6uc2ve3"
                         android:textColor="#181725"
@@ -126,7 +127,7 @@
                         android:id="@+id/rbjzc4znhist"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -158,7 +159,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/user"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -182,7 +183,7 @@
                         android:id="@+id/rw51pdj1hq9"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -214,7 +215,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/address"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -238,7 +239,7 @@
                         android:id="@+id/rhpg6umxugm"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -270,7 +271,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/wallet"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -294,7 +295,7 @@
                         android:id="@+id/rq0mhb3r5qn"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -326,7 +327,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/promo_code"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -350,7 +351,7 @@
                         android:id="@+id/ru75hcmv5qt"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -382,7 +383,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/notification"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -406,7 +407,7 @@
                         android:id="@+id/rn6qqf21n27h"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -438,7 +439,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/help"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -462,7 +463,7 @@
                         android:id="@+id/rply3dy33y0p"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -494,7 +495,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/info"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -518,7 +519,7 @@
                         android:id="@+id/ruokwqr2vh3"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -545,7 +546,7 @@
             android:id="@+id/rs70xwedgfw"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/log_out"
             android:scaleType="fitXY"
             />
         <View

@@ -17,9 +17,10 @@
         android:id="@+id/login_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/logo_app"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"/>
+        android:layout_marginTop="64dp"
+        android:src="@drawable/logo_app" />
 
     <TextView
         android:id="@+id/logo"

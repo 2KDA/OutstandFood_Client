@@ -131,7 +131,7 @@ public class Login_screen extends AppCompatActivity {
 
                         // Tạo đối tượng UserData để truyền sang màn hình Home
                         User user = new User(returnedUsername, returnedPassword, userId,
-                                returnedFullname,returnedRole,returnedimage,returnedphone,returnedisActive);
+                                returnedFullname,returnedRole,returneduserEmail,returnedimage,returnedphone,returnedisActive);
 
                         handler.post(new Runnable() {
                             @Override

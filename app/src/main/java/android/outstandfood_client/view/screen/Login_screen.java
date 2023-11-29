@@ -8,7 +8,7 @@ import android.outstandfood_client.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.outstandfood_client.R;
+
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.view.screen.home_action_menu.Home_Screen;
 import android.view.View;
@@ -34,6 +34,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
+
 public class Login_screen extends AppCompatActivity {
     private EditText username;
     private EditText password;
@@ -43,14 +44,16 @@ public class Login_screen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+
         username = findViewById(R.id.edt_Login_User);
         password = findViewById(R.id.edt_Login_Password);
         btn_dangnhap = findViewById(R.id.btn_Login);
+
         textViewSignUp = findViewById(R.id.textViewSignUp);
         btn_dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login("http://10.0.2.2:3000/api/user/login");
+                login("http://192.168.2.44:3000/api/user/login");
             }
         });
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
@@ -112,14 +115,15 @@ public class Login_screen extends AppCompatActivity {
                         String returnedUsername = responseJson.optString("username");
                         String returnedPassword = responseJson.optString("password");
                         String returnedRole= responseJson.optString("role");
+                        String returneduserEmail= responseJson.optString("userEmail");
                         String returnedFullname= responseJson.optString("name");
                         String returnedimage= responseJson.optString("image");
                         String returnedphone= responseJson.optString("phone");
-                        boolean returnedisActive= responseJson.getBoolean("isActive");
+                        boolean returnedisActive= responseJson.optBoolean("isActive");
 
                         // Tạo đối tượng UserData để truyền sang màn hình Home
                         User user = new User(returnedUsername, returnedPassword, userId,
-                                returnedFullname,returnedRole,returnedimage,returnedphone,returnedisActive);
+                                returnedFullname,returnedRole,returneduserEmail,returnedimage,returnedphone,returnedisActive);
 
                         handler.post(new Runnable() {
                             @Override

@@ -16,26 +16,22 @@ public class User implements Parcelable {
     private String password;
     @SerializedName("role")
     private String role;
-
-    private String emailUser;
-
     @SerializedName("userEmail")
     private String userEmail;
     @SerializedName("image")
-
     private String image;
     @SerializedName("phone")
     private String phone;
     @SerializedName("isActive")
     private boolean isActive;
 
-    public User(String _id, String username, String name, String password, String role, String emailUser, String image, String phone, boolean isActive) {
+    public User(String _id, String username, String name, String password, String role, String userEmail, String image, String phone, boolean isActive) {
         this._id = _id;
         this.username = username;
         this.name = name;
         this.password = password;
         this.role = role;
-        this.emailUser = emailUser;
+        this.userEmail = userEmail;
         this.image = image;
         this.phone = phone;
         this.isActive = isActive;
@@ -108,6 +104,14 @@ public class User implements Parcelable {
         isActive = active;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     protected User(Parcel in) {
         username = in.readString();
         password = in.readString();
@@ -115,7 +119,7 @@ public class User implements Parcelable {
         name = in.readString();
         phone = in.readString();
         role = in.readString();
-        emailUser = in.readString();
+        userEmail = in.readString();
         image = in.readString();
         isActive = in.readInt() == 1; // Đọc giá trị boolean từ int
     }
@@ -145,7 +149,7 @@ public class User implements Parcelable {
         dest.writeString(name);
         dest.writeString(phone);
         dest.writeString(role);
-        dest.writeString(emailUser);
+        dest.writeString(userEmail);
         dest.writeString(image);
         dest.writeInt(isActive ? 1 : 0); // Ghi giá trị boolean dưới dạng int
     }

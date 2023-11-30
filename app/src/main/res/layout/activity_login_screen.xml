@@ -17,10 +17,9 @@
         android:id="@+id/login_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_alignParentTop="true"
+        android:src="@drawable/logo_app"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        android:src="@drawable/logo_app" />
+        android:layout_marginTop="48dp"/>
 
     <TextView
         android:id="@+id/logo"
@@ -45,12 +44,13 @@
         app:hintEnabled="false">
 
         <EditText
+            android:text="12"
             android:id="@+id/edt_Login_User"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/bg_edt_login_noselect"
-
-            android:hint="Username"
+            android:inputType="textEmailAddress"
+            android:hint="Email"
             android:textSize="16sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,6 +65,7 @@
         app:hintEnabled="false">
 
         <EditText
+            android:text="12"
             android:id="@+id/edt_Login_Password"
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -84,7 +85,7 @@
         android:layout_marginTop="8dp" />
 
     <Button
-        android:id="@+id/btn_Login"
+        android:id="@+id/btnLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="Login"
@@ -97,7 +98,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_Login"
+        android:layout_below="@+id/btnLoginEmail"
         android:gravity="center"
         android:layout_marginTop="16dp">
 

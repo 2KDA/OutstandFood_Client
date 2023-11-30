@@ -143,14 +143,14 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(username);
-        dest.writeString(password);
         dest.writeString(_id);
+        dest.writeString(username);
         dest.writeString(name);
-        dest.writeString(phone);
+        dest.writeString(password);
         dest.writeString(role);
         dest.writeString(userEmail);
         dest.writeString(image);
+        dest.writeString(phone);
         dest.writeInt(isActive ? 1 : 0); // Ghi giá trị boolean dưới dạng int
     }
 }

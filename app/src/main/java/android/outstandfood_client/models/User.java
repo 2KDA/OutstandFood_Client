@@ -3,15 +3,26 @@ package android.outstandfood_client.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User implements Parcelable {
+    @SerializedName("_id")
     private String _id;
+    @SerializedName("username")
     private String username;
+    @SerializedName("name")
     private String name;
+    @SerializedName("password")
     private String password;
+    @SerializedName("role")
     private String role;
+    @SerializedName("userEmail")
     private String userEmail;
+    @SerializedName("image")
     private String image;
+    @SerializedName("phone")
     private String phone;
+    @SerializedName("isActive")
     private boolean isActive;
 
     public User(String _id, String username, String name, String password, String role, String userEmail, String image, String phone, boolean isActive) {
@@ -132,14 +143,14 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(username);
-        dest.writeString(password);
         dest.writeString(_id);
+        dest.writeString(username);
         dest.writeString(name);
-        dest.writeString(phone);
+        dest.writeString(password);
         dest.writeString(role);
         dest.writeString(userEmail);
         dest.writeString(image);
+        dest.writeString(phone);
         dest.writeInt(isActive ? 1 : 0); // Ghi giá trị boolean dưới dạng int
     }
 }

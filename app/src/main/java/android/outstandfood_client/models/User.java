@@ -3,15 +3,30 @@ package android.outstandfood_client.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User implements Parcelable {
+    @SerializedName("_id")
     private String _id;
+    @SerializedName("username")
     private String username;
+    @SerializedName("name")
     private String name;
+    @SerializedName("password")
     private String password;
+    @SerializedName("role")
     private String role;
+
     private String emailUser;
+
+    @SerializedName("userEmail")
+    private String userEmail;
+    @SerializedName("image")
+
     private String image;
+    @SerializedName("phone")
     private String phone;
+    @SerializedName("isActive")
     private boolean isActive;
 
     public User(String _id, String username, String name, String password, String role, String emailUser, String image, String phone, boolean isActive) {

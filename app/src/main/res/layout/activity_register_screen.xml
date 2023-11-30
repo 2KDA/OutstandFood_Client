@@ -45,7 +45,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_edtDangKyEmail"
+        android:id="@+id/layout_fullname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_inputUsername"
@@ -55,31 +55,50 @@
         android:layout_marginTop="16dp">
 
         <EditText
-            android:id="@+id/edtDangKyEmail"
+            android:id="@+id/inputname"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/bg_edt_login_noselect"
-            android:hint="Email"
+            android:hint="full name"
             android:inputType="textEmailAddress"/>
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/layout_edtDangKyEmail"
+        android:id="@+id/layout_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_edtDangKyName"
-        app:startIconDrawable="@drawable/icon_email_24"
+        android:layout_below="@+id/layout_fullname"
+        app:startIconDrawable="@drawable/ic_baseline_phone_24"
         app:endIconMode="clear_text"
         app:hintEnabled="false"
         android:layout_marginTop="16dp">
 
         <EditText
-            android:id="@+id/inputemail"
+            android:id="@+id/inputPhone"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_edt_login_noselect"
+            android:hint="Phone"
+            android:inputType="textPhonetic"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_phone"
+        app:startIconDrawable="@drawable/ic_email"
+        app:endIconMode="clear_text"
+        app:hintEnabled="false"
+        android:layout_marginTop="16dp">
+
+        <EditText
+            android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/bg_edt_login_noselect"
             android:hint="Email"
-            android:inputType="textPhonetic"/>
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,14 +106,14 @@
         android:id="@+id/layout_inputPasswordDangKy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_edtDangKyEmail"
+        android:layout_below="@+id/layout_email"
         app:startIconDrawable="@drawable/ic_baseline_lock_24"
         app:endIconMode="password_toggle"
         app:hintEnabled="false"
         android:layout_marginTop="16dp">
 
         <EditText
-            android:id="@+id/inputPasswordDangKy"
+            android:id="@+id/inputPassword"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/bg_edt_login_noselect"
@@ -114,7 +133,7 @@
         android:layout_marginTop="16dp">
 
         <EditText
-            android:id="@+id/inputConformPassword"
+            android:id="@+id/inputPassword1"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:background="@drawable/bg_edt_login_noselect"

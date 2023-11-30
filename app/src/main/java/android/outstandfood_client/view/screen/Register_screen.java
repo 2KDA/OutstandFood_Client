@@ -4,25 +4,45 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.outstandfood_client.R;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Register_screen extends AppCompatActivity {
-
-    private EditText edtFullName, edtUserName, edtPassWord, edtPassWord1, edtPhone, edtEmail;
+    private EditText edtFullName, edtUserName, edtPassWord, edtPassWord1,edtPhone,edtEmail;
     private Button btnDangKy;
     private ImageView register_back;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_screen);
-
         edtUserName = findViewById(R.id.inputUsername);
         edtFullName = findViewById(R.id.inputname);
         edtPhone = findViewById(R.id.inputPhone);
-        edtEmail = findViewById(R.id.inputemail);
+        edtEmail = findViewById(R.id.inputEmail);
         edtPassWord = findViewById(R.id.inputPassword);
         edtPassWord1 = findViewById(R.id.inputPassword1);
         btnDangKy = findViewById(R.id.btnRegister);
@@ -30,9 +50,8 @@ public class Register_screen extends AppCompatActivity {
 
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
-            // cần thay đổi đường dẫn wwifi mới chạy dc
             public void onClick(View view) {
-                logup("http://192.168.2.44:3000/api/user/logup");
+                logup("http://10.0.2.2:3000/api/user/logup");
             }
         });
 
@@ -43,7 +62,6 @@ public class Register_screen extends AppCompatActivity {
             }
         });
     }
-
     private void logup(String link) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -62,10 +80,10 @@ public class Register_screen extends AppCompatActivity {
                     String password = edtPassWord.getText().toString();
                     String password1 = edtPassWord1.getText().toString();
                     String phone = edtPhone.getText().toString();
-                    String email = edtEmail.getText().toString();
+                    String mail = edtEmail.getText().toString();
                     String fullname = edtFullName.getText().toString();
 
-                    if (username.isEmpty() || password.isEmpty() || password1.isEmpty() || phone.isEmpty() || fullname.isEmpty() || email.isEmpty()) {
+                    if (username.isEmpty() || password.isEmpty() || password1.isEmpty() || phone.isEmpty() || fullname.isEmpty()|| mail.isEmpty()) {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -92,7 +110,7 @@ public class Register_screen extends AppCompatActivity {
                         });
                         return;
                     }
-                    if (!isValidEmail(email)) {
+                    if (!isValidEmail(mail)) {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -108,9 +126,6 @@ public class Register_screen extends AppCompatActivity {
                     jsonObject.put("password", password);
                     jsonObject.put("passwd2", password1); // Đặt giá trị mật khẩu xác nhận
                     jsonObject.put("name", fullname);
-                    jsonObject.put("userEmail", email);
-                    jsonObject.put("role", "User");
-                    jsonObject.put("isActive", true);
                     jsonObject.put("phone", phone);
 
                     http.setRequestProperty("Content-Type", "application/json");
@@ -135,12 +150,18 @@ public class Register_screen extends AppCompatActivity {
                         http.disconnect();
 
                         String response = builder.toString();
-
-                        if (response.contains("Đăng ký thành công")) {
+                        if (response.contains("đăng ký thành công")) {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     Toast.makeText(Register_screen.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else if (response.contains("tài khoản đã tồn tại")) {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(Register_screen.this, "Tài khoản đã tồn tại. Vui lòng chọn tên đăng nhập khác", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
@@ -151,13 +172,6 @@ public class Register_screen extends AppCompatActivity {
                                 }
                             });
                         }
-                    }else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(Register_screen.this, "tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
-                            }
-                        });
                     }
 
                 } catch (MalformedURLException e) {
@@ -171,16 +185,12 @@ public class Register_screen extends AppCompatActivity {
             }
         });
     }
-
     private boolean isValidPhoneNumber(String phoneNumber) {
         String regex = "0[1-9][0-9]{8}";
         return phoneNumber.matches(regex);
-
     }
-
     private boolean isValidEmail(String email) {
         String regex = "^(.+)@(.+)$";
         return email.matches(regex);
     }
-
 }

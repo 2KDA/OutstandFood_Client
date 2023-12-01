@@ -44,7 +44,6 @@
         app:hintEnabled="false">
 
         <EditText
-            android:text="12"
             android:id="@+id/edt_Login_User"
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -65,7 +64,6 @@
         app:hintEnabled="false">
 
         <EditText
-            android:text="12"
             android:id="@+id/edt_Login_Password"
             android:layout_width="match_parent"
             android:layout_height="52dp"

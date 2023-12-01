@@ -1,6 +1,8 @@
 package android.outstandfood_client.view.screen;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.view.screen.home_action_menu.Home_Screen;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -55,10 +58,19 @@ public class Login_screen extends AppCompatActivity {
         btn_dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog = new ProgressDialog(Login_screen.this);
-                progressDialog.setMessage("Đang đăng nhập...");
-                progressDialog.show();
-                login(URL_SERVER + "user/login");
+                String userName = username.getText().toString();
+                String passWord = password.getText().toString();
+                if (TextUtils.isEmpty(userName)) {
+                    showDialog("Lỗi", "Vui lòng nhập tên người dùng");
+                } else if (TextUtils.isEmpty(passWord)) {
+                    // Hiển thị dialog khi người dùng không nhập mật khẩu
+                    showDialog("Lỗi", "Vui lòng nhập mật khẩu");
+                } else {
+                    progressDialog = new ProgressDialog(Login_screen.this);
+                    progressDialog.setMessage("Đang đăng nhập...");
+                    progressDialog.show();
+                    login(URL_SERVER + "user/login");
+                }
             }
         });
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
@@ -185,5 +197,19 @@ public class Login_screen extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Login_screen.this);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 }

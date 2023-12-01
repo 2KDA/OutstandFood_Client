@@ -43,5 +43,10 @@ dependencies {
     //Gif View
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
     implementation 'com.makeramen:roundedimageview:2.3.0'
+// (Khai báo thư viện Gson để lưu và lấy thông tin đăng nhập)
+    implementation 'com.google.code.gson:gson:2.8.8'
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
 }

@@ -50,7 +50,7 @@ public class Login_screen extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen);
         username = findViewById(R.id.edt_Login_User);
         password = findViewById(R.id.edt_Login_Password);
-        btn_dangnhap = findViewById(R.id.btn_Login);
+        btn_dangnhap = findViewById(R.id.btnLoginEmail);
         textViewSignUp = findViewById(R.id.textViewSignUp);
         btn_dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +68,6 @@ public class Login_screen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
     private void login(String link) {
         ExecutorService service = Executors.newSingleThreadExecutor();
@@ -125,13 +124,14 @@ public class Login_screen extends AppCompatActivity {
                         String returnedPassword = userJson.optString("password");
                         String returnedRole= userJson.optString("role");
                         String returnedFullname= userJson.optString("name");
+                        String userEmail= userJson.optString("userEmail");
                         String returnedimage= userJson.optString("image");
                         String returnedphone= userJson.optString("phone");
                         boolean returnedisActive= userJson.getBoolean("isActive");
 
                         // Tạo đối tượng UserData để truyền sang màn hình Home
-                        User user = new User(returnedUsername, returnedPassword, userId,
-                                returnedFullname,returnedRole,returneduserEmail,returnedimage,returnedphone,returnedisActive);
+                        User user = new User(userId,returnedUsername,returnedFullname,
+                                returnedPassword,returnedRole,userEmail, returnedimage,returnedphone,returnedisActive);
 
                         handler.post(new Runnable() {
                             @Override

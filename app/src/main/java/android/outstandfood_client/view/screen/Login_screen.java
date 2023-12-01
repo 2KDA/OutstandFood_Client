@@ -1,5 +1,8 @@
 package android.outstandfood_client.view.screen;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.view.screen.home_action_menu.Home_Screen;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,18 +45,32 @@ public class Login_screen extends AppCompatActivity {
     private EditText password;
     private Button btn_dangnhap;
     private TextView textViewSignUp;
+    private ProgressDialog progressDialog;
+    public static final String URL_SERVER = "https://outstanfood-com.onrender.com/api/" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         username = findViewById(R.id.edt_Login_User);
         password = findViewById(R.id.edt_Login_Password);
-        btn_dangnhap = findViewById(R.id.btn_Login);
+        btn_dangnhap = findViewById(R.id.btnLoginEmail);
         textViewSignUp = findViewById(R.id.textViewSignUp);
         btn_dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login("http://10.0.2.2:3000/api/user/login");
+                String userName = username.getText().toString();
+                String passWord = password.getText().toString();
+                if (TextUtils.isEmpty(userName)) {
+                    showDialog("Lỗi", "Vui lòng nhập tên người dùng");
+                } else if (TextUtils.isEmpty(passWord)) {
+                    // Hiển thị dialog khi người dùng không nhập mật khẩu
+                    showDialog("Lỗi", "Vui lòng nhập mật khẩu");
+                } else {
+                    progressDialog = new ProgressDialog(Login_screen.this);
+                    progressDialog.setMessage("Đang đăng nhập...");
+                    progressDialog.show();
+                    login(URL_SERVER + "user/login");
+                }
             }
         });
         textViewSignUp.setOnClickListener(new View.OnClickListener() {
@@ -108,18 +128,22 @@ public class Login_screen extends AppCompatActivity {
 
                         // Giải mã dữ liệu JSON phản hồi từ server để lấy thông tin người dùng
                         JSONObject responseJson = new JSONObject(response.toString());
-                        String userId = responseJson.optString("userId");
-                        String returnedUsername = responseJson.optString("username");
-                        String returnedPassword = responseJson.optString("password");
-                        String returnedRole= responseJson.optString("role");
-                        String returnedFullname= responseJson.optString("name");
-                        String returnedimage= responseJson.optString("image");
-                        String returnedphone= responseJson.optString("phone");
-                        boolean returnedisActive= responseJson.getBoolean("isActive");
+                        JSONObject userJson = responseJson.getJSONObject("user");
+
+
+                        String userId = userJson.optString("userId");
+                        String returnedUsername = userJson.optString("username");
+                        String returnedPassword = userJson.optString("password");
+                        String returnedRole= userJson.optString("role");
+                        String returnedFullname= userJson.optString("name");
+                        String userEmail= userJson.optString("userEmail");
+                        String returnedimage= userJson.optString("image");
+                        String returnedphone= userJson.optString("phone");
+                        boolean returnedisActive= userJson.getBoolean("isActive");
 
                         // Tạo đối tượng UserData để truyền sang màn hình Home
-                        User user = new User(returnedUsername, returnedPassword, userId,
-                                returnedFullname,returnedRole,returnedimage,returnedphone,returnedisActive);
+                        User user = new User(userId,returnedUsername,returnedFullname,
+                                returnedPassword,returnedRole,userEmail, returnedimage,returnedphone,returnedisActive);
 
                         handler.post(new Runnable() {
                             @Override
@@ -129,6 +153,7 @@ public class Login_screen extends AppCompatActivity {
                                 intent.putExtra("userData", user);
                                 startActivity(intent);
                                 finish(); // Đóng màn hình đăng nhập
+                                progressDialog.dismiss();
                             }
                         });
                     } else if (responseCode == HttpURLConnection.HTTP_BAD_REQUEST ) {
@@ -167,8 +192,24 @@ public class Login_screen extends AppCompatActivity {
                     throw new RuntimeException(e);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
+                }finally {
+                    progressDialog.dismiss();
                 }
             }
         });
+    }
+
+    private void showDialog(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Login_screen.this);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 }

@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,7 +67,6 @@ public class Login_screen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
     private void login(String link) {
         ExecutorService service = Executors.newSingleThreadExecutor();
@@ -180,8 +178,6 @@ public class Login_screen extends AppCompatActivity {
                     throw new RuntimeException(e);
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
-                }finally {
-                    progressDialog.dismiss();
                 }
             }
         });

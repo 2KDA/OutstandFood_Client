@@ -11,20 +11,31 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.outstandfood_client.databinding.FragmentMenuBinding;
+import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
+import android.outstandfood_client.models.Category;
+import android.outstandfood_client.models.ListCategory;
 import android.outstandfood_client.view.screen.FoodActivity;
 import android.outstandfood_client.view.screen.adapter.ListCateAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.outstandfood_client.R;
 import android.widget.LinearLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MenuFragment extends Fragment implements FoodInterface {
     private ListCateAdapter listCateAdapter;
     private FragmentMenuBinding binding;
+    private ListCategory categoryArrayList;
 
     public static MenuFragment newInstance(String param1, String param2) {
         MenuFragment fragment = new MenuFragment();
@@ -51,19 +62,37 @@ public class MenuFragment extends Fragment implements FoodInterface {
     }
 
     private void initView() {
-        listCateAdapter=new ListCateAdapter(this);
-        ArrayList<String> list=new ArrayList<>();
-        list.add("aaa");
-        list.add("swdw");
-        list.add("addfes");
+        binding.progressCircular.setVisibility(View.VISIBLE);
         LinearLayoutManager manager=new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false);
         binding.recyCate.setLayoutManager(manager);
-        listCateAdapter.setData(list);
-        binding.recyCate.setAdapter(listCateAdapter);
+        listCateAdapter=new ListCateAdapter(this);
+        ApiService.API_SERVICER.getListCate().enqueue(new Callback<ListCategory>() {
+            @Override
+            public void onResponse(Call<ListCategory> call, Response<ListCategory> response) {
+                categoryArrayList=response.body();
+                Log.d("TAG", "onResponse: "+categoryArrayList.getCategory().size());
+                listCateAdapter.setData(categoryArrayList.getCategory());
+                binding.recyCate.setAdapter(listCateAdapter);
+                binding.progressCircular.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ListCategory> call, Throwable t) {
+
+            }
+        });
+
     }
 
     @Override
-    public void showFood() {
-        startActivity(new Intent(requireActivity(), FoodActivity.class));
+    public void showFood(String id,String name) {
+        Intent intent=new Intent(requireActivity(), FoodActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("idCate",id);
+        bundle.putString("name",name);
+        intent.putExtra("intent",bundle);
+        startActivity(intent);
     }
+
+
 }

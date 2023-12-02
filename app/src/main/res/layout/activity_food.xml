@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFFFFFFF"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
     <LinearLayout
         android:id="@+id/rxfhyz99s04"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
         android:paddingHorizontal="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
         <ImageView
-            android:id="@+id/rdlykz54xfnt"
-            android:layout_width="12dp"
-            android:layout_height="20dp"
+            android:id="@+id/imBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_back1"
             android:scaleType="fitXY"
             />
         <View
@@ -28,7 +39,7 @@
             android:layout_weight="1"
             />
         <TextView
-            android:id="@+id/r6xxgz729ukq"
+            android:id="@+id/tvCate"
             android:textColor="#181725"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -42,17 +53,21 @@
             android:layout_weight="1"
             />
         <ImageView
-            android:id="@+id/ryigvh46fwo"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:id="@+id/imCart"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_cart"
             android:scaleType="fitXY"
             />
     </LinearLayout>
      <androidx.recyclerview.widget.RecyclerView
          android:id="@+id/recy_Food"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content"/>
-</LinearLayout>
+         android:layout_height="0dp"
+         app:layout_constraintTop_toBottomOf="@+id/rxfhyz99s04"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

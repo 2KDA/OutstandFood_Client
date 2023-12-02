@@ -6,19 +6,20 @@
     android:layout_margin="10sp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imCate"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:src="@drawable/test"
         android:scaleType="fitXY"
+        app:riv_corner_radius="10sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         />
     <TextView
-        android:id="@+id/rvoos1lxtfg"
+        android:id="@+id/tvCate"
         android:textColor="@color/white"
         android:textSize="32sp"
         android:textStyle="bold"

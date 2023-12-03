@@ -99,12 +99,13 @@
             android:padding="12dp"
             android:orientation="vertical">
         </LinearLayout>
+<!--        android:background="@drawable/cr12bffb539fe"-->
         <LinearLayout
             android:id="@+id/r15rwnbxh0ag"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/cr12bffb539fe"
+
             android:padding="12dp"
             android:orientation="vertical">
         </LinearLayout>

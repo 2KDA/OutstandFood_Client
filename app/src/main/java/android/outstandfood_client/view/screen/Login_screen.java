@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.outstandfood_client.R;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.home_action_menu.Home_Screen;
 import android.text.TextUtils;
 import android.util.Log;
@@ -131,7 +132,7 @@ public class Login_screen extends AppCompatActivity {
                         JSONObject userJson = responseJson.getJSONObject("user");
 
 
-                        String userId = userJson.optString("userId");
+                        String userId = userJson.optString("_id");
                         String returnedUsername = userJson.optString("username");
                         String returnedPassword = userJson.optString("password");
                         String returnedRole= userJson.optString("role");
@@ -145,12 +146,14 @@ public class Login_screen extends AppCompatActivity {
                         User user = new User(userId,returnedUsername,returnedFullname,
                                 returnedPassword,returnedRole,userEmail, returnedimage,returnedphone,returnedisActive);
 
+                        SharedPrefsManager.saveUser(Login_screen.this, user);
+
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
                                 Toast.makeText(Login_screen.this, "Chào mừng " + returnedUsername + " đã đến với thế giới đồ ăn", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(Login_screen.this, Home_Screen.class);
-                                intent.putExtra("userData", user);
+
                                 startActivity(intent);
                                 finish(); // Đóng màn hình đăng nhập
                                 progressDialog.dismiss();

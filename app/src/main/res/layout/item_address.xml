@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/food_icon"/>
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên"
+                android:id="@+id/itemtxtname"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0337110531"
+                android:textSize="15sp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/itemphone"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="hải dương"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/itemaddress"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_marginVertical="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#9F9797"/>
+</LinearLayout>

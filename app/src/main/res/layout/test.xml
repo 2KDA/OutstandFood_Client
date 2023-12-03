@@ -161,9 +161,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:gravity="center"
-                android:background="@drawable/cr20bff53b175"
+
                 android:layout_marginVertical="20dp"
                 android:orientation="vertical">
+<!--                android:background="@drawable/cr20bff53b175"-->
                 <TextView
                     android:id="@+id/rzujyavpot8b"
                     android:textColor="#FFF9FF"

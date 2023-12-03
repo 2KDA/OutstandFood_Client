@@ -25,10 +25,10 @@
                 android:layout_margin="16dp"
                 android:orientation="horizontal">
                 <ImageView
-                    android:id="@+id/imgavtprofile"
+                    android:id="@+id/r900havd3wrt"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@drawable/profile"
                     android:scaleType="fitXY"
                     />
                 <LinearLayout
@@ -40,50 +40,39 @@
                     android:layout_marginStart="16dp"
                     android:orientation="vertical">
                     <LinearLayout
-
                         android:id="@+id/rkjpi0a9x4g"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/txtname"
-                                android:textColor="#181725"
-                                android:textSize="20sp"
-                                android:textStyle="bold"
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:text="Bạn chưa đăng nhập"
-                                />
-                            <TextView
-                                android:layout_weight="1"
-                                android:id="@+id/txtemail"
-                                android:textColor="#303233"
-                                android:textSize="14sp"
-                                android:layout_height="wrap_content"
-                                android:layout_width="match_parent"
-                                android:text="Bạn chưa đăng nhập"
-                                />
-
-                        </LinearLayout>
-
                         <TextView
-                            android:layout_width="100dp"
+                            android:id="@+id/rdu3d2zarv5e"
+                            android:textColor="#181725"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
                             android:layout_height="wrap_content"
-                            android:text=" Đăng nhập ngay"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:background="@color/cChinh"
-                            android:textSize="16sp"
-                            android:id="@+id/txtlogin"/>
+                            android:layout_width="wrap_content"
+                            android:text="Afsar Hossen"
+                            />
+                        <ImageView
+                            android:id="@+id/rya0o8o3m7fm"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="8dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:src="@drawable/edit"
+                            android:scaleType="fitXY"
+                            />
                     </LinearLayout>
-
+                    <TextView
+                        android:id="@+id/r15dw3lz8wzc"
+                        android:textColor="#303233"
+                        android:textSize="14sp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="abcxtz@gmail.com"
+                        />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -108,14 +97,15 @@
                     android:gravity="center_vertical"
                     android:layout_marginHorizontal="16dp"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/roopzgon3ib"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
                         android:scaleType="fitXY"
-                        />
+                        android:src="@drawable/purchase_order" />
+
                     <TextView
                         android:id="@+id/rtqf6uc2ve3"
                         android:textColor="#181725"
@@ -137,7 +127,7 @@
                         android:id="@+id/rbjzc4znhist"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -169,7 +159,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/user"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -193,7 +183,7 @@
                         android:id="@+id/rw51pdj1hq9"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -225,7 +215,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/address"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -249,7 +239,7 @@
                         android:id="@+id/rhpg6umxugm"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -281,7 +271,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/wallet"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -305,7 +295,7 @@
                         android:id="@+id/rq0mhb3r5qn"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -337,7 +327,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/promo_code"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -361,7 +351,7 @@
                         android:id="@+id/ru75hcmv5qt"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -393,7 +383,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/notification"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -417,7 +407,7 @@
                         android:id="@+id/rn6qqf21n27h"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -449,7 +439,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/help"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -473,7 +463,7 @@
                         android:id="@+id/rply3dy33y0p"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -505,7 +495,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginEnd="16dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/info"
                         android:scaleType="fitXY"
                         />
                     <TextView
@@ -529,7 +519,7 @@
                         android:id="@+id/ruokwqr2vh3"
                         android:layout_width="12dp"
                         android:layout_height="20dp"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@drawable/next"
                         android:scaleType="fitXY"
                         />
                 </LinearLayout>
@@ -556,7 +546,7 @@
             android:id="@+id/rs70xwedgfw"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/log_out"
             android:scaleType="fitXY"
             />
         <View
@@ -565,14 +555,12 @@
             android:layout_weight="1"
             />
         <TextView
-            android:id="@+id/txtlogout"
+            android:id="@+id/reisc6lx86gs"
             android:textColor="#53B175"
             android:textSize="18sp"
-            android:gravity="center"
-            android:layout_weight="1"
             android:textStyle="bold"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:text="Log Out"
             />
         <View

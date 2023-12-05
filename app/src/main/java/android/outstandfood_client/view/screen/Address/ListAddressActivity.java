@@ -112,7 +112,7 @@ public class ListAddressActivity extends AppCompatActivity {
                         Toast.makeText(ListAddressActivity.this, "Không có địa chỉ", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(ListAddressActivity.this, "Lỗi: " + response.message(), Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(ListAddressActivity.this, "Lỗi: " + response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -120,7 +120,7 @@ public class ListAddressActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AddressResponse> call, Throwable t) {
                 Log.e("ListAddressActivity", "Lỗi: ", t);
-                Toast.makeText(ListAddressActivity.this, "Lỗi dài: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(ListAddressActivity.this, "Lỗi dài: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         });

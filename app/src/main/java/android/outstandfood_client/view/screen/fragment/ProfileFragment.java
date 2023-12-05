@@ -13,6 +13,8 @@ import android.outstandfood_client.models.User;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.Address.ListAddressActivity;
 import android.outstandfood_client.view.screen.Login_screen;
+import android.outstandfood_client.view.screen.MyDetail.SetUpDetailActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,14 +62,17 @@ public class ProfileFragment extends Fragment {
             binding.txtemail.setText(savedUser.getUserEmail());
             RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
 
+            String baseUrl = "https://example.com";
+            // Sử dụng Glide để tải và hiển thị hình ảnh từ URL
             Glide.with(binding.getRoot().getContext())
-                    .load(savedUser.getImage())
+                    .load(baseUrl + savedUser.getImage()) // Đặt URL hình ảnh từ HTTP call
                     .apply(requestOptions)
-                    .placeholder(R.drawable.ic_person_outline_24)
-                    .into(binding.imgavtprofile);
-
+                    .placeholder(R.drawable.ic_person_outline_24) // Ảnh mặc định nếu không tải được
+                    .into(binding.imgavtprofile); // ImageView để hiển thị hình ảnh
             binding.txtlogin.setVisibility(View.GONE);
 
+            Log.d("Lỗi" , "Lỗi " +savedUser.getImage());
+            Toast.makeText(getContext(), " " +savedUser.getImage(), Toast.LENGTH_SHORT).show();
         }else{
             binding.txtlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +95,21 @@ public class ProfileFragment extends Fragment {
                     Intent intent = new Intent(getContext(), Login_screen.class);
                     startActivity(intent);
                 }
+            }
+        });
+        binding.rbvdpmsf5ndm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User savedUser = SharedPrefsManager.getUser(getContext());
+                if (savedUser == null) {
+                    Toast.makeText(getContext(), "Bạn cần đăng nhập mới có thể sử dụng", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getContext(), Login_screen.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(getContext(), SetUpDetailActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 

@@ -1,65 +1,98 @@
 package android.outstandfood_client.view.screen.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.outstandfood_client.databinding.FragmentMenuBinding;
+import android.outstandfood_client.interfaces.ApiService;
+import android.outstandfood_client.interfaces.FoodInterface;
+import android.outstandfood_client.models.Category;
+import android.outstandfood_client.models.ListCategory;
+import android.outstandfood_client.view.screen.FoodActivity;
+import android.outstandfood_client.view.screen.adapter.ListCateAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.outstandfood_client.R;
+import android.widget.LinearLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MenuFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MenuFragment extends Fragment {
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class MenuFragment extends Fragment implements FoodInterface {
+    private ListCateAdapter listCateAdapter;
+    private FragmentMenuBinding binding;
+    private ListCategory categoryArrayList;
 
-    public MenuFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MenuFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MenuFragment newInstance(String param1, String param2) {
         MenuFragment fragment = new MenuFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        binding=FragmentMenuBinding.inflate(inflater,container,false);
+        return binding.getRoot();
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+    }
+
+    private void initView() {
+        binding.progressCircular.setVisibility(View.VISIBLE);
+        LinearLayoutManager manager=new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false);
+        binding.recyCate.setLayoutManager(manager);
+        listCateAdapter=new ListCateAdapter(this);
+        ApiService.API_SERVICER.getListCate().enqueue(new Callback<ListCategory>() {
+            @Override
+            public void onResponse(Call<ListCategory> call, Response<ListCategory> response) {
+                categoryArrayList=response.body();
+                Log.d("TAG", "onResponse: "+categoryArrayList.getCategory().size());
+                listCateAdapter.setData(categoryArrayList.getCategory());
+                binding.recyCate.setAdapter(listCateAdapter);
+                binding.progressCircular.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(Call<ListCategory> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void showFood(String id,String name) {
+        Intent intent=new Intent(requireActivity(), FoodActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putString("idCate",id);
+        bundle.putString("name",name);
+        intent.putExtra("intent",bundle);
+        startActivity(intent);
+    }
+
+
 }

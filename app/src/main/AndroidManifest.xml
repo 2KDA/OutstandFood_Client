@@ -24,6 +24,9 @@
             android:name=".view.screen.MyDetail.SetUpDetailActivity"
             android:exported="false" />
         <activity
+            android:name=".view.screen.FoodActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.screen.MyDetail.MydetailActivity"
             android:exported="false" />
         <activity

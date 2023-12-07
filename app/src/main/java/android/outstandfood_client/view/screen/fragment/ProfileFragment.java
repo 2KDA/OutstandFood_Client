@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment {
             binding.txtemail.setText(savedUser.getUserEmail());
             RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
 
-            String baseUrl = "https://example.com";
+            String baseUrl = "https://outstanfood-com.onrender.com/";
             // Sử dụng Glide để tải và hiển thị hình ảnh từ URL
             Glide.with(binding.getRoot().getContext())
                     .load(baseUrl + savedUser.getImage()) // Đặt URL hình ảnh từ HTTP call
@@ -71,8 +71,6 @@ public class ProfileFragment extends Fragment {
                     .into(binding.imgavtprofile); // ImageView để hiển thị hình ảnh
             binding.txtlogin.setVisibility(View.GONE);
 
-            Log.d("Lỗi" , "Lỗi " +savedUser.getImage());
-            Toast.makeText(getContext(), " " +savedUser.getImage(), Toast.LENGTH_SHORT).show();
         }else{
             binding.txtlogin.setOnClickListener(new View.OnClickListener() {
             @Override

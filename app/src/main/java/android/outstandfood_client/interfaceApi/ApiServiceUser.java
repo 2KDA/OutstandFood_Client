@@ -27,6 +27,7 @@ public interface ApiServiceUser {
             @Path("id") String id,
             @Field("name") String name,
             @Field("phone") String phone,
-            @Field("userEmail") String userEmail
+            @Field("userEmail") String userEmail,
+            @Field("image") String image
     );
 }

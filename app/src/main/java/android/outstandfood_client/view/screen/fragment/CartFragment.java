@@ -14,6 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.outstandfood_client.R;
+import android.view.Window;
+import android.view.WindowManager;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
@@ -68,6 +72,14 @@ public class CartFragment extends Fragment {
         cartAdapter=new CartAdapter();
         cartAdapter.setData(listFood);
         binding.recyCart.setAdapter(cartAdapter);
+        binding.constraintAdd.setOnClickListener(view -> {
+            BottomSheetDialog sheetDialog=new BottomSheetDialog(requireActivity());
+            sheetDialog.setContentView(R.layout.layout_checkout);
+            Window window=sheetDialog.getWindow();
+            assert window != null;
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+            sheetDialog.show();
+        });
     }
 
 

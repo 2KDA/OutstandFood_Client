@@ -23,7 +23,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,24 +31,9 @@ import retrofit2.Response;
 public class MydetailActivity extends AppCompatActivity {
     private ActivityMydetailBinding binding;
     private User savedUser; // Declare the savedUser variable here
-    private Uri imageUri = null;
+    private Uri imageUri;
     private static final int pickImage = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == pickImage && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            if (imageUri != null) {
-                Glide.with(this)
-                        .load(imageUri)
-                        .apply(RequestOptions.circleCropTransform())
-                        .placeholder(R.drawable.ic_person_outline_24)
-                        .into(binding.imgprofileDetail);
-
-            }
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +52,7 @@ public class MydetailActivity extends AppCompatActivity {
         String baseUrl = "https://outstanfood-com.onrender.com/";
 
         Glide.with(binding.getRoot().getContext())
-                .load(baseUrl + savedUser.getImage())
+                .load( baseUrl+ savedUser.getImage())
                 .apply(requestOptions)
                 .placeholder(R.drawable.ic_person_outline_24)
                 .into(binding.imgprofileDetail);
@@ -97,33 +81,54 @@ public class MydetailActivity extends AppCompatActivity {
         binding.btnupdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Sau khi chọn ảnh, cập nhật thông tin người dùng với ảnh mới
                 String email = binding.edtemailprofileDetail.getText().toString();
                 String name = binding.edtnameprofileDetail.getText().toString();
                 String phone = binding.edtphoneprofileDetail.getText().toString();
-                String image = imageUri.toString();
+                String imageUrl = imageUri.toString(); // Chuyển Uri thành URL
+
+
                 if (email.isEmpty() || name.isEmpty() || phone.isEmpty()) {
                     Toast.makeText(MydetailActivity.this, "Bạn cần nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }else if(name.length() <= 10){
                     Toast.makeText(MydetailActivity.this, "Độ dài của họ và tên cần trên 10 kí tự", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    updateUsser(savedUser.get_id(), name, phone, email,image);
+                    updateUsser(savedUser.get_id(), name, phone, email,imageUrl);
                 }
             }
         });
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == pickImage && resultCode == RESULT_OK && data != null) {
+            imageUri = data.getData();
+            if (imageUri != null) {
+                Glide.with(this)
+                        .load(imageUri)
+                        .apply(RequestOptions.circleCropTransform())
+                        .placeholder(R.drawable.ic_person_outline_24)
+                        .into(binding.imgprofileDetail);
+
+                Log.d("image" , "image " +imageUri.toString());
+
+            }
+        }
+    }
 
     private void updateUsser(String id, String name, String phone, String userEmail, String image) {
         ApiServiceUser apiService = ApiClient.getClient().create(ApiServiceUser.class);
 
-        Call<User> call = apiService.updateUser(id, name, phone, userEmail,image);
+        Call<User> call = apiService.updateUser(id, name, phone, userEmail, image);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     User newUser = response.body();
+                    SharedPrefsManager.clearUser(MydetailActivity.this);
                     SharedPrefsManager.saveUser(MydetailActivity.this, newUser);
                     Toast.makeText(MydetailActivity.this, "Đổi thông tin thành công", Toast.LENGTH_SHORT).show();
                 } else {
@@ -135,9 +140,10 @@ public class MydetailActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("Lõi", "Lỗi " + t.getMessage());
-                Toast.makeText(MydetailActivity.this, "Có lỗi xảy ra", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MydetailActivity.this, "Không có sự thay đổi nào", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
 }

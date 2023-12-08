@@ -20,9 +20,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +52,7 @@ public class Login_screen extends AppCompatActivity {
     private Button btn_dangnhap;
     private TextView textViewSignUp;
     private ProgressDialog progressDialog;
+    private ImageView login_logo;
     public static final String URL_SERVER = "https://outstanfood-com.onrender.com/api/" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +62,15 @@ public class Login_screen extends AppCompatActivity {
         password = findViewById(R.id.edt_Login_Password);
         btn_dangnhap = findViewById(R.id.btnLoginEmail);
         textViewSignUp = findViewById(R.id.textViewSignUp);
+        login_logo = findViewById(R.id.login_logo);
+
+        RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
+        Glide.with(this)
+                .load(R.drawable.logo_splash)
+                .apply(requestOptions)
+                .into(login_logo);
+
+
         btn_dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,7 +110,6 @@ public class Login_screen extends AppCompatActivity {
                     URL url = new URL(urlLink);
                     //mã kết nối
                     HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                    //THiết lập phương thức POST , mặc định sẽ là GET
                     http.setRequestMethod("POST");
                     //Tạo đối tượng dữ liệu gửi lên server
                     JSONObject jsonObject = new JSONObject();
@@ -190,10 +204,13 @@ public class Login_screen extends AppCompatActivity {
                     }
 
                 } catch (MalformedURLException e) {
+                    Log.d("TAG", "run: " + e.getMessage());
                     throw new RuntimeException(e);
                 } catch (IOException e) {
+                    Log.d("TAG", "run: " + e.getMessage());
                     throw new RuntimeException(e);
                 } catch (JSONException e) {
+                    Log.d("TAG", "run: " + e.getMessage());
                     throw new RuntimeException(e);
                 }finally {
                     progressDialog.dismiss();

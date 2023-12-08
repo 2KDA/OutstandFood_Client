@@ -7,6 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".view.screen.MyDetail.MydetailActivity">
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -38,10 +48,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="413dp"
         android:layout_height="663dp"
@@ -54,23 +60,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="120dp"
             android:text="UserName"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imgprofile_detail"
+            android:id="@+id/imgprofiledetail"
             android:layout_width="100dp"
             android:layout_height="100dp"
+
             android:layout_marginStart="156dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="157dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/banner" />
+            />
 
         <EditText
             android:enabled="false"

@@ -10,6 +10,7 @@ import android.outstandfood_client.databinding.FragmentCartBinding;
 import android.outstandfood_client.databinding.FragmentHistoryBinding;
 import android.outstandfood_client.databinding.FragmentProfileBinding;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.CommonActivity;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.Address.ListAddressActivity;
 import android.outstandfood_client.view.screen.Login_screen;
@@ -33,31 +34,14 @@ public class ProfileFragment extends Fragment {
     public ProfileFragment() {
         // Required empty public constructor
     }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        binding = FragmentProfileBinding.inflate(getLayoutInflater(), container, false);
+    public void onResume() {
+        super.onResume();
 
-        binding.rvf0hwvbv8pq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                User savedUser = SharedPrefsManager.getUser(getContext());
-                if (savedUser == null) {
-                    Toast.makeText(getContext(), "Bạn cần đăng nhập mới có thể sử dụng", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getContext(), Login_screen.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getContext(), ListAddressActivity.class);
-                    startActivity(intent);
-                }
-
-            }
-        });
+        // Kiểm tra xem có sự thay đổi dữ liệu của User không
         User savedUser = SharedPrefsManager.getUser(getContext());
         if (savedUser != null) {
-
+            // Cập nhật thông tin người dùng
             binding.txtname.setText(savedUser.getUsername());
             binding.txtemail.setText(savedUser.getUserEmail());
             RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
@@ -69,50 +53,71 @@ public class ProfileFragment extends Fragment {
                     .apply(requestOptions)
                     .placeholder(R.drawable.ic_person_outline_24) // Ảnh mặc định nếu không tải được
                     .into(binding.imgavtprofile); // ImageView để hiển thị hình ảnh
-            binding.txtlogin.setVisibility(View.GONE);
+//            binding.txtlogin.setVisibility(View.GONE);
+        } else {
+            binding.Logined.setVisibility(View.GONE);
+            binding.txtname.setText("");
+            binding.txtemail.setText("");
+            binding.imgavtprofile.setImageResource(R.drawable.ic_person_outline_24);
+//            binding.txtlogin.setVisibility(View.VISIBLE);
+        }
+    }
 
-            Log.d("Lỗi" , "Lỗi " +savedUser.getImage());
-            Toast.makeText(getContext(), " " +savedUser.getImage(), Toast.LENGTH_SHORT).show();
-        }else{
-            binding.txtlogin.setOnClickListener(new View.OnClickListener() {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentProfileBinding.inflate(getLayoutInflater(), container, false);
+
+        binding.layoutAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Login_screen.class);
-                startActivity(intent);
+                    Intent intent = new Intent(getContext(), ListAddressActivity.class);
+                    startActivity(intent);
+            }
+        });
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Intent intent = new Intent(getContext(), Login_screen.class);
+                    startActivity(intent);
             }
         });
 
+        if(SharedPrefsManager.getUser(getContext()) != null){
+            binding.layoutLogout.setVisibility(View.VISIBLE);
+            binding.layoutLogined.setVisibility(View.VISIBLE);
+            binding.layoutNoLogin.setVisibility(View.GONE);
+        }else{
+            binding.layoutLogout.setVisibility(View.GONE);
+            binding.layoutLogined.setVisibility(View.GONE);
+            binding.layoutNoLogin.setVisibility(View.VISIBLE);
         }
+
         binding.txtlogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Context context = getContext();
-                if (context != null) {
-
-                    SharedPrefsManager.clearUser(context);
-
-                    Intent intent = new Intent(getContext(), Login_screen.class);
-                    startActivity(intent);
-                }
+                CommonActivity.createDialog(getActivity(),
+                        "Bạn muốn đăng xuất?",
+                        "Outsand'Food","Hủy","Đồng ý",
+                        null,
+                        v -> {
+                                SharedPrefsManager.clearUser(getContext());
+                                Intent intent = new Intent(getContext(), Login_screen.class);
+                                startActivity(intent);
+                        }
+                        ).show();
             }
         });
-        binding.rbvdpmsf5ndm.setOnClickListener(new View.OnClickListener() {
+        binding.layoutUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User savedUser = SharedPrefsManager.getUser(getContext());
-                if (savedUser == null) {
-                    Toast.makeText(getContext(), "Bạn cần đăng nhập mới có thể sử dụng", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getContext(), Login_screen.class);
-                    startActivity(intent);
-                } else {
                     Intent intent = new Intent(getContext(), SetUpDetailActivity.class);
                     startActivity(intent);
-                }
-
             }
         });
 
         return binding.getRoot();
-    }
+        }
+
 }

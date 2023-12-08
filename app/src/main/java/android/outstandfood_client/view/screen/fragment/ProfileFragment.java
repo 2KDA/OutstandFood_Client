@@ -69,18 +69,18 @@ public class ProfileFragment extends Fragment {
                     .apply(requestOptions)
                     .placeholder(R.drawable.ic_person_outline_24) // Ảnh mặc định nếu không tải được
                     .into(binding.imgavtprofile); // ImageView để hiển thị hình ảnh
-            binding.txtlogin.setVisibility(View.GONE);
+//            binding.txtlogin.setVisibility(View.GONE);
 
             Log.d("Lỗi" , "Lỗi " +savedUser.getImage());
             Toast.makeText(getContext(), " " +savedUser.getImage(), Toast.LENGTH_SHORT).show();
         }else{
-            binding.txtlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Login_screen.class);
-                startActivity(intent);
-            }
-        });
+//            binding.txtlogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), Login_screen.class);
+//                startActivity(intent);
+//            }
+//        });
 
         }
         binding.txtlogout.setOnClickListener(new View.OnClickListener() {

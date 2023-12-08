@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +32,10 @@ private ActivityMydetailBinding binding;
         binding.edtusernameprofileDetail.setText(savedUser.getUsername());
         binding.edtnameprofileDetail.setText(savedUser.getName());
         binding.edtemailprofileDetail.setText(savedUser.getUserEmail());
-
+        Glide.with(this)
+                .load("https://outstanfood-com.onrender.com/"+savedUser.getImage())
+                .error(R.drawable.avartar)
+                .into(binding.imgprofiledetail);
         binding.imgbackprofileDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

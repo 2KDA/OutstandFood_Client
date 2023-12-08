@@ -36,7 +36,17 @@
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:id="@+id/show"
+        android:textColor="@color/cChinh"
+        android:layout_marginTop="20dp"
+        android:text="Sau khi thay đổi mật khẩu thành công thì bạn nên thoát tài khoản bằng chức năng Logout và đăng nhập lại để cập nhập lại tài khoản"/>
+
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"

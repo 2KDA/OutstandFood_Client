@@ -33,6 +33,34 @@ public class ProfileFragment extends Fragment {
     public ProfileFragment() {
         // Required empty public constructor
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Kiểm tra xem có sự thay đổi dữ liệu của User không
+        User savedUser = SharedPrefsManager.getUser(getContext());
+        if (savedUser != null) {
+            // Cập nhật thông tin người dùng
+            binding.txtname.setText(savedUser.getUsername());
+            binding.txtemail.setText(savedUser.getUserEmail());
+            RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
+
+            String baseUrl = "https://outstanfood-com.onrender.com/";
+            // Sử dụng Glide để tải và hiển thị hình ảnh từ URL
+            Glide.with(binding.getRoot().getContext())
+                    .load(baseUrl + savedUser.getImage()) // Đặt URL hình ảnh từ HTTP call
+                    .apply(requestOptions)
+                    .placeholder(R.drawable.ic_person_outline_24) // Ảnh mặc định nếu không tải được
+                    .into(binding.imgavtprofile); // ImageView để hiển thị hình ảnh
+            binding.txtlogin.setVisibility(View.GONE);
+        } else {
+            // Nếu không có dữ liệu User, hiển thị thông báo và đưa người dùng đăng nhập
+            binding.txtname.setText("");
+            binding.txtemail.setText("");
+            binding.imgavtprofile.setImageResource(R.drawable.ic_person_outline_24);
+            binding.txtlogin.setVisibility(View.VISIBLE);
+        }
+    }
 
 
     @Override
@@ -55,32 +83,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-        User savedUser = SharedPrefsManager.getUser(getContext());
-        if (savedUser != null) {
-
-            binding.txtname.setText(savedUser.getUsername());
-            binding.txtemail.setText(savedUser.getUserEmail());
-            RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
-
-            String baseUrl = "https://outstanfood-com.onrender.com/";
-            // Sử dụng Glide để tải và hiển thị hình ảnh từ URL
-            Glide.with(binding.getRoot().getContext())
-                    .load(baseUrl + savedUser.getImage()) // Đặt URL hình ảnh từ HTTP call
-                    .apply(requestOptions)
-                    .placeholder(R.drawable.ic_person_outline_24) // Ảnh mặc định nếu không tải được
-                    .into(binding.imgavtprofile); // ImageView để hiển thị hình ảnh
-//            binding.txtlogin.setVisibility(View.GONE);
-
-            Log.d("Lỗi" , "Lỗi " +savedUser.getImage());
-            Toast.makeText(getContext(), " " +savedUser.getImage(), Toast.LENGTH_SHORT).show();
-        }else{
-//            binding.txtlogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), Login_screen.class);
-//                startActivity(intent);
-//            }
-//        });
 
         }
         binding.txtlogout.setOnClickListener(new View.OnClickListener() {

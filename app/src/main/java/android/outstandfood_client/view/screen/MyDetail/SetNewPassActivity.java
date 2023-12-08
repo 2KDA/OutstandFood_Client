@@ -27,6 +27,8 @@ public class SetNewPassActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         User savedUser = SharedPrefsManager.getUser(this);
 
+        binding.show.setVisibility(View.GONE);
+
         binding.imgbackpassDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +44,8 @@ public class SetNewPassActivity extends AppCompatActivity {
                 String newPassword1 = binding.passnew1.getText().toString();
                 if (oldPassword.isEmpty() || newPassword.isEmpty() || newPassword1.isEmpty()) {
                     Toast.makeText(SetNewPassActivity.this, "Bạn cần nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                }else if(newPassword.length() <= 6 || newPassword1.length() <= 6){
+                    Toast.makeText(SetNewPassActivity.this, "Độ dài mật khẩu cần trên 6 kí tự", Toast.LENGTH_SHORT).show();
                 }
                 else if(!newPassword.equals(newPassword1)){
                     Toast.makeText(SetNewPassActivity.this, "mật khẩu mới không khớp", Toast.LENGTH_SHORT).show();
@@ -60,6 +64,11 @@ public class SetNewPassActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
+                    User updatedUser = new User();
+                    updatedUser.setPassword(newPassword);
+                    SharedPrefsManager.saveUser(SetNewPassActivity.this, updatedUser);
+                    binding.show.setVisibility(View.VISIBLE);
+                    finish();
                     Toast.makeText(SetNewPassActivity.this, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("Lõi" ,"Lỗi " + response);

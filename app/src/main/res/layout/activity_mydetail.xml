@@ -38,10 +38,6 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-
-
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="413dp"
         android:layout_height="663dp"
@@ -54,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="120dp"
             android:text="UserName"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +60,7 @@
             android:id="@+id/imgprofiledetail"
             android:layout_width="100dp"
             android:layout_height="100dp"
+
             android:layout_marginStart="156dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="157dp"

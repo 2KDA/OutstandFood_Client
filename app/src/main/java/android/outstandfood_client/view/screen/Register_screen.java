@@ -94,6 +94,24 @@ public class Register_screen extends AppCompatActivity {
                         });
                         return;
                     }
+                    if (username.length() <= 6  ) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(Register_screen.this, "Độ dài của tài khoản phải trên 6", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        return;
+                    }
+                    if (fullname.length() <=10 ) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(Register_screen.this, "Độ dài của họ và tên phải trên 10", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        return;
+                    }
                     if (!isValidPhoneNumber(phone)) {
                         handler.post(new Runnable() {
                             @Override

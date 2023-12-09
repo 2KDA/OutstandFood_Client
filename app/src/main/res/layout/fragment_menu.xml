@@ -25,15 +25,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-        <ImageView
-            android:id="@+id/rdlykz54xfnt"
-            android:layout_width="12dp"
-            android:layout_height="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@mipmap/ic_launcher"
-            android:scaleType="fitXY"
-            />
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -53,15 +44,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             />
-        <ImageView
-            android:id="@+id/ryigvh46fwo"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:src="@mipmap/ic_launcher"
-            android:scaleType="fitXY"
-            />
     </LinearLayout>
 
 
@@ -74,5 +56,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rxfhyz99s04"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+

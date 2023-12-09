@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.FragmentMenuBinding;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.Category;
 import android.outstandfood_client.models.ListCategory;
+import android.outstandfood_client.models.Product;
 import android.outstandfood_client.view.screen.FoodActivity;
 import android.outstandfood_client.view.screen.adapter.ListCateAdapter;
 import android.util.Log;
@@ -92,6 +94,11 @@ public class MenuFragment extends Fragment implements FoodInterface {
         bundle.putString("name",name);
         intent.putExtra("intent",bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void addFood(Product product) {
+
     }
 
 

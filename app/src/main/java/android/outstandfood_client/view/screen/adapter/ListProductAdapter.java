@@ -5,6 +5,7 @@ import android.content.Context;
 import android.outstandfood_client.R;
 import android.outstandfood_client.databinding.ItemCategoryBinding;
 import android.outstandfood_client.databinding.ItemProductBinding;
+import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.Product;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,11 @@ import java.util.ArrayList;
 public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.viewHolderCategory> {
     private ArrayList<Product> list;
     private Context mContext;
+    private FoodInterface foodInterface;
 
-    public ListProductAdapter(Context mContext) {
+    public ListProductAdapter(Context mContext, FoodInterface foodInterface) {
         this.mContext = mContext;
+        this.foodInterface = foodInterface;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -38,6 +41,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         return new viewHolderCategory(binding);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull viewHolderCategory holder, int position) {
         Product product=list.get(position);
@@ -48,7 +52,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+             foodInterface.addFood(product);
             }
         });
     }

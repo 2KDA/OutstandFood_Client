@@ -4,6 +4,7 @@
     android:id="@+id/rhnx93kkpr8d"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bor_bottomsheet"
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/rkmwv5shar5"
@@ -28,16 +29,16 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical" />
 
         <ImageView
-            android:id="@+id/rgn3o8mqmw7q"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:id="@+id/imBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:clickable="true"
             android:focusable="true"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_remove" />
     </LinearLayout>
 
     <LinearLayout
@@ -93,12 +94,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/re4d4fwfnr7g"
-                android:layout_width="8dp"
-                android:layout_height="15dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
         </LinearLayout>
 
         <LinearLayout
@@ -153,12 +148,6 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_launcher" />
 
-            <ImageView
-                android:id="@+id/rayo4pkgbqv"
-                android:layout_width="8dp"
-                android:layout_height="15dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
         </LinearLayout>
 
         <LinearLayout
@@ -215,12 +204,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/r1qfd984pkgx"
-                android:layout_width="8dp"
-                android:layout_height="15dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
         </LinearLayout>
 
         <LinearLayout
@@ -265,10 +248,10 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"/>
 
             <TextView
-                android:id="@+id/rbhzp7c0zn2j"
+                android:id="@+id/tvSumPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
@@ -277,12 +260,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/ry862b3yhthm"
-                android:layout_width="8dp"
-                android:layout_height="15dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
         </LinearLayout>
 
         <LinearLayout
@@ -291,7 +268,7 @@
             android:layout_height="1dp"
             android:background="#FFE2E2E2"
             android:gravity="center_horizontal"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"/>
     </LinearLayout>
 
     <TextView
@@ -360,7 +337,7 @@
             android:id="@+id/ru193p6dcfb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Place Order"
+            android:text="Xác nhận"
             android:textColor="#FFF9FF"
             android:textSize="18sp"
             android:textStyle="bold" />

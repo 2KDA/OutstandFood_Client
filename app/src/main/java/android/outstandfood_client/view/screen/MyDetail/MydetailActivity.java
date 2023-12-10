@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.outstandfood_client.MainActivity;
 import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.databinding.ActivityMydetailBinding;
@@ -53,7 +54,6 @@ public class MydetailActivity extends OutstandActivity {
     private Uri imageUri;
     private File imageFile;
     private User userInfo = new User() ;
-    private ProgressDialog progressDialog;
 
     private static final int pickImage = 1;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
@@ -80,7 +80,7 @@ public class MydetailActivity extends OutstandActivity {
 
 
         Glide.with(this)
-                .load("https://outstanfood-com.onrender.com/"+savedUser.getImage())
+                .load(savedUser.getImage())
                 .error(R.drawable.avartar)
                 .apply(RequestOptions.circleCropTransform())
                 .into(binding.imgprofiledetail);
@@ -111,9 +111,7 @@ public class MydetailActivity extends OutstandActivity {
                 } else if (name.length() <= 10) {
                     Toast.makeText(MydetailActivity.this, "Độ dài của họ và tên cần trên 10 kí tự", Toast.LENGTH_SHORT).show();
                 } else {
-                    progressDialog = new ProgressDialog(MydetailActivity.this);
-                    progressDialog.setMessage("Đang cập nhật...");
-                    progressDialog.show();
+                    showWaitProgress(MydetailActivity.this);
                     if (imageFile != null) {
                         updateUser(savedUser.get_id(), name, phone, email, imageFile);
                     } else {
@@ -190,14 +188,14 @@ public class MydetailActivity extends OutstandActivity {
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                progressDialog.dismiss();
+                hideWaitProgress();
                 if (response.isSuccessful() && response.body() != null) {
                     User newUser = response.body();
                     Log.d("TAG", "onResponse: " + response.body());
                     SharedPrefsManager.clearUser(MydetailActivity.this);
                     SharedPrefsManager.saveUser(MydetailActivity.this, newUser);
                    CommonActivity.createAlertDialog(MydetailActivity.this,"Đổi thông tin thành công",
-                           "Outsand'Food",new View.OnClickListener() {
+                           "Outstand'Food",new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                         finish();
@@ -210,8 +208,8 @@ public class MydetailActivity extends OutstandActivity {
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                progressDialog.dismiss();
-                show("Outsand'Food", "Lỗi : " + t.getMessage());
+                hideWaitProgress();
+                show("Outstand'Food", "Lỗi : " + t.getMessage());
             }
         });
     }

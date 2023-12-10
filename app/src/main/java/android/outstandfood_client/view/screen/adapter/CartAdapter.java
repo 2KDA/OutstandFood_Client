@@ -57,7 +57,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.binding.tvName.setText(cartModel.getNameFood());
         holder.binding.tvPrice.setText(String.valueOf(cartModel.getPriceFood() + " VNĐ"));
         holder.binding.tvSL.setText(String.valueOf(cartModel.getQuantityFood()));
-        Glide.with(mContext).load("https://outstanfood-com.onrender.com/" + cartModel.getImgFood()).error(R.drawable.avartar).into(holder.binding.imFood);
+        Glide.with(mContext).load(cartModel.getImgFood()).error(R.drawable.avartar).into(holder.binding.imFood);
         holder.binding.tvMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

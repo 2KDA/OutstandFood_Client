@@ -14,23 +14,23 @@ import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
-public interface ApiServiceUser {
-    @POST("user/login")
-    Call<User> login(@Body User loginRequest);
-    @FormUrlEncoded
-    @POST("user/changePassword")
-    Call<Void> changePassword(
-            @Field("userName") String userName,
-            @Field("password") String oldPassword,
-            @Field("newPassword") String newPassword
-    );
-    @Multipart
-    @PUT("user/edit/{id}")
-    Call<User> updateUser(
-            @Path("id") String id,
-            @Part("name") RequestBody name,
-            @Part("phone") RequestBody phone,
-            @Part("userEmail") RequestBody userEmail,
-            @Part MultipartBody.Part image
-    );
-}
+    public interface ApiServiceUser {
+        @POST("user/login")
+        Call<User> login(@Body User loginRequest);
+        @FormUrlEncoded
+        @POST("user/changePassword")
+        Call<Void> changePassword(
+                @Field("userName") String userName,
+                @Field("password") String oldPassword,
+                @Field("newPassword") String newPassword
+        );
+        @Multipart
+        @PUT("user/edit/{id}")
+        Call<User> updateUser(
+                @Path("id") String id,
+                @Part("name") RequestBody name,
+                @Part("phone") RequestBody phone,
+                @Part("userEmail") RequestBody userEmail,
+                @Part MultipartBody.Part image
+        );
+    }

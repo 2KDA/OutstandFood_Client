@@ -45,7 +45,7 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
     @Override
     public void onBindViewHolder(@NonNull viewHolderCategory holder, int position) {
         Product product=list.get(position);
-        Glide.with(mContext).load("https://outstanfood-com.onrender.com/"+product.getImage()).error(R.drawable.avartar).into(holder.binding.imFood);
+        Glide.with(mContext).load(product.getImage()).error(R.drawable.avartar).into(holder.binding.imFood);
 //        holder.binding.tvPrice.setText("Số lượng: "+String.valueOf(product.getQuantity()));
         holder.binding.tvPriceNum.setText(product.getPrice()+" VNĐ");
         holder.binding.tvName.setText(product.getName());

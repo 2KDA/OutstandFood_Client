@@ -46,10 +46,9 @@ public class ProfileFragment extends Fragment {
             binding.txtemail.setText(savedUser.getUserEmail());
             RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
 
-            String baseUrl = "https://outstanfood-com.onrender.com/";
-            // Sử dụng Glide để tải và hiển thị hình ảnh từ URL
+
             Glide.with(binding.getRoot().getContext())
-                    .load(baseUrl + savedUser.getImage()) // Đặt URL hình ảnh từ HTTP call
+                    .load(savedUser.getImage()) // Đặt URL hình ảnh từ HTTP call
                     .apply(requestOptions)
                     .placeholder(R.drawable.ic_person_outline_24) // Ảnh mặc định nếu không tải được
                     .into(binding.imgavtprofile); // ImageView để hiển thị hình ảnh
@@ -99,7 +98,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 CommonActivity.createDialog(getActivity(),
                         "Bạn muốn đăng xuất?",
-                        "Outsand'Food","Hủy","Đồng ý",
+                        "Outstand'Food","Hủy","Đồng ý",
                         null,
                         v -> {
                                 SharedPrefsManager.clearUser(getContext());

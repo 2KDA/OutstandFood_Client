@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.R;
 import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
@@ -50,7 +51,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartFragment extends Fragment {
+public class CartFragment extends OutstandFragment {
     private FragmentCartBinding binding;
     private CartAdapter cartAdapter;
     private ArrayList<CartModel> list;

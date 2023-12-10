@@ -9,6 +9,8 @@ import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.FragmentCartBinding;
 import android.outstandfood_client.databinding.LayoutCheckoutBinding;
+import android.outstandfood_client.interfaces.ApiService;
+import android.outstandfood_client.models.OrderModel;
 import android.outstandfood_client.view.screen.adapter.CartAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +45,10 @@ import com.paypal.checkout.paymentbutton.PaymentButtonContainer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartFragment extends Fragment {
     private FragmentCartBinding binding;
@@ -196,7 +202,16 @@ public class CartFragment extends Fragment {
             layoutCheckoutBinding.checkoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d("TAG", "onClick: ssss");
+                    layoutCheckoutBinding.loading.setVisibility(View.VISIBLE);
+                    list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                    ArrayList<Integer> quantity = new ArrayList<>();
+                    ArrayList<String> idProduct = new ArrayList<>();
+                    Log.d("TAG", "onClick: " + list.size());
+                    for (int i = 0; i < list.size(); i++) {
+                        quantity.add(list.get(i).getQuantityFood());
+                        idProduct.add(list.get(i).getId());
+                    }
+                    OrderToServer("KH005", false, "DC019", "Chua thanh toán", quantity, idProduct,layoutCheckoutBinding);
                 }
             });
             sheetDialog.show();
@@ -251,11 +266,34 @@ public class CartFragment extends Fragment {
                             @Override
                             public void onCaptureComplete(@NotNull CaptureOrderResult result) {
                                 Log.i("CaptureOrder", String.format("CaptureOrderResult: %s", result));
+                                ArrayList<Integer> quantity = new ArrayList<>();
+                                ArrayList<String> idProduct = new ArrayList<>();
+                                for (int i = 0; i < list.size(); i++) {
+                                    quantity.add(list.get(i).getQuantityFood());
+                                    idProduct.add(list.get(i).getId());
+                                }
+                                OrderToServer("KH005", true, "DC019", "Đã thanh toán", quantity, idProduct,layoutCheckoutBinding);
                                 Toast.makeText(getContext(), "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
                 }
         );
+    }
+
+    private void OrderToServer(String id_User, Boolean pay_status, String id_address, String method, ArrayList<Integer> quantity, ArrayList<String> id_product, LayoutCheckoutBinding layoutCheckoutBinding) {
+        OrderModel orderModel = new OrderModel(id_User, pay_status, id_address, method, quantity, id_product);
+        ApiService.API_SERVICER.addOrder(orderModel).enqueue(new Callback<OrderModel>() {
+            @Override
+            public void onResponse(@NonNull Call<OrderModel> call, @NonNull Response<OrderModel> response) {
+                Toast.makeText(requireActivity(), "Thanh cong", Toast.LENGTH_SHORT).show();
+                layoutCheckoutBinding.loading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<OrderModel> call, @NonNull Throwable t) {
+                Toast.makeText(requireActivity(), "Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

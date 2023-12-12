@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="@color/cBg"
     android:layout_height="match_parent"
     tools:context=".view.screen.MyDetail.MydetailActivity">
 
@@ -41,20 +42,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="413dp"
         android:layout_height="663dp"
+        android:paddingHorizontal="20dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="120dp"
-            android:text="UserName"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imgprofile_detail"
@@ -69,100 +61,106 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/banner" />
 
-        <EditText
-            android:enabled="false"
-            android:id="@+id/edtusernameprofile_detail"
-            android:layout_width="340dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="37dp"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Chỗ sửa username"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-        <TextView
-            android:id="@+id/textView6"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_inputUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="15dp"
-            android:text="Email"
-            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            app:endIconMode="clear_text"
+            app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtusernameprofile_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/imgprofile_detail"
+            app:startIconDrawable="@drawable/ic_person">
 
-        <EditText
-            android:id="@+id/edtemailprofile_detail"
-            android:layout_width="340dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Chỗ sửa email"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            <EditText
+                android:id="@+id/edtusernameprofile_detail"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_edt_login_noselect"
+                android:hint="Tài khoản"
+                android:inputType="textPersonName" />
 
-        <TextView
-            android:id="@+id/textView7"
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="15dp"
-            android:text="Phone"
-            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            app:endIconMode="clear_text"
+            app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtemailprofile_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_inputUsername"
+            app:startIconDrawable="@drawable/ic_email">
 
-        <EditText
-            android:id="@+id/edtphoneprofile_detail"
-            android:layout_width="340dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Chỗ sửa phone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
-        <TextView
-            android:id="@+id/textView8"
+            <EditText
+                android:id="@+id/edtemailprofile_detail"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_edt_login_noselect"
+                android:hint="Email" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="15dp"
-            android:text="Full name"
-            android:textSize="20sp"
+            android:layout_marginTop="30dp"
+            app:endIconMode="clear_text"
+            app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtphoneprofile_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_email"
+            app:startIconDrawable="@drawable/ic_baseline_phone_24">
 
-        <EditText
-            android:id="@+id/edtnameprofile_detail"
-            android:layout_width="340dp"
+            <EditText
+                android:id="@+id/edtphoneprofile_detail"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_edt_login_noselect"
+                android:hint="Số điện thoại"
+                android:inputType="textPhonetic" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_fullname"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="12dp"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Chỗ sửa full name"
+            android:layout_marginTop="30dp"
+            app:endIconMode="clear_text"
+            app:hintEnabled="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_phone"
+            app:startIconDrawable="@drawable/ic_person_outline_24">
+
+            <EditText
+                android:id="@+id/edtnameprofile_detail"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/bg_edt_login_noselect"
+                android:hint="Họ và tên"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnupdate_profile"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:layout_marginTop="53dp"
-            android:text="Update"
-            android:background="@color/cChinh"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="109dp"
+            android:background="@drawable/btn"
+            android:text="Thay đổi"
             android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtnameprofile_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_fullname" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

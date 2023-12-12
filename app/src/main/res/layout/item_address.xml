@@ -11,9 +11,10 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/food_icon"/>
+            android:layout_gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/home_address"/>
         <LinearLayout
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"

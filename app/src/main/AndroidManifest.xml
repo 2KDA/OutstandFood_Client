@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".App"
@@ -19,6 +21,12 @@
         android:theme="@style/Theme.OutstandFood_client."
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".view.ship"
+            android:exported="false" />
+        <activity
+            android:name=".view.screen.Splash_screen"
+            android:exported="false" />
         <activity
             android:name=".view.screen.MyDetail.SetNewPassActivity"
             android:exported="false" />
@@ -40,15 +48,6 @@
         <activity
             android:name=".view.screen.home_action_menu.Home_Screen"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".view.screen.Splash_screen"
-            android:exported="false">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -56,6 +55,16 @@
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
+
+        </activity>
+        <activity
+            android:name=".view.Introducts"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.screen.Onboarding_screen"
@@ -69,6 +78,12 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_api_key" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:exported="true" />
     </application>
 
 </manifest>

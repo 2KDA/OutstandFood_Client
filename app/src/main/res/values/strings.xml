@@ -61,4 +61,6 @@
     <string name="sAdd_to_address">Add to address</string>
     <string name="cart">Giỏ hàng</string>
     <string name="order">Đặt ngay</string>
+
+    <string name="map_api_key">AIzaSyDz3BLGN6I6adFtBXnYTDGgOWYromqJ2uA</string>
 </resources>

@@ -1,6 +1,7 @@
 package android.outstandfood_client.interfaces;
 
 import android.outstandfood_client.models.Category;
+import android.outstandfood_client.models.HistoryModel;
 import android.outstandfood_client.models.ListCategory;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.OrderModel;
@@ -16,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -35,4 +37,6 @@ public interface ApiService {
     @POST("order/add?")
     Call <OrderModel> addOrder(@Body OrderModel orderModel);
 
+    @GET("order/ordered/{id_user}")
+    Call<List<HistoryModel>> getOrderById(@Path("id_user") String id_user);
 }

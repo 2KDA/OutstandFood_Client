@@ -21,17 +21,19 @@
 
         <ImageView
             android:id="@+id/imgback_detail"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@drawable/icon_back_24" />
 
         <TextView
+            android:paddingLeft="20dp"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center"
-            android:text="Trang cá nhân"
+            android:gravity="start"
+            android:text="Thông tin tài khoản"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -43,7 +45,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
         <LinearLayout
-            android:id="@+id/rgiii193a91"
+            android:id="@+id/layoutDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -55,7 +57,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="16dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/detail_user"
                 android:scaleType="fitXY"
                 />
             <TextView
@@ -65,7 +67,7 @@
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="My detail"
+                android:text="Đổi thông tin"
                 />
             <LinearLayout
                 android:id="@+id/rtr9q7jhkn2s"
@@ -79,7 +81,7 @@
                 android:id="@+id/rbjzc4znhist"
                 android:layout_width="12dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/next"
                 android:scaleType="fitXY"
                 />
         </LinearLayout>
@@ -99,7 +101,7 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
         <LinearLayout
-
+            android:id="@+id/layoutPass"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -111,7 +113,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="16dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/change_password"
                 android:scaleType="fitXY"
                 />
             <TextView
@@ -121,7 +123,7 @@
                 android:textStyle="bold"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Set New Pass"
+                android:text="Đổi mật khẩu"
                 />
             <LinearLayout
                 android:id="@+id/setnewpass"
@@ -134,7 +136,7 @@
             <ImageView
                 android:layout_width="12dp"
                 android:layout_height="20dp"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/next"
                 android:scaleType="fitXY"
                 />
         </LinearLayout>

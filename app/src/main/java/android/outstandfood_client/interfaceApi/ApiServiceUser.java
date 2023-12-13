@@ -19,7 +19,7 @@ import retrofit2.http.Path;
         Call<User> login(@Body User loginRequest);
         @FormUrlEncoded
         @POST("user/changePassword")
-        Call<Void> changePassword(
+        Call<User> changePassword(
                 @Field("userName") String userName,
                 @Field("password") String oldPassword,
                 @Field("newPassword") String newPassword

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +47,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class Login_screen extends AppCompatActivity {
+public class Login_screen extends OutstandActivity {
     private EditText username;
     private EditText password;
     private Button btn_dangnhap;
@@ -76,11 +77,8 @@ public class Login_screen extends AppCompatActivity {
             public void onClick(View view) {
                 String userName = username.getText().toString();
                 String passWord = password.getText().toString();
-                if (TextUtils.isEmpty(userName)) {
-                    showDialog("Lỗi", "Vui lòng nhập tên người dùng");
-                } else if (TextUtils.isEmpty(passWord)) {
-                    // Hiển thị dialog khi người dùng không nhập mật khẩu
-                    showDialog("Lỗi", "Vui lòng nhập mật khẩu");
+                if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(passWord)) {
+                    show("Outsand'Food", "Tài khoản và mật khẩu không được để trống.");
                 } else {
                     progressDialog = new ProgressDialog(Login_screen.this);
                     progressDialog.setMessage("Đang đăng nhập...");
@@ -177,14 +175,14 @@ public class Login_screen extends AppCompatActivity {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(Login_screen.this, "Thông tin tài khoản có sự nhầm lẫn", Toast.LENGTH_SHORT).show();
+                                show("Outsand'Food", "Tài khoản không tồn tại.");
                             }
                         });
                     }else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED ) {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(Login_screen.this, "Thông tin mật khẩu có sự nhầm lẫn", Toast.LENGTH_SHORT).show();
+                                show("Outsand'Food", "Mật khẩu không chính xác.");
                             }
                         });
                     } else if (responseCode == HttpURLConnection.HTTP_FORBIDDEN) {

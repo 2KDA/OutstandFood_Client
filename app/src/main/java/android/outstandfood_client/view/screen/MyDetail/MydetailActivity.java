@@ -107,9 +107,9 @@ public class MydetailActivity extends OutstandActivity {
                 String name = binding.edtnameprofileDetail.getText().toString();
                 String phone = binding.edtphoneprofileDetail.getText().toString();
                 if (email.isEmpty() || name.isEmpty() || phone.isEmpty()) {
-                    Toast.makeText(MydetailActivity.this, "Bạn cần nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                } else if (name.length() <= 10) {
-                    Toast.makeText(MydetailActivity.this, "Độ dài của họ và tên cần trên 10 kí tự", Toast.LENGTH_SHORT).show();
+                    show("Outsand'Food" , "Vui lòng nhập đầy đủ thông tin.");
+                } else if (name.length() <= 7) {
+                    show("Outsand'Food" , "Họ tên quá ngắn. Không hợp lệ.");
                 } else {
                     showWaitProgress(MydetailActivity.this);
                     if (imageFile != null) {

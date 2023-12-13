@@ -3,12 +3,14 @@ package android.outstandfood_client.view.screen.MyDetail;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.databinding.ActivitySetNewPassBinding;
 import android.outstandfood_client.databinding.FragmentProfileBinding;
 import android.outstandfood_client.interfaceApi.ApiClient;
 import android.outstandfood_client.interfaceApi.ApiServiceUser;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.CommonActivity;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.util.Log;
 import android.view.View;
@@ -18,7 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SetNewPassActivity extends AppCompatActivity {
+public class SetNewPassActivity extends OutstandActivity {
     private ActivitySetNewPassBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,6 @@ public class SetNewPassActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         User savedUser = SharedPrefsManager.getUser(this);
 
-        binding.show.setVisibility(View.GONE);
 
         binding.imgbackpassDetail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,14 +44,15 @@ public class SetNewPassActivity extends AppCompatActivity {
                 String newPassword = binding.passnew.getText().toString();
                 String newPassword1 = binding.passnew1.getText().toString();
                 if (oldPassword.isEmpty() || newPassword.isEmpty() || newPassword1.isEmpty()) {
-                    Toast.makeText(SetNewPassActivity.this, "Bạn cần nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                    show("Outstand'Food", "Bạn cần nhập đầy đủ thông tin");
                 }else if(newPassword.length() <= 6 || newPassword1.length() <= 6){
-                    Toast.makeText(SetNewPassActivity.this, "Độ dài mật khẩu cần trên 6 kí tự", Toast.LENGTH_SHORT).show();
+                    show("Outstand'Food", "Mật khẩu phải dài hơn 6 kí tự");
                 }
                 else if(!newPassword.equals(newPassword1)){
-                    Toast.makeText(SetNewPassActivity.this, "mật khẩu mới không khớp", Toast.LENGTH_SHORT).show();
+                    show("Outstand'Food", "Mật khẩu mới không trùng khớp");
                 }
                 else {
+                    showWaitProgress(SetNewPassActivity.this);
                     changePassword(savedUser.getUsername(), oldPassword, newPassword);
                 }
             }
@@ -59,27 +61,32 @@ public class SetNewPassActivity extends AppCompatActivity {
     private void changePassword(String username, String oldPassword, String newPassword ) {
         ApiServiceUser apiService = ApiClient.getClient().create(ApiServiceUser.class);
 
-        Call<Void> call = apiService.changePassword(username, oldPassword, newPassword );
-        call.enqueue(new Callback<Void>() {
+        Call<User> call = apiService.changePassword(username, oldPassword, newPassword );
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
+                hideWaitProgress();
                 if (response.isSuccessful()) {
-                    User updatedUser = new User();
-                    updatedUser.setPassword(newPassword);
-                    SharedPrefsManager.saveUser(SetNewPassActivity.this, updatedUser);
-                    binding.show.setVisibility(View.VISIBLE);
-                    finish();
-                    Toast.makeText(SetNewPassActivity.this, "Đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                    User newUser = response.body();
+                    SharedPrefsManager.clearUser(SetNewPassActivity.this);
+                    SharedPrefsManager.saveUser(SetNewPassActivity.this, newUser);
+                    CommonActivity.createAlertDialog(SetNewPassActivity.this,"Đổi mật khẩu thành công",
+                            "Outstand'Food",new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    finish();
+                                }
+                            }
+                    ).show();
                 } else {
-                    Log.d("Lõi" ,"Lỗi " + response);
-                    Toast.makeText(SetNewPassActivity.this, "Mật khẩu cũ không đúng", Toast.LENGTH_SHORT).show();
+                    show("Outsand'Food", "Lỗi đổi mật khẩu.");
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("Lõi" ,"Lỗi " + t.getMessage());
-                Toast.makeText(SetNewPassActivity.this, "Có lỗi xảy ra", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<User> call, Throwable t) {
+                hideWaitProgress();
+                show("Outstand'Food", "Lỗi : " + t.getMessage());
             }
         });
     }

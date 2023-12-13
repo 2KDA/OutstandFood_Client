@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.databinding.ActivityAddOrUpdateAddressBinding;
 import android.outstandfood_client.databinding.ActivityListAddressBinding;
@@ -14,7 +15,9 @@ import android.outstandfood_client.interfaceApi.ApiServiceAddress;
 import android.outstandfood_client.models.AddressModel;
 import android.outstandfood_client.models.AddressResponse;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.CommonActivity;
 import android.outstandfood_client.object.SharedPrefsManager;
+import android.outstandfood_client.view.screen.MyDetail.MydetailActivity;
 import android.outstandfood_client.view.screen.adapter.AddressAdapter;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +33,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class AddOrUpdateAddressActivity extends AppCompatActivity {
+public class AddOrUpdateAddressActivity extends OutstandActivity {
     private ActivityAddOrUpdateAddressBinding binding;
     static final String BASE_URL = "https://outstanfood-com.onrender.com/api/";
     private AddressAdapter addressAdapter;
@@ -47,7 +50,7 @@ public class AddOrUpdateAddressActivity extends AppCompatActivity {
         String addressId = getIntent().getStringExtra("_idAddress");
 
         if (addressId == null || addressId.isEmpty()) {
-          binding.txtman.setText("Màn hình thêm địa chỉ mới");
+          binding.txtman.setText("Thêm địa chỉ");
           binding.btnaddress.setText("Tạo mới");
             binding.btnaddress.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -56,19 +59,20 @@ public class AddOrUpdateAddressActivity extends AppCompatActivity {
                     String address = binding.edtaddress.getText().toString().trim();
                     String phone = binding.edtphone.getText().toString().trim();
                     if (address.isEmpty() || phone.isEmpty()) {
-                        Toast.makeText(AddOrUpdateAddressActivity.this, "Cần nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                        show("Outstand'Food", "Vui lòng nhập đầy đủ thông tin.");
                     }
-                   else if (!isValidPhoneNumber(phone)) {
-                        Toast.makeText(AddOrUpdateAddressActivity.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+                    else if (!isValidPhoneNumber(phone)) {
+                        show("Outstand'Food", "Số điện thoại không hợp lệ");
                     }
                     else {
+                        showWaitProgress(AddOrUpdateAddressActivity.this);
                         addAddress(savedUser.get_id(), address, phone);
                     }
                 }
             });
 
         } else if (addressModel.getId() != " " || addressModel.getAddress() != null) {
-            binding.txtman.setText("Màn hình sửa địa chỉ");
+            binding.txtman.setText("Sửa địa chỉ");
             binding.btnaddress.setText("Sửa địa chỉ");
 
             binding.edtphone.setText(addressModel.getPhone());
@@ -80,18 +84,19 @@ public class AddOrUpdateAddressActivity extends AppCompatActivity {
                     String address = binding.edtaddress.getText().toString().trim();
                     String phone = binding.edtphone.getText().toString().trim();
                     if (address.isEmpty() || phone.isEmpty()) {
-                        Toast.makeText(AddOrUpdateAddressActivity.this, "Cần nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                        show("Outstand'Food", "Vui lòng nhập đầy đủ thông tin.");
                     }else if (!isValidPhoneNumber(phone)) {
-                        Toast.makeText(AddOrUpdateAddressActivity.this, "Số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+                        show("Outstand'Food", "Số điện thoại không hợp lệ.");
                     }
                     else {
+                        showWaitProgress(AddOrUpdateAddressActivity.this);
                         updateAddress(addressModel.getId(), address, phone);
                     }
                 }
             });
         }
 
-        binding.imgback.setOnClickListener(new View.OnClickListener() {
+        binding.imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -111,22 +116,27 @@ public class AddOrUpdateAddressActivity extends AppCompatActivity {
         call.enqueue(new Callback<AddressModel>() {
             @Override
             public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
+                hideWaitProgress();
                 if (response.isSuccessful() && response.body() != null) {
-                    AddressModel newAddress = response.body();
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result", RESULT_OK); // Hoặc thông tin cụ thể nếu cần
-                    setResult(Activity.RESULT_OK, returnIntent);
-                    finish();
-                    Toast.makeText(AddOrUpdateAddressActivity.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                    CommonActivity.createAlertDialog(AddOrUpdateAddressActivity.this,"Thêm địa chỉ thành công",
+                            "Outstand'Food",new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent returnIntent = new Intent();
+                                    returnIntent.putExtra("result", RESULT_OK);
+                                    setResult(Activity.RESULT_OK, returnIntent);
+                                    finish();
+                                }
+                            }
+                    ).show();
                 } else {
-                    Toast.makeText(AddOrUpdateAddressActivity.this, "Lỗi khi thêm ", Toast.LENGTH_SHORT).show();
+                    show("Outsand'Food", "Lỗi thêm địa chỉ.");
                 }
             }
-
             @Override
             public void onFailure(Call<AddressModel> call, Throwable t) {
-                Log.e("ListAddressActivity", "Lỗi: ", t);
-                Toast.makeText(AddOrUpdateAddressActivity.this, "Lỗi khi gọi API: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                hideWaitProgress();
+                show("Outstand'Food", "Lỗi : " + t.getMessage());
             }
         });
     }
@@ -141,24 +151,29 @@ public class AddOrUpdateAddressActivity extends AppCompatActivity {
         call.enqueue(new Callback<AddressModel>() {
             @Override
             public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
+                hideWaitProgress();
                 if (response.isSuccessful() && response.body() != null) {
-                    AddressModel updatedAddress = response.body();
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra("result", RESULT_OK);
-                    setResult(Activity.RESULT_OK, returnIntent);
-                    finish();
-                    Toast.makeText(AddOrUpdateAddressActivity.this, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                    CommonActivity.createAlertDialog(AddOrUpdateAddressActivity.this,"Sửa địa chỉ thành công.",
+                            "Outstand'Food",new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent returnIntent = new Intent();
+                                    returnIntent.putExtra("result", RESULT_OK);
+                                    setResult(Activity.RESULT_OK, returnIntent);
+                                    finish();
+                                }
+                            }
+                    ).show();
                 } else {
-                    Log.e("ListAddressActivity", "Lỗi 123: " + response.message());
-                    Toast.makeText(AddOrUpdateAddressActivity.this, "Lỗi khi sửa", Toast.LENGTH_SHORT).show();
+                    show("Outsand'Food", "Lỗi sửa địa chỉ.");
                 }
             }
 
             @Override
             public void onFailure(Call<AddressModel> call, Throwable t) {
-                Log.e("ListAddressActivity", "Lỗi: ", t);
-                Toast.makeText(AddOrUpdateAddressActivity.this, "Lỗi khi gọi API", Toast.LENGTH_SHORT).show();
-            }
+                hideWaitProgress();
+                show("Outstand'Food", "Lỗi : " + t.getMessage());
+             }
         });
     }
     private boolean isValidPhoneNumber(String phoneNumber) {

@@ -17,7 +17,7 @@ public class SetUpDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_up_detail);
 
-        LinearLayout btnmydetail = findViewById(R.id.rtr9q7jhkn2s);
+        LinearLayout layoutDetail = findViewById(R.id.layoutDetail);
         LinearLayout btnpass = findViewById(R.id.setnewpass);
         ImageView imgback = findViewById(R.id.imgback_detail);
 
@@ -28,7 +28,7 @@ public class SetUpDetailActivity extends AppCompatActivity {
             }
         });
 
-        btnmydetail.setOnClickListener(new View.OnClickListener() {
+        layoutDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SetUpDetailActivity.this, MydetailActivity.class)

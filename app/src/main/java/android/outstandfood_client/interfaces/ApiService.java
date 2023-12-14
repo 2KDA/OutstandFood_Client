@@ -39,4 +39,7 @@ public interface ApiService {
 
     @GET("order/ordered/{id_user}")
     Call<List<HistoryModel>> getOrderById(@Path("id_user") String id_user);
+
+    @GET("product/list")
+    Call<ListProduct> getListProduct();
 }

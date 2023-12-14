@@ -311,7 +311,6 @@ public class AddOrUpdateAddressActivity extends OutstandActivity {
 
                         cityList.add(cityAddress);
                     }
-                    Log.d("TAG", "run: LISTCITY" + cityList);
                     runOnUiThread(() -> cityAdapter.notifyDataSetChanged());
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
@@ -355,7 +354,6 @@ public class AddOrUpdateAddressActivity extends OutstandActivity {
                         districtAddress.setProvince_code(districtProvinceCode != 0 ? districtProvinceCode : 0);
                         districtList.add(districtAddress);
                     }
-                    Log.d("TAG", "run: LISTDISTRIC" + districtList);
                     runOnUiThread(() -> {
                         districtAdapter.notifyDataSetChanged();
                         binding.spinnerDistrict.setSelection(0);
@@ -373,7 +371,6 @@ public class AddOrUpdateAddressActivity extends OutstandActivity {
             public void run() {
                 try {
                     String url = "https://provinces.open-api.vn/api/d/" + district + "?depth=2";
-                    Log.d("TAG", "run: " + url);
                     okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
                     okhttp3.Request request = new okhttp3.Request.Builder()
                             .url(url)
@@ -404,7 +401,6 @@ public class AddOrUpdateAddressActivity extends OutstandActivity {
 
                         wardList.add(wardsAddress);
                     }
-                    Log.d("TAG", "run: LISTWARD" +  wardList);
                     runOnUiThread(() -> {
                         wardAdapter.notifyDataSetChanged();
                         binding.spinnerWard.setSelection(0);

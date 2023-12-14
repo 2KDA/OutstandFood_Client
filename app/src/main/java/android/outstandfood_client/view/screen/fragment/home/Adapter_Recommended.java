@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class Adapter_Recommended extends RecyclerView.Adapter<Adapter_Recommended.UserViewHolder> {
@@ -43,11 +45,12 @@ public class Adapter_Recommended extends RecyclerView.Adapter<Adapter_Recommende
 
         if (recommended == null) return;
 
-        holder.img_item_home_ActionMenu_recommended_avt.setImageResource(recommended.getAvt());
+        //holder.img_item_home_ActionMenu_recommended_avt.setImageResource(recommended.getAvt());
+        Glide.with(mContext).load(lis_recommended.get(position).avt).error(R.drawable.avartar).into(holder.img_item_home_ActionMenu_recommended_avt);
         holder.tv_item_home_ActionMenu_recommended_name.setText(recommended.getName());
-        holder.tv_item_home_ActionMenu_recommended_khoangCach.setText(recommended.getKhoangCach() + " km");
-        holder.tv_item_home_ActionMenu_recommended_danhGia.setText(recommended.getDanhGia() + " (" + recommended.getSoNguoiDanhGia() + "k)");
-        holder.tv_item_home_ActionMenu_recommended_phiShip.setText("$" + recommended.getPhiShip());
+       /* holder.tv_item_home_ActionMenu_recommended_khoangCach.setText(recommended.getKhoangCach() + " km");
+        holder.tv_item_home_ActionMenu_recommended_danhGia.setText(recommended.getDanhGia() + " (" + recommended.getSoNguoiDanhGia() + "k)");*/
+        holder.tv_item_home_ActionMenu_recommended_phiShip.setText(recommended.getGia()+"VND");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +76,8 @@ public class Adapter_Recommended extends RecyclerView.Adapter<Adapter_Recommende
 
             img_item_home_ActionMenu_recommended_avt = itemView.findViewById(R.id.item_home_ActionMenu_recommended_avt);
             tv_item_home_ActionMenu_recommended_name = itemView.findViewById(R.id.item_home_ActionMenu_recommended_name);
-            tv_item_home_ActionMenu_recommended_khoangCach = itemView.findViewById(R.id.item_home_ActionMenu_recommended_khoangCach);
-            tv_item_home_ActionMenu_recommended_danhGia = itemView.findViewById(R.id.item_home_ActionMenu_recommended_danhGia);
+           /* tv_item_home_ActionMenu_recommended_khoangCach = itemView.findViewById(R.id.item_home_ActionMenu_recommended_khoangCach);
+            tv_item_home_ActionMenu_recommended_danhGia = itemView.findViewById(R.id.item_home_ActionMenu_recommended_danhGia);*/
             tv_item_home_ActionMenu_recommended_phiShip = itemView.findViewById(R.id.item_home_ActionMenu_recommended_phiShip);
 
         }

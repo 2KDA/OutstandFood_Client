@@ -15,15 +15,27 @@ import android.outstandfood_client.interfaceApi.ApiServiceAddress;
 import android.outstandfood_client.models.AddressModel;
 import android.outstandfood_client.models.AddressResponse;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.models.address.CityAddress;
+import android.outstandfood_client.models.address.DistrictAddress;
+import android.outstandfood_client.models.address.WardsAddress;
 import android.outstandfood_client.object.CommonActivity;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.MyDetail.MydetailActivity;
 import android.outstandfood_client.view.screen.adapter.AddressAdapter;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +48,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AddOrUpdateAddressActivity extends OutstandActivity {
     private ActivityAddOrUpdateAddressBinding binding;
     static final String BASE_URL = "https://outstanfood-com.onrender.com/api/";
-    private AddressAdapter addressAdapter;
-    private List<AddressModel> addressList;
+    private List<CityAddress> cityList;
+    private List<DistrictAddress> districtList;
+    private List<WardsAddress> wardList;
+
+    private ArrayAdapter<CityAddress> cityAdapter;
+    private ArrayAdapter<DistrictAddress> districtAdapter;
+    private ArrayAdapter<WardsAddress> wardAdapter;
+    private String selectedCity;
+    private String selectedDistrict;
+    private String selectedWard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +85,13 @@ public class AddOrUpdateAddressActivity extends OutstandActivity {
                         show("Outstand'Food", "Số điện thoại không hợp lệ");
                     }
                     else {
-                        showWaitProgress(AddOrUpdateAddressActivity.this);
-                        addAddress(savedUser.get_id(), address, phone);
+                        CommonActivity.createDialog(AddOrUpdateAddressActivity.this,
+                                "\nĐịa chỉ: " + printResult() +"\n " + "\nSố điện thoại: "+ phone + "\n",
+                                "Xác nhận","Đồng ý", "Hủy",
+                                v -> {
+                                    showWaitProgress(AddOrUpdateAddressActivity.this);
+                                    addAddress(savedUser.get_id(), printResult(), phone);
+                                },null).show();
                     }
                 }
             });
@@ -89,8 +114,13 @@ public class AddOrUpdateAddressActivity extends OutstandActivity {
                         show("Outstand'Food", "Số điện thoại không hợp lệ.");
                     }
                     else {
-                        showWaitProgress(AddOrUpdateAddressActivity.this);
-                        updateAddress(addressModel.getId(), address, phone);
+                        CommonActivity.createDialog(AddOrUpdateAddressActivity.this,
+                                "Địa chỉ: " + printResult() +"\n" + "Số điện thoại: "+ phone,
+                                "Xác nhận","Đồng ý", "Hủy",
+                                v -> {
+                                    showWaitProgress(AddOrUpdateAddressActivity.this);
+                                    updateAddress(addressModel.getId(), printResult(), phone);
+                                },null).show();
                     }
                 }
             });
@@ -103,7 +133,66 @@ public class AddOrUpdateAddressActivity extends OutstandActivity {
             }
         });
 
+        initView();
     }
+    private void initView() {
+        fetchCities();
+        cityList = new ArrayList<>();
+        districtList = new ArrayList<>();
+        wardList = new ArrayList<>();
+
+        cityAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, cityList);
+        districtAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, districtList);
+        wardAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, wardList);
+
+        binding.spinnerCity.setAdapter(cityAdapter);
+        binding.spinnerDistrict.setAdapter(districtAdapter);
+        binding.spinnerWard.setAdapter(wardAdapter);
+
+
+        binding.spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                CityAddress selected = cityList.get(position);
+                int cityCode = selected.getCode();
+                selectedCity = selected.getName();
+                fetchDistricts(cityCode);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
+        binding.spinnerDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                DistrictAddress selected = districtList.get(position);
+                selectedDistrict = selected.getName();
+                int districtCode = selected.getCode();
+                fetchWards(districtCode);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        binding.spinnerWard.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                WardsAddress selected = wardList.get(position);
+                selectedWard = selected.getName();
+                printResult();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
 
     private void addAddress(String id_user, String address, String phone) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -179,5 +268,152 @@ public class AddOrUpdateAddressActivity extends OutstandActivity {
     private boolean isValidPhoneNumber(String phoneNumber) {
         String regex = "0[1-9][0-9]{8}";
         return phoneNumber.matches(regex);
+    }
+
+    private String printResult() {
+        String result = binding.edtaddress.getText().toString() + ", "+
+                binding.spinnerWard.getSelectedItem().toString() + ", " +
+                binding.spinnerDistrict.getSelectedItem().toString() + ", " +
+                binding.spinnerCity.getSelectedItem().toString();
+        return result;
+    }
+
+    private void fetchCities() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
+                    okhttp3.Request request = new okhttp3.Request.Builder()
+                            .url("https://provinces.open-api.vn/api/?depth=1")
+                            .build();
+                    okhttp3.Response response = client.newCall(request).execute();
+                    String jsonData = response.body().string();
+                    JSONArray cityArray = new JSONArray(jsonData);
+                    cityList.clear();
+                    for (int i = 0; i < cityArray.length(); i++) {
+                        JSONObject cityObj = cityArray.getJSONObject(i);
+                        CityAddress cityAddress = new CityAddress();
+                        String cityName = cityObj.getString("name");
+                        cityAddress.setName(cityName != null ? cityName : "");
+
+                        int cityCode = cityObj.getInt("code");
+                        cityAddress.setCode(cityCode != 0 ? cityCode : 0);
+
+                        String cityCodeName = cityObj.getString("codename");
+                        cityAddress.setCodename(cityCodeName != null ? cityCodeName : "");
+
+                        String cityDivisionType = cityObj.getString("division_type");
+                        cityAddress.setDivision_type(cityDivisionType != null ? cityDivisionType : "");
+
+                        String cityPhoneCode = cityObj.getString("phone_code");
+                        cityAddress.setPhone_code(cityPhoneCode != null ? cityPhoneCode : "");
+
+                        cityList.add(cityAddress);
+                    }
+                    Log.d("TAG", "run: LISTCITY" + cityList);
+                    runOnUiThread(() -> cityAdapter.notifyDataSetChanged());
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+    }
+
+    private void fetchDistricts(int code) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
+                    okhttp3.Request request = new okhttp3.Request.Builder()
+                            .url("https://provinces.open-api.vn/api/p/" + code + "?depth=2")
+                            .build();
+                    okhttp3.Response response = client.newCall(request).execute();
+                    String jsonData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(jsonData);
+                    JSONArray districtArray = jsonObject.getJSONArray("districts");
+                    districtList.clear();
+                    for (int i = 0; i < districtArray.length(); i++) {
+                        JSONObject districtObj = districtArray.getJSONObject(i);
+                        DistrictAddress districtAddress = new DistrictAddress();
+
+                        String districtName = districtObj.getString("name");
+                        districtAddress.setName(districtName != null ? districtName : "");
+
+                        int districtCode= districtObj.getInt("code");
+                        districtAddress.setCode(districtCode != 0 ? districtCode : 0);
+
+                        String districtDivisionType = districtObj.getString("division_type");
+                        districtAddress.setDivision_type(districtDivisionType != null ? districtDivisionType : "");
+
+                        String districtCodeName = districtObj.getString("codename");
+                        districtAddress.setCodename(districtCodeName != null ? districtCodeName : "");
+
+                        int districtProvinceCode = districtObj.getInt("province_code");
+                        districtAddress.setProvince_code(districtProvinceCode != 0 ? districtProvinceCode : 0);
+                        districtList.add(districtAddress);
+                    }
+                    Log.d("TAG", "run: LISTDISTRIC" + districtList);
+                    runOnUiThread(() -> {
+                        districtAdapter.notifyDataSetChanged();
+                        binding.spinnerDistrict.setSelection(0);
+                    });
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
+    }
+    private void fetchWards(int district) {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    String url = "https://provinces.open-api.vn/api/d/" + district + "?depth=2";
+                    Log.d("TAG", "run: " + url);
+                    okhttp3.OkHttpClient client = new okhttp3.OkHttpClient();
+                    okhttp3.Request request = new okhttp3.Request.Builder()
+                            .url(url)
+                            .build();
+                    okhttp3.Response response = client.newCall(request).execute();
+                    String jsonData = response.body().string();
+                    JSONObject jsonObject = new JSONObject(jsonData);
+                    JSONArray wardArray = jsonObject.getJSONArray("wards");
+                    wardList.clear();
+                    for (int i = 0; i < wardArray.length(); i++) {
+                        JSONObject wardObj = wardArray.getJSONObject(i);
+                        WardsAddress wardsAddress = new WardsAddress();
+
+                        String wardsName = wardObj.getString("name");
+                        wardsAddress.setName(wardsName != null ? wardsName : "");
+
+                        int wardsCode= wardObj.getInt("code");
+                        wardsAddress.setCode(wardsCode != 0 ? wardsCode : 0);
+
+                        String wardsDivisionType = wardObj.getString("division_type");
+                        wardsAddress.setDivision_type(wardsDivisionType != null ? wardsDivisionType : "");
+
+                        String wardsCodeName = wardObj.getString("codename");
+                        wardsAddress.setCodename(wardsCodeName != null ? wardsCodeName : "");
+
+                        int wardsDistrictCode = wardObj.getInt("district_code");
+                        wardsAddress.setCode(wardsDistrictCode != 0 ? wardsDistrictCode : 0);
+
+                        wardList.add(wardsAddress);
+                    }
+                    Log.d("TAG", "run: LISTWARD" +  wardList);
+                    runOnUiThread(() -> {
+                        wardAdapter.notifyDataSetChanged();
+                        binding.spinnerWard.setSelection(0);
+                    });
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
     }
 }

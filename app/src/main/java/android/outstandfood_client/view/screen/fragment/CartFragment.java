@@ -12,6 +12,8 @@ import android.outstandfood_client.databinding.FragmentCartBinding;
 import android.outstandfood_client.databinding.LayoutCheckoutBinding;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.models.OrderModel;
+import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.adapter.CartAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +61,7 @@ public class CartFragment extends OutstandFragment {
     private double totalPriceVnd = 100000;
     private double totalPriceUsd;
     private double usdExchangeRate = 24282;
+    private User savedUser ;
 
     public CartFragment() {
         // Required empty public constructor
@@ -97,6 +100,7 @@ public class CartFragment extends OutstandFragment {
     @SuppressLint("SetTextI18n")
     private void initView() {
         setDataSumMoney();
+        savedUser = SharedPrefsManager.getUser(getActivity());
         LinearLayoutManager manager = new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false);
         binding.recyCart.setLayoutManager(manager);
         cartAdapter = new CartAdapter(requireActivity(), new CartAdapter.InterCart() {
@@ -212,7 +216,7 @@ public class CartFragment extends OutstandFragment {
                         quantity.add(list.get(i).getQuantityFood());
                         idProduct.add(list.get(i).getId());
                     }
-                    OrderToServer("KH005", false, "DC019", "Chua thanh toán", quantity, idProduct,layoutCheckoutBinding);
+                    OrderToServer(savedUser.get_id(), false, "DC019", "Chua thanh toán", quantity, idProduct,layoutCheckoutBinding);
                 }
             });
             sheetDialog.show();
@@ -266,14 +270,13 @@ public class CartFragment extends OutstandFragment {
                         approval.getOrderActions().capture(new OnCaptureComplete() {
                             @Override
                             public void onCaptureComplete(@NotNull CaptureOrderResult result) {
-                                Log.i("CaptureOrder", String.format("CaptureOrderResult: %s", result));
                                 ArrayList<Integer> quantity = new ArrayList<>();
                                 ArrayList<String> idProduct = new ArrayList<>();
                                 for (int i = 0; i < list.size(); i++) {
                                     quantity.add(list.get(i).getQuantityFood());
                                     idProduct.add(list.get(i).getId());
                                 }
-                                OrderToServer("KH005", true, "DC019", "Đã thanh toán", quantity, idProduct,layoutCheckoutBinding);
+                                OrderToServer(savedUser.get_id(), true, "DC019", "Đã thanh toán", quantity, idProduct,layoutCheckoutBinding);
                                 Toast.makeText(getContext(), "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
                             }
                         });

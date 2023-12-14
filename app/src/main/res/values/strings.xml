@@ -62,5 +62,9 @@
     <string name="cart">Giỏ hàng</string>
     <string name="order">Đặt ngay</string>
 
+    <string name="select_city">Tỉnh thành</string>
+    <string name="select_district">Quận huyện</string>
+    <string name="select_ward">Phường xã</string>
+
     <string name="map_api_key">AIzaSyDz3BLGN6I6adFtBXnYTDGgOWYromqJ2uA</string>
 </resources>

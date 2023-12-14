@@ -20,9 +20,9 @@ public class Adapter_onboarding extends PagerAdapter {
 
     int images[] = {
 
-            R.drawable.logo_app,
-            R.drawable.logo_app,
-            R.drawable.logo_app,
+            R.drawable.convenient,
+            R.drawable.cash_on_delivery,
+            R.drawable.delivery_truck,
 
     };
 

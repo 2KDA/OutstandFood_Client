@@ -50,7 +50,7 @@ public class Adapter_Recommended extends RecyclerView.Adapter<Adapter_Recommende
         holder.tv_item_home_ActionMenu_recommended_name.setText(recommended.getName());
        /* holder.tv_item_home_ActionMenu_recommended_khoangCach.setText(recommended.getKhoangCach() + " km");
         holder.tv_item_home_ActionMenu_recommended_danhGia.setText(recommended.getDanhGia() + " (" + recommended.getSoNguoiDanhGia() + "k)");*/
-        holder.tv_item_home_ActionMenu_recommended_phiShip.setText(recommended.getGia()+"VND");
+        holder.tv_item_home_ActionMenu_recommended_phiShip.setText((int)recommended.getGia()+" VND");
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

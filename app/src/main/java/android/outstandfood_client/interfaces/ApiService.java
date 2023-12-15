@@ -42,4 +42,8 @@ public interface ApiService {
 
     @GET("product/list")
     Call<ListProduct> getProductList(@Query("id_category") String categoryId);
+
+    // This is API for get all product include food, drink ...etc.
+    @GET("product/list")
+    Call<ListProduct> getProductList();
 }

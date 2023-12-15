@@ -128,32 +128,32 @@ public class HomeFragment extends Fragment {
 
     private void initData() {
         list = new ArrayList<>();
-//        ApiService.API_SERVICER.getListProduct().enqueue(new Callback<ListProduct>() {
-//            @Override
-//            public void onResponse(Call<ListProduct> call, Response<ListProduct> response) {
-//                Log.d("TAG", "onResponse: " +response.body());
-//                listProduct = response.body();
-//                for (int i = 0; i < listProduct.getProduct().size(); i++) {
-//                        list.add(listProduct.getProduct().get(i));
-//                }
-//                assert listProduct != null;
-//
-//                for(int i=0;i<3;i++){
-//                    Product product = list.get(i);
-//                    lis_food.add(new Food(product.getImage(),product.getName(),1.8,4.8,1,product.getPrice(),2.00));
-//                }
-//                adapter_recommended.setData(lis_food);
-//
-//                LinearLayoutManager manager1 = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-//                recyclerView_home_ActionMenu_home_Recommended.setLayoutManager(manager1);
-//                recyclerView_home_ActionMenu_home_Recommended.setAdapter(adapter_recommended);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ListProduct> call, Throwable t) {
-//
-//            }
-//        });
+        ApiService.API_SERVICER.getProductList().enqueue(new Callback<ListProduct>() {
+            @Override
+            public void onResponse(Call<ListProduct> call, Response<ListProduct> response) {
+                Log.d("TAG", "onResponse: " +response.body());
+                listProduct = response.body();
+                for (int i = 0; i < listProduct.getProduct().size(); i++) {
+                        list.add(listProduct.getProduct().get(i));
+                }
+                assert listProduct != null;
+
+                for(int i=0;i<3;i++){
+                    Product product = list.get(i);
+                    lis_food.add(new Food(product.getImage(),product.getName(),1.8,4.8,1,product.getPrice(),2.00));
+                }
+                adapter_recommended.setData(lis_food);
+
+                LinearLayoutManager manager1 = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+                recyclerView_home_ActionMenu_home_Recommended.setLayoutManager(manager1);
+                recyclerView_home_ActionMenu_home_Recommended.setAdapter(adapter_recommended);
+            }
+
+            @Override
+            public void onFailure(Call<ListProduct> call, Throwable t) {
+
+            }
+        });
 
     }
 }

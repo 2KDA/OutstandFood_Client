@@ -9,36 +9,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <androidx.appcompat.widget.Toolbar
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#F00">
-            <ImageButton
-                android:id="@+id/imgBackDetail"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:background="@null"
-                android:contentDescription="back"
-                android:src="@drawable/ic_back" />
+            android:layout_height="wrap_content"
+            android:background="@color/cChinh"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <ImageView
+                android:id="@+id/imgBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Chi tiết món ăn"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:background="@drawable/icon_back_24" />
 
-            <ImageButton
-                android:id="@+id/imgCart"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:background="@null"
-                android:contentDescription="back"
-                android:src="@drawable/ic_cart" />
-        </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="20dp"
+                android:gravity="start"
+                android:text="Chi tiết sản phẩm"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -68,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rau muong xao toi"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_margin="10sp"
             android:textColor="@color/black"/>
@@ -81,28 +83,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Giá: "
-                android:textSize="20sp"
-                android:textColor="@color/black"/>
+                android:textSize="16sp"
+            />
             <TextView
                 android:id="@+id/tvPriceDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2000"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#F00"/>
+                android:textSize="16sp"
+                android:textColor="#000000"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="10sp"
-            android:background="@drawable/bordersale"/>
+            android:background="@drawable/bg_btn_gree"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mô tả"
+            android:layout_marginBottom="5sp"
             android:layout_marginStart="10sp"
-            android:textColor="#F00"
             android:textSize="18sp"/>
         <TextView
             android:id="@+id/tvDescriptionD"
@@ -110,13 +111,13 @@
             android:layout_height="wrap_content"
             android:text="Mô tả món ăn"
             android:layout_marginStart="10sp"
-            android:textSize="18sp"/>
+            android:textColor="#000000"
+            android:textSize="16sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Một số hình ảnh khác"
             android:layout_margin="10sp"
-            android:textColor="#F00"
             android:textSize="18sp"/>
         <GridView
             android:id="@+id/RecyImg"
@@ -126,6 +127,7 @@
             android:layout_marginStart="10sp"
             android:layout_marginEnd="10sp"/>
         <Button
+            android:layout_gravity="bottom"
             android:id="@+id/btnAddcart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -133,6 +135,6 @@
             android:textColor="@color/white"
             android:layout_margin="10sp"
             android:textSize="18sp"
-            android:background="@drawable/border_btn"/>
+            android:background="@drawable/bg_btn_gree"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

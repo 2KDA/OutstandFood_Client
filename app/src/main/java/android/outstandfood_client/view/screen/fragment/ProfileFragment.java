@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.outstandfood_client.OutstandFragment;
+import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.databinding.FragmentCartBinding;
 import android.outstandfood_client.databinding.FragmentHistoryBinding;
 import android.outstandfood_client.databinding.FragmentProfileBinding;
@@ -27,7 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends OutstandFragment {
     private FragmentProfileBinding binding;
 
 
@@ -37,9 +39,19 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         // Kiểm tra xem có sự thay đổi dữ liệu của User không
         User savedUser = SharedPrefsManager.getUser(getContext());
+
+        if(SharedPrefsManager.getUser(getContext()) != null){
+            binding.layoutLogout.setVisibility(View.VISIBLE);
+            binding.layoutLogined.setVisibility(View.VISIBLE);
+            binding.layoutNoLogin.setVisibility(View.GONE);
+        }else{
+            binding.layoutLogout.setVisibility(View.GONE);
+            binding.layoutLogined.setVisibility(View.GONE);
+            binding.layoutNoLogin.setVisibility(View.VISIBLE);
+        }
+
         if (savedUser != null) {
             // Cập nhật thông tin người dùng
             binding.txtname.setText(savedUser.getUsername());
@@ -73,6 +85,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                     Intent intent = new Intent(getContext(), ListAddressActivity.class);
                     startActivity(intent);
+                    getActivity().finish();
             }
         });
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -80,18 +93,9 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                     Intent intent = new Intent(getContext(), Login_screen.class);
                     startActivity(intent);
+                    getActivity().finish();
             }
         });
-
-        if(SharedPrefsManager.getUser(getContext()) != null){
-            binding.layoutLogout.setVisibility(View.VISIBLE);
-            binding.layoutLogined.setVisibility(View.VISIBLE);
-            binding.layoutNoLogin.setVisibility(View.GONE);
-        }else{
-            binding.layoutLogout.setVisibility(View.GONE);
-            binding.layoutLogined.setVisibility(View.GONE);
-            binding.layoutNoLogin.setVisibility(View.VISIBLE);
-        }
 
         binding.txtlogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +108,7 @@ public class ProfileFragment extends Fragment {
                                 SharedPrefsManager.clearUser(getContext());
                                 Intent intent = new Intent(getContext(), Login_screen.class);
                                 startActivity(intent);
+                                CartDatabase.getInstance(getActivity()).cartDao().DeleteAll();
                         }
                         ).show();
             }
@@ -118,5 +123,4 @@ public class ProfileFragment extends Fragment {
 
         return binding.getRoot();
         }
-
 }

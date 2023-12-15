@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.Utils;
 import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DrinkFragment extends Fragment implements FoodInterface {
+public class DrinkFragment extends OutstandFragment implements FoodInterface {
     private FragmentDrinkBinding binding;
     private ListProductAdapter listProductAdapter;
 

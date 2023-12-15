@@ -6,30 +6,24 @@ public class Ordered {
     private User id_user;
 
     private Payment id_payment;
-    private AddressModel id_address;
+    private String address;
+    private String phone;
 
     private Double total_price;
     private Boolean pay_status;
     private String date;
     private String delivery_status;
 
-    public Ordered(String _id, User id_user, Payment id_payment, AddressModel id_address, Double total_price, Boolean pay_status, String date, String delivery_status) {
+    public Ordered(String _id, User id_user, Payment id_payment, String address, String phone, Double total_price, Boolean pay_status, String date, String delivery_status) {
         this._id = _id;
         this.id_user = id_user;
         this.id_payment = id_payment;
-        this.id_address = id_address;
+        this.address = address;
+        this.phone = phone;
         this.total_price = total_price;
         this.pay_status = pay_status;
         this.date = date;
         this.delivery_status = delivery_status;
-    }
-
-    public AddressModel getId_address() {
-        return id_address;
-    }
-
-    public void setId_address(AddressModel id_address) {
-        this.id_address = id_address;
     }
 
     public String get_id() {
@@ -54,6 +48,22 @@ public class Ordered {
 
     public void setId_payment(Payment id_payment) {
         this.id_payment = id_payment;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Double getTotal_price() {

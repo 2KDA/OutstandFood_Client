@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10sp"
     android:orientation="vertical"
-    android:layout_margin="5sp"
-    android:background="@drawable/bor_his"
-    android:id="@+id/idLine"
-    >
+    android:layout_margin="10sp"
+    android:id="@+id/idLine">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,16 +22,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Mã đơn hàng:"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/tvCode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Mã đơn hàng"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,16 +43,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Email:"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/tvMailU"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Mai:"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,16 +64,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Số điện thoại:"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/tvPhone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Mã đơn hàng"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,16 +85,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Họ tên:"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/tvNameU"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Mã đơn hàng"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,16 +106,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Địa chỉ nhận:"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/tvAdressU"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:text="Mã đơn hàng"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -132,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Thực đơn:"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/tvMenu"
                 android:layout_width="0dp"
@@ -141,9 +136,8 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:text="Mã đơn hàng"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -156,16 +150,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:text="Ngày đặt:"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <TextView
                 android:id="@+id/tvDateO"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Mã đơn hàng"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
         </LinearLayout>
         <View
             android:layout_width="match_parent"
@@ -194,18 +187,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:text="Tổng tiền:"
-                        android:textStyle="bold"
                         android:textColor="#F00"
-                        android:textSize="25sp"/>
+                        android:textSize="18sp"/>
                     <TextView
                         android:id="@+id/SumMoney"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6"
-                        android:textStyle="bold"
                         android:textColor="#F00"
                         android:text="2000000"
-                        android:textSize="25sp"/>
+                        android:textSize="18sp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -218,18 +209,17 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
                         android:text="Thanh toán:"
-                        android:textSize="20sp"/>
+                        android:textSize="16sp"/>
                     <TextView
                         android:id="@+id/tvPT"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="6"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Tiền mặt"
-                        android:textSize="20sp"/>
+                        android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>

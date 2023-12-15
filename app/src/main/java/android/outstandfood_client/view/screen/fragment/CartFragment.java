@@ -13,6 +13,7 @@ import android.outstandfood_client.databinding.LayoutCheckoutBinding;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.models.OrderModel;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.CommonActivity;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.adapter.CartAdapter;
 import android.util.Log;
@@ -122,44 +123,37 @@ public class CartFragment extends OutstandFragment {
                     CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
                     setDataSumMoney();
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("DELETE");
-                    builder.setMessage("Do you want delete ?");
-                    builder.setNegativeButton("NO", null);
-                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
-                            list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
-                            cartAdapter.setData(list);
-                            cartAdapter.notifyDataSetChanged();
-                            setDataSumMoney();
-                        }
-                    });
-                    builder.show();
+                    CommonActivity.createDialog(getActivity(),
+                            "\n Xóa sản phẩm khỏi giỏ hàng \n",
+                            "Xác nhận",
+                            "Đồng ý",
+                            "Hủy",
+                            v ->{
+                                CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
+                                list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                                cartAdapter.setData(list);
+                                cartAdapter.notifyDataSetChanged();
+                                setDataSumMoney();
+                            },null).show();
                 }
                 cartAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void DeleteCart(CartModel cartModel) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("DELETE");
-                builder.setMessage("Do you want delete ?");
-                builder.setNegativeButton("NO", null);
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
-                        list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
-                        cartAdapter.setData(list);
-                        cartAdapter.notifyDataSetChanged();
-                        setDataSumMoney();
-                    }
-                });
-                builder.show();
+
+                CommonActivity.createDialog(getActivity(),
+                        "\n Xóa sản phẩm khỏi giỏ hàng \n",
+                        "Xác nhận",
+                        "Đồng ý",
+                        "Hủy",
+                        v ->{
+                            CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
+                            list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                            cartAdapter.setData(list);
+                            cartAdapter.notifyDataSetChanged();
+                            setDataSumMoney();
+                        },null).show();
             }
         });
         cartAdapter.setData(list);

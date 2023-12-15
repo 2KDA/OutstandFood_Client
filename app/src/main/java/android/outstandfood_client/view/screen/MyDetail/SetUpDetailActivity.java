@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SetUpDetailActivity extends AppCompatActivity {
+public class SetUpDetailActivity extends OutstandActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

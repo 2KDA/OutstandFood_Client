@@ -3,6 +3,7 @@ package android.outstandfood_client.view.screen;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.Utils;
 import android.outstandfood_client.data.CartDatabase;
@@ -30,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FoodActivity extends AppCompatActivity {
+public class FoodActivity extends OutstandActivity {
     private ActivityFoodBinding binding;
     private ArrayList<Product> list;
 
@@ -40,7 +41,7 @@ public class FoodActivity extends AppCompatActivity {
         binding = ActivityFoodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
-        binding.imgBackDetail.setOnClickListener(view -> {
+        binding.imgBack.setOnClickListener(view -> {
             onBackPressed();
         });
     }

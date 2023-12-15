@@ -47,11 +47,9 @@ public class SetNewPassActivity extends OutstandActivity {
                     show("Outstand'Food", "Bạn cần nhập đầy đủ thông tin");
                 }else if(newPassword.length() <= 6 || newPassword1.length() <= 6){
                     show("Outstand'Food", "Mật khẩu phải dài hơn 6 kí tự");
-                }
-                else if(!newPassword.equals(newPassword1)){
+                }else if(!newPassword.equals(newPassword1)){
                     show("Outstand'Food", "Mật khẩu mới không trùng khớp");
-                }
-                else {
+                }else {
                     showWaitProgress(SetNewPassActivity.this);
                     changePassword(savedUser.getUsername(), oldPassword, newPassword);
                 }

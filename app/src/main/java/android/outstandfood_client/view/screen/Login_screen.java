@@ -54,6 +54,7 @@ public class Login_screen extends OutstandActivity {
     private TextView textViewSignUp;
     private ProgressDialog progressDialog;
     private ImageView login_logo;
+    private ImageView login_exit;
     public static final String URL_SERVER = "https://outstanfood-com.onrender.com/api/" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class Login_screen extends OutstandActivity {
         btn_dangnhap = findViewById(R.id.btnLoginEmail);
         textViewSignUp = findViewById(R.id.textViewSignUp);
         login_logo = findViewById(R.id.login_logo);
+        login_exit = findViewById(R.id.login_exit);
 
         RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
         Glide.with(this)
@@ -92,9 +94,23 @@ public class Login_screen extends OutstandActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Login_screen.this, Register_screen.class);
                 startActivity(intent);
+                finish();
+            }
+        });
+        login_exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void login(String link) {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -230,4 +246,6 @@ public class Login_screen extends OutstandActivity {
                 .setCancelable(false)
                 .show();
     }
+
+
 }

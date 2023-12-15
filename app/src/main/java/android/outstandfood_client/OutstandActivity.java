@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.os.CountDownTimer;
 import android.outstandfood_client.object.CommonActivity;
 
 
@@ -11,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public abstract class OutstandActivity extends AppCompatActivity {
     public static ProgressDialog waitProgress;
+    private static final long CONNECTION_TIMEOUT = 5000;
+    private CountDownTimer connectionTimer;
     public void show(String tittle, String message) {
         Dialog dialog;
         if (tittle != null) {
@@ -63,6 +68,12 @@ public abstract class OutstandActivity extends AppCompatActivity {
             waitProgress.cancel();
         }
     }
+    public void showNoInternet(){
+        CommonActivity.createAlertDialog(OutstandActivity.this, "Lỗi", "Không có kết nối mạng.",
+                v -> {
+                    finishAffinity();
+                });
+    }
 
     public void dissmissProgressDialog() {
         if (waitProgress != null && waitProgress.isShowing()) {
@@ -70,4 +81,46 @@ public abstract class OutstandActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startConnectionTimer();
+    }
+
+    private void startConnectionTimer() {
+        stopConnectionTimer();
+        connectionTimer = new CountDownTimer(CONNECTION_TIMEOUT, CONNECTION_TIMEOUT) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+            }
+
+            @Override
+            public void onFinish() {
+                if (!checkInternetConnection()) {
+                    showNoInternet();
+                }
+            }
+        };
+        connectionTimer.start();
+    }
+
+    private boolean checkInternetConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkCapabilities networkCapabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+
+        return networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopConnectionTimer();
+    }
+
+    private void stopConnectionTimer() {
+        if (connectionTimer != null) {
+            connectionTimer.cancel();
+            connectionTimer = null;
+        }
+    }
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.view.View;
 import android.widget.Button;
@@ -31,7 +32,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class Register_screen extends AppCompatActivity {
+public class Register_screen extends OutstandActivity {
     private EditText edtFullName, edtUserName, edtPassWord, edtPassWord1, edtPhone, edtEmail;
     private Button btnDangKy;
     private ImageView register_back;

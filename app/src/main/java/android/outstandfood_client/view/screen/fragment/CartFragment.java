@@ -117,6 +117,7 @@ public class CartFragment extends OutstandFragment {
             @Override
             public void RemoveCart(CartModel cartModel) {
                 if (cartModel.getQuantityFood() > 1) {
+                    Log.d("TAG12", "RemoveCart: "+cartModel.getQuantityFood());
                     cartModel.setQuantityFood(cartModel.getQuantityFood() - 1);
                     CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
                     setDataSumMoney();
@@ -139,30 +140,6 @@ public class CartFragment extends OutstandFragment {
                     builder.show();
                 }
                 cartAdapter.notifyDataSetChanged();
-                if (cartModel.getQuantityFood() > 1) {
-                    cartModel.setQuantityFood(cartModel.getQuantityFood() - 1);
-                    CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
-                    setDataSumMoney();
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("DELETE");
-                    builder.setMessage("Do you want delete ?");
-                    builder.setNegativeButton("NO", null);
-                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
-                            list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
-                            cartAdapter.setData(list);
-                            cartAdapter.notifyDataSetChanged();
-                            setDataSumMoney();
-                        }
-                    });
-                    builder.show();
-                }
-                cartAdapter.notifyDataSetChanged();
-
             }
 
             @Override

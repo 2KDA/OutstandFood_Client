@@ -530,7 +530,7 @@
             />
         <TextView
             android:id="@+id/txtlogout"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:gravity="center"
             android:layout_weight="1"

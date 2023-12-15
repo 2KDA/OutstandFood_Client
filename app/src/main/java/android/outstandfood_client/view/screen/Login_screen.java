@@ -13,6 +13,7 @@ import android.outstandfood_client.R;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.outstandfood_client.R;
+import android.outstandfood_client.Utils;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.home_action_menu.Home_Screen;
@@ -179,9 +180,8 @@ public class Login_screen extends OutstandActivity {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(Login_screen.this, "Chào mừng " + returnedUsername + " đã đến với thế giới đồ ăn", Toast.LENGTH_SHORT).show();
+                                Utils.showCustomToast(Login_screen.this,"Thanh cong");
                                 Intent intent = new Intent(Login_screen.this, Home_Screen.class);
-
                                 startActivity(intent);
                                 finish(); // Đóng màn hình đăng nhập
                                 progressDialog.dismiss();

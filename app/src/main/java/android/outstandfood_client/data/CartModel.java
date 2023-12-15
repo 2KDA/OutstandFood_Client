@@ -10,14 +10,14 @@ public class CartModel {
     private String id;
 
     private String nameFood;
-    private Double priceFood;
+    private int priceFood;
     private int quantityFood;
     private String imgFood;
     public CartModel() {
         this.id = null;
     }
 
-    public CartModel(@NonNull String id,String nameFood, Double priceFood, int quantityFood, String imgFood) {
+    public CartModel(@NonNull String id,String nameFood, int priceFood, int quantityFood, String imgFood) {
         this.id = id;
         this.nameFood=nameFood;
         this.priceFood = priceFood;
@@ -42,11 +42,11 @@ public class CartModel {
         this.nameFood = nameFood;
     }
 
-    public Double getPriceFood() {
+    public int getPriceFood() {
         return priceFood;
     }
 
-    public void setPriceFood(Double priceFood) {
+    public void setPriceFood(int priceFood) {
         this.priceFood = priceFood;
     }
 

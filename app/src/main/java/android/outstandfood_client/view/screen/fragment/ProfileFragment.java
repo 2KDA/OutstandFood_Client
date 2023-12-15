@@ -85,7 +85,6 @@ public class ProfileFragment extends OutstandFragment {
             public void onClick(View view) {
                     Intent intent = new Intent(getContext(), ListAddressActivity.class);
                     startActivity(intent);
-                    getActivity().finish();
             }
         });
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +92,6 @@ public class ProfileFragment extends OutstandFragment {
             public void onClick(View view) {
                     Intent intent = new Intent(getContext(), Login_screen.class);
                     startActivity(intent);
-                    getActivity().finish();
             }
         });
 

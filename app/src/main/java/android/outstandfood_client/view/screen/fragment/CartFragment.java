@@ -1,6 +1,27 @@
 package android.outstandfood_client.view.screen.fragment;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.outstandfood_client.OutstandFragment;
+import android.outstandfood_client.R;
+import android.outstandfood_client.data.CartDatabase;
+import android.outstandfood_client.data.CartModel;
+import android.outstandfood_client.databinding.FragmentCartBinding;
+import android.outstandfood_client.databinding.LayoutCheckoutBinding;
+import android.outstandfood_client.interfaces.ApiService;
+import android.outstandfood_client.models.OrderModel;
+import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.SharedPrefsManager;
+import android.outstandfood_client.view.screen.adapter.CartAdapter;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,23 +29,40 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.outstandfood_client.databinding.FragmentCartBinding;
-import android.outstandfood_client.view.screen.adapter.CartAdapter;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.outstandfood_client.R;
-import android.view.Window;
-import android.view.WindowManager;
-
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.paypal.checkout.approve.Approval;
+import com.paypal.checkout.approve.OnApprove;
+import com.paypal.checkout.createorder.CreateOrder;
+import com.paypal.checkout.createorder.CreateOrderActions;
+import com.paypal.checkout.createorder.CurrencyCode;
+import com.paypal.checkout.createorder.OrderIntent;
+import com.paypal.checkout.createorder.UserAction;
+import com.paypal.checkout.order.Amount;
+import com.paypal.checkout.order.AppContext;
+import com.paypal.checkout.order.CaptureOrderResult;
+import com.paypal.checkout.order.OnCaptureComplete;
+import com.paypal.checkout.order.OrderRequest;
+import com.paypal.checkout.order.PurchaseUnit;
+import com.paypal.checkout.paymentbutton.PaymentButtonContainer;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class CartFragment extends Fragment {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class CartFragment extends OutstandFragment {
     private FragmentCartBinding binding;
     private CartAdapter cartAdapter;
-    private ArrayList<String> listFood;
+    private ArrayList<CartModel> list;
+    Double sumPrice = 0.0;
+    private double totalPriceVnd = 100000;
+    private double totalPriceUsd;
+    private double usdExchangeRate = 24282;
+    private User savedUser ;
+
     public CartFragment() {
         // Required empty public constructor
     }
@@ -42,7 +80,7 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding=FragmentCartBinding.inflate(getLayoutInflater(),container,false);
+        binding = FragmentCartBinding.inflate(getLayoutInflater(), container, false);
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
@@ -55,32 +93,211 @@ public class CartFragment extends Fragment {
     }
 
     private void initData() {
-        listFood=new ArrayList<>();
-        listFood.add("aaaa");
-        listFood.add("aaaa");
-        listFood.add("aaaa");
-        listFood.add("aaaa");
-        listFood.add("aaaa");
-        listFood.add("aaaa");listFood.add("aaaa");listFood.add("aaaa");listFood.add("aaaa");listFood.add("aaaa");
-
-
+        list = new ArrayList<>();
+        list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
     }
 
+    @SuppressLint("SetTextI18n")
     private void initView() {
-        LinearLayoutManager manager=new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false);
+        setDataSumMoney();
+        savedUser = SharedPrefsManager.getUser(getActivity());
+        LinearLayoutManager manager = new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false);
         binding.recyCart.setLayoutManager(manager);
-        cartAdapter=new CartAdapter();
-        cartAdapter.setData(listFood);
+        cartAdapter = new CartAdapter(requireActivity(), new CartAdapter.InterCart() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void UpdateCart(CartModel cartModel) {
+                cartModel.setQuantityFood(cartModel.getQuantityFood() + 1);
+                CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
+                cartAdapter.notifyDataSetChanged();
+                setDataSumMoney();
+            }
+
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void RemoveCart(CartModel cartModel) {
+                if (cartModel.getQuantityFood() > 1) {
+                    cartModel.setQuantityFood(cartModel.getQuantityFood() - 1);
+                    CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
+                    setDataSumMoney();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("DELETE");
+                    builder.setMessage("Do you want delete ?");
+                    builder.setNegativeButton("NO", null);
+                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
+                            list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                            cartAdapter.setData(list);
+                            cartAdapter.notifyDataSetChanged();
+                            setDataSumMoney();
+                        }
+                    });
+                    builder.show();
+                }
+                cartAdapter.notifyDataSetChanged();
+                if (cartModel.getQuantityFood() > 1) {
+                    cartModel.setQuantityFood(cartModel.getQuantityFood() - 1);
+                    CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
+                    setDataSumMoney();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("DELETE");
+                    builder.setMessage("Do you want delete ?");
+                    builder.setNegativeButton("NO", null);
+                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
+                            list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                            cartAdapter.setData(list);
+                            cartAdapter.notifyDataSetChanged();
+                            setDataSumMoney();
+                        }
+                    });
+                    builder.show();
+                }
+                cartAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void DeleteCart(CartModel cartModel) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("DELETE");
+                builder.setMessage("Do you want delete ?");
+                builder.setNegativeButton("NO", null);
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
+                        list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                        cartAdapter.setData(list);
+                        cartAdapter.notifyDataSetChanged();
+                        setDataSumMoney();
+                    }
+                });
+                builder.show();
+            }
+        });
+        cartAdapter.setData(list);
         binding.recyCart.setAdapter(cartAdapter);
+        // Init paypal
+        /*LayoutCheckoutBinding layoutCheckoutBinding=LayoutCheckoutBinding.inflate(getLayoutInflater());
+         */
+        //
         binding.constraintAdd.setOnClickListener(view -> {
-            BottomSheetDialog sheetDialog=new BottomSheetDialog(requireActivity());
-            sheetDialog.setContentView(R.layout.layout_checkout);
-            Window window=sheetDialog.getWindow();
+            if (list.isEmpty()) {
+                Toast.makeText(requireActivity(), "không có sản phẩm", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            BottomSheetDialog sheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
+            LayoutCheckoutBinding layoutCheckoutBinding = LayoutCheckoutBinding.inflate(getLayoutInflater());
+            InitPaypal(layoutCheckoutBinding);
+            sheetDialog.setContentView(layoutCheckoutBinding.getRoot());
+            Window window = sheetDialog.getWindow();
             assert window != null;
-            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            layoutCheckoutBinding.tvSumPrice.setText((int) Math.round(CartDatabase.getInstance(getActivity()).cartDao().sumMoney()) + " VNĐ");
+            layoutCheckoutBinding.checkoutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    layoutCheckoutBinding.loading.setVisibility(View.VISIBLE);
+                    list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                    ArrayList<Integer> quantity = new ArrayList<>();
+                    ArrayList<String> idProduct = new ArrayList<>();
+                    Log.d("TAG", "onClick: " + list.size());
+                    for (int i = 0; i < list.size(); i++) {
+                        quantity.add(list.get(i).getQuantityFood());
+                        idProduct.add(list.get(i).getId());
+                    }
+                    OrderToServer(savedUser.get_id(), false, "DC019", "Chua thanh toán", quantity, idProduct,layoutCheckoutBinding);
+                }
+            });
             sheetDialog.show();
         });
     }
 
+    @SuppressLint("SetTextI18n")
+    public void setDataSumMoney() {
+        if (list == null) {
+            binding.tvSumPrice.setText("0");
+        } else {
+            sumPrice = (double) Math.round(CartDatabase.getInstance(getActivity()).cartDao().sumMoney());
+            binding.tvSumPrice.setText(sumPrice + " VNĐ");
+        }
+    }
 
+    private void InitPaypal(LayoutCheckoutBinding layoutCheckoutBinding) {
+        PaymentButtonContainer paymentButtonContainer;
+        paymentButtonContainer = layoutCheckoutBinding.paymentButtonContainer;
+        totalPriceUsd = sumPrice / usdExchangeRate;
+        Log.d("price", totalPriceUsd + "");
+        // ...
+        paymentButtonContainer.setup(
+                new CreateOrder() {
+                    @Override
+                    public void create(@NotNull CreateOrderActions createOrderActions) {
+                        ArrayList<PurchaseUnit> purchaseUnits = new ArrayList<>();
+                        purchaseUnits.add(
+                                new PurchaseUnit.Builder()
+                                        .amount(
+                                                new Amount.Builder()
+                                                        .currencyCode(CurrencyCode.USD)
+                                                        .value(((double) Math.floor(totalPriceUsd * 100) / 100) + "")
+                                                        .build()
+                                        )
+                                        .build()
+                        );
+                        OrderRequest order = new OrderRequest(
+                                OrderIntent.CAPTURE,
+                                new AppContext.Builder()
+                                        .userAction(UserAction.PAY_NOW)
+                                        .build(),
+                                purchaseUnits
+                        );
+                        createOrderActions.create(order, (CreateOrderActions.OnOrderCreated) null);
+                    }
+                },
+                new OnApprove() {
+                    @Override
+                    public void onApprove(@NotNull Approval approval) {
+                        approval.getOrderActions().capture(new OnCaptureComplete() {
+                            @Override
+                            public void onCaptureComplete(@NotNull CaptureOrderResult result) {
+                                ArrayList<Integer> quantity = new ArrayList<>();
+                                ArrayList<String> idProduct = new ArrayList<>();
+                                for (int i = 0; i < list.size(); i++) {
+                                    quantity.add(list.get(i).getQuantityFood());
+                                    idProduct.add(list.get(i).getId());
+                                }
+                                OrderToServer(savedUser.get_id(), true, "DC019", "Đã thanh toán", quantity, idProduct,layoutCheckoutBinding);
+                                Toast.makeText(getContext(), "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+        );
+    }
+
+    private void OrderToServer(String id_User, Boolean pay_status, String id_address, String method, ArrayList<Integer> quantity, ArrayList<String> id_product, LayoutCheckoutBinding layoutCheckoutBinding) {
+        OrderModel orderModel = new OrderModel(id_User, pay_status, id_address, method, quantity, id_product);
+        ApiService.API_SERVICER.addOrder(orderModel).enqueue(new Callback<OrderModel>() {
+            @Override
+            public void onResponse(@NonNull Call<OrderModel> call, @NonNull Response<OrderModel> response) {
+                Toast.makeText(requireActivity(), "Thanh cong", Toast.LENGTH_SHORT).show();
+                layoutCheckoutBinding.loading.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<OrderModel> call, @NonNull Throwable t) {
+                Toast.makeText(requireActivity(), "Fail", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

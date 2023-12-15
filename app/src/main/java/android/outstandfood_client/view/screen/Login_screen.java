@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +21,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,12 +47,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class Login_screen extends AppCompatActivity {
+public class Login_screen extends OutstandActivity {
     private EditText username;
     private EditText password;
     private Button btn_dangnhap;
     private TextView textViewSignUp;
     private ProgressDialog progressDialog;
+    private ImageView login_logo;
     public static final String URL_SERVER = "https://outstanfood-com.onrender.com/api/" ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +63,22 @@ public class Login_screen extends AppCompatActivity {
         password = findViewById(R.id.edt_Login_Password);
         btn_dangnhap = findViewById(R.id.btnLoginEmail);
         textViewSignUp = findViewById(R.id.textViewSignUp);
+        login_logo = findViewById(R.id.login_logo);
+
+        RequestOptions requestOptions = new RequestOptions().transform(new CircleCrop());
+        Glide.with(this)
+                .load(R.drawable.logo_splash)
+                .apply(requestOptions)
+                .into(login_logo);
+
+
         btn_dangnhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userName = username.getText().toString();
                 String passWord = password.getText().toString();
-                if (TextUtils.isEmpty(userName)) {
-                    showDialog("Lỗi", "Vui lòng nhập tên người dùng");
-                } else if (TextUtils.isEmpty(passWord)) {
-                    // Hiển thị dialog khi người dùng không nhập mật khẩu
-                    showDialog("Lỗi", "Vui lòng nhập mật khẩu");
+                if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(passWord)) {
+                    show("Outsand'Food", "Tài khoản và mật khẩu không được để trống.");
                 } else {
                     progressDialog = new ProgressDialog(Login_screen.this);
                     progressDialog.setMessage("Đang đăng nhập...");
@@ -95,7 +108,6 @@ public class Login_screen extends AppCompatActivity {
                     URL url = new URL(urlLink);
                     //mã kết nối
                     HttpURLConnection http = (HttpURLConnection) url.openConnection();
-                    //THiết lập phương thức POST , mặc định sẽ là GET
                     http.setRequestMethod("POST");
                     //Tạo đối tượng dữ liệu gửi lên server
                     JSONObject jsonObject = new JSONObject();
@@ -163,14 +175,14 @@ public class Login_screen extends AppCompatActivity {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(Login_screen.this, "Thông tin tài khoản có sự nhầm lẫn", Toast.LENGTH_SHORT).show();
+                                show("Outsand'Food", "Tài khoản không tồn tại.");
                             }
                         });
                     }else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED ) {
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(Login_screen.this, "Thông tin mật khẩu có sự nhầm lẫn", Toast.LENGTH_SHORT).show();
+                                show("Outsand'Food", "Mật khẩu không chính xác.");
                             }
                         });
                     } else if (responseCode == HttpURLConnection.HTTP_FORBIDDEN) {
@@ -190,10 +202,13 @@ public class Login_screen extends AppCompatActivity {
                     }
 
                 } catch (MalformedURLException e) {
+                    Log.d("TAG", "run: " + e.getMessage());
                     throw new RuntimeException(e);
                 } catch (IOException e) {
+                    Log.d("TAG", "run: " + e.getMessage());
                     throw new RuntimeException(e);
                 } catch (JSONException e) {
+                    Log.d("TAG", "run: " + e.getMessage());
                     throw new RuntimeException(e);
                 }finally {
                     progressDialog.dismiss();

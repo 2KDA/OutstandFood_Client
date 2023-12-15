@@ -17,9 +17,9 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     //Headings
-    <string name="heading_one">Quick &amp; Easy Payments</string>
-    <string name="heading_two">Instant Notifications</string>
-    <string name="heading_three">Cashless Payment</string>
+    <string name="heading_one">App tiện dụng</string>
+    <string name="heading_two">Thanh Toán dễ dàng</string>
+    <string name="heading_three">Giao hàng tận nơi</string>
     <string name="heading_fourth">Pay Anywhere</string>
 
     //Splash
@@ -61,4 +61,10 @@
     <string name="sAdd_to_address">Add to address</string>
     <string name="cart">Giỏ hàng</string>
     <string name="order">Đặt ngay</string>
+
+    <string name="select_city">Tỉnh thành</string>
+    <string name="select_district">Quận huyện</string>
+    <string name="select_ward">Phường xã</string>
+
+    <string name="map_api_key">AIzaSyDz3BLGN6I6adFtBXnYTDGgOWYromqJ2uA</string>
 </resources>

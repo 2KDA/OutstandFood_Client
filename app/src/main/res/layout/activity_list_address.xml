@@ -6,16 +6,59 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".view.screen.Address.ListAddressActivity">
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnaddaddress"
-        android:layout_width="300dp"
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thêm địa chỉ"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="30dp"
-        android:layout_gravity="center"/>
-    <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/cChinh"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/icon_back_24" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:gravity="start"
+            android:text="Địa chỉ giao hàng"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recyclerviewaddress"/>
+        android:orientation="vertical">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:id="@+id/recyclerviewaddress"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnaddaddress"
+            android:layout_width="300dp"
+            android:background="@drawable/bg_btn_gree"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Thêm địa chỉ"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
 </LinearLayout>

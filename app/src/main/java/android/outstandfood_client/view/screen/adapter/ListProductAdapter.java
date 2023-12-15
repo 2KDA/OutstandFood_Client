@@ -7,6 +7,7 @@ import android.outstandfood_client.databinding.ItemCategoryBinding;
 import android.outstandfood_client.databinding.ItemProductBinding;
 import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.Product;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,12 +50,10 @@ public class ListProductAdapter extends RecyclerView.Adapter<ListProductAdapter.
 //        holder.binding.tvPrice.setText("Số lượng: "+String.valueOf(product.getQuantity()));
         holder.binding.tvPriceNum.setText(product.getPrice()+" VNĐ");
         holder.binding.tvName.setText(product.getName());
-        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-             foodInterface.addFood(product);
-            }
+        holder.binding.getRoot().setOnClickListener(view -> {
+            foodInterface.DetailFood(product);
         });
+        holder.binding.constraintAdd.setOnClickListener(view -> foodInterface.addFood(product));
     }
 
     @Override

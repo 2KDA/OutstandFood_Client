@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,12 +20,16 @@ import android.outstandfood_client.models.ListCategory;
 import android.outstandfood_client.models.Product;
 import android.outstandfood_client.view.screen.FoodActivity;
 import android.outstandfood_client.view.screen.adapter.ListCateAdapter;
+import android.outstandfood_client.view.screen.adapter.ViewPagerMenuAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.outstandfood_client.R;
 import android.widget.LinearLayout;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -35,9 +40,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MenuFragment extends Fragment implements FoodInterface {
-    private ListCateAdapter listCateAdapter;
+    private ViewPagerMenuAdapter viewPagerMenuAdapter;
     private FragmentMenuBinding binding;
-    private ListCategory categoryArrayList;
+
 
     public static MenuFragment newInstance(String param1, String param2) {
         MenuFragment fragment = new MenuFragment();
@@ -64,40 +69,41 @@ public class MenuFragment extends Fragment implements FoodInterface {
     }
 
     private void initView() {
-        binding.progressCircular.setVisibility(View.VISIBLE);
-        LinearLayoutManager manager=new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL,false);
-        binding.recyCate.setLayoutManager(manager);
-        listCateAdapter=new ListCateAdapter(this);
-        ApiService.API_SERVICER.getListCate().enqueue(new Callback<ListCategory>() {
-            @Override
-            public void onResponse(Call<ListCategory> call, Response<ListCategory> response) {
-                categoryArrayList=response.body();
-                Log.d("TAG", "onResponse: "+categoryArrayList.getCategory().size());
-                listCateAdapter.setData(categoryArrayList.getCategory());
-                binding.recyCate.setAdapter(listCateAdapter);
-                binding.progressCircular.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFailure(Call<ListCategory> call, Throwable t) {
-
-            }
-        });
+         viewPagerMenuAdapter=new ViewPagerMenuAdapter(getParentFragmentManager(),getLifecycle());
+         binding.vpMenu.setAdapter(viewPagerMenuAdapter);
+         new TabLayoutMediator(binding.tbLayout, binding.vpMenu, new TabLayoutMediator.TabConfigurationStrategy() {
+             @Override
+             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                 switch (position){
+                     case 0:
+                         tab.setText("Đồ ăn");
+                         break;
+                     case 1:
+                         tab.setText("Đồ uống");
+                         break;
+                 }
+             }
+         }).attach();
 
     }
 
     @Override
     public void showFood(String id,String name) {
-        Intent intent=new Intent(requireActivity(), FoodActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putString("idCate",id);
-        bundle.putString("name",name);
-        intent.putExtra("intent",bundle);
-        startActivity(intent);
+//        Intent intent=new Intent(requireActivity(), FoodActivity.class);
+//        Bundle bundle=new Bundle();
+//        bundle.putString("idCate",id);
+//        bundle.putString("name",name);
+//        intent.putExtra("intent",bundle);
+//        startActivity(intent);
     }
 
     @Override
     public void addFood(Product product) {
+
+    }
+
+    @Override
+    public void DetailFood(Product product) {
 
     }
 

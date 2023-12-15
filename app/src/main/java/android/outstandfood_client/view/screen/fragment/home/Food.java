@@ -3,7 +3,7 @@ package android.outstandfood_client.view.screen.fragment.home;
 public class Food {
     int id;
     int id_loai;
-    int avt;
+    String avt;
     String name;
     double khoangCach;
     double danhGia;
@@ -12,7 +12,7 @@ public class Food {
     double phiShip;
 
 
-    public Food(int avt, String name, double khoangCach, double danhGia, int soNguoiDanhGia, double gia, double phiShip) {
+    public Food(String avt, String name, double khoangCach, double danhGia, int soNguoiDanhGia, double gia, double phiShip) {
         this.avt = avt;
         this.name = name;
         this.khoangCach = khoangCach;
@@ -38,11 +38,11 @@ public class Food {
         this.id = id;
     }
 
-    public int getAvt() {
+    public String getAvt() {
         return avt;
     }
 
-    public void setAvt(int avt) {
+    public void setAvt(String avt) {
         this.avt = avt;
     }
 

@@ -1,13 +1,20 @@
 package android.outstandfood_client.view.screen.fragment.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.outstandfood_client.interfaces.ApiService;
+import android.outstandfood_client.models.ListProduct;
+import android.outstandfood_client.models.Product;
+import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +26,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class HomeFragment extends Fragment {
 
+    private ArrayList<Product> list;
+    private ListProduct listProduct;
 
 
     private EditText edt_home_ActionMenu_home_Craving;
@@ -100,19 +113,9 @@ public class HomeFragment extends Fragment {
 
         //Recommended Food
         adapter_recommended = new Adapter_Recommended(getContext());
-        adapter_recommended.setData(lis_food);
 
-        LinearLayoutManager manager1 = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        recyclerView_home_ActionMenu_home_Recommended.setLayoutManager(manager1);
-        recyclerView_home_ActionMenu_home_Recommended.setAdapter(adapter_recommended);
 
-        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
-        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
-        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
-        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
-        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
-        lis_food.add(new Food(R.drawable.suon,"Name",1.8,4.8,1,6.00,2.00));
-
+        initData();
 
     }
 
@@ -121,5 +124,36 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    private void initData() {
+        list = new ArrayList<>();
+        ApiService.API_SERVICER.getListProduct().enqueue(new Callback<ListProduct>() {
+            @Override
+            public void onResponse(Call<ListProduct> call, Response<ListProduct> response) {
+                Log.d("TAG", "onResponse: " +response.body());
+                listProduct = response.body();
+                for (int i = 0; i < listProduct.getProduct().size(); i++) {
+                        list.add(listProduct.getProduct().get(i));
+                }
+                assert listProduct != null;
+
+                for(int i=0;i<3;i++){
+                    Product product = list.get(i);
+                    lis_food.add(new Food(product.getImage(),product.getName(),1.8,4.8,1,product.getPrice(),2.00));
+                }
+                adapter_recommended.setData(lis_food);
+
+                LinearLayoutManager manager1 = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+                recyclerView_home_ActionMenu_home_Recommended.setLayoutManager(manager1);
+                recyclerView_home_ActionMenu_home_Recommended.setAdapter(adapter_recommended);
+            }
+
+            @Override
+            public void onFailure(Call<ListProduct> call, Throwable t) {
+
+            }
+        });
+
     }
 }

@@ -5,7 +5,6 @@ import android.outstandfood_client.models.HistoryModel;
 import android.outstandfood_client.models.ListCategory;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.OrderModel;
-import android.outstandfood_client.models.Product;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

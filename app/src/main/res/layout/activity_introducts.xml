@@ -19,7 +19,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="-50dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/backgroundintro"
+        android:background="@drawable/backdanhgia"
         android:elevation="3dp">
 
         <LinearLayout
@@ -31,20 +31,20 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="5dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/logofixandress" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="7dp"
+                    android:layout_marginLeft="5dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -58,10 +58,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <ImageView
-                            android:layout_marginTop="9dp"
+                            android:layout_marginTop="7dp"
                             android:src="@drawable/saodg"
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"/>
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"/>
                         <TextView
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
@@ -69,21 +69,21 @@
                             android:layout_marginTop="5dp"
                             android:text="4.7"
                             android:textStyle="bold"
-                            android:textSize="17sp" />
+                            android:textSize="15sp" />
                         <TextView
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="* Đánh giá và nhận xét"
-                            android:textSize="17sp" />
+                            android:text="Đánh giá và nhận xét"
+                            android:textSize="15sp" />
                         <ImageView
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="5dp"
                             android:scaleType="fitXY"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="7dp"
                             android:src="@drawable/nex"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"/>
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

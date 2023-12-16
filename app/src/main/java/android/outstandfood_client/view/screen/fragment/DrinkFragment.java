@@ -1,5 +1,6 @@
 package android.outstandfood_client.view.screen.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
+import android.outstandfood_client.view.screen.FoodActivity;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -93,7 +95,9 @@ public class DrinkFragment extends OutstandFragment implements FoodInterface {
 
     @Override
     public void DetailFood(Product product) {
-
+        Intent intent = new Intent(requireActivity(), FoodActivity.class);
+        intent.putExtra("FOOD",product);
+        startActivity(intent);
     }
 
     private void AddCart(Product product) {

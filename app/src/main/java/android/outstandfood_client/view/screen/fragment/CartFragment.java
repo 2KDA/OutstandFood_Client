@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.R;
+import android.outstandfood_client.Utils;
 import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.FragmentCartBinding;
@@ -62,6 +63,7 @@ public class CartFragment extends OutstandFragment {
     private double totalPriceVnd = 100000;
     private double totalPriceUsd;
     private double usdExchangeRate = 24282;
+
     private User savedUser ;
 
     public CartFragment() {
@@ -248,7 +250,7 @@ public class CartFragment extends OutstandFragment {
                                     idProduct.add(list.get(i).getId());
                                 }
                                 OrderToServer(savedUser.get_id(), true, "DC019", "Đã thanh toán", quantity, idProduct,layoutCheckoutBinding);
-                                Toast.makeText(getContext(), "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
+                                Utils.showCustomToast(requireActivity(),"Đã thanh toán");
                             }
                         });
                     }

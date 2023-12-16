@@ -6,6 +6,7 @@ import android.outstandfood_client.models.ListCategory;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.OrderModel;
 import android.outstandfood_client.models.Product;
+import android.outstandfood_client.models.Rating;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,7 +34,7 @@ public interface ApiService {
     @GET("category/list")
     Call<ListCategory> getListCate();
     @GET("product/list")
-    Call<ListProduct> getListProduct(@Query("id_category") String id_category);
+    Call<ListProduct> getListProduct();
 
     @POST("order/add?")
     Call <OrderModel> addOrder(@Body OrderModel orderModel);
@@ -43,4 +44,10 @@ public interface ApiService {
 
     @GET("product/list")
     Call<ListProduct> getProductList(@Query("id_category") String categoryId);
+
+    @GET("rating/list")
+    Call<List<Rating>> getListRating(@Query("id_product") String id_product);
+
+    @POST("rating/add")
+    Call<Rating> addRating(@Body Rating objRating);
 }

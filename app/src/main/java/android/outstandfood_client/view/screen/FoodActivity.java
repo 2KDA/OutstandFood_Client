@@ -12,7 +12,10 @@ import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
+import android.outstandfood_client.models.Rating;
+import android.outstandfood_client.models.User;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
+import android.outstandfood_client.view.screen.adapter.ListRatingAdapter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -24,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.internal.Util;
 import retrofit2.Call;
@@ -33,7 +37,10 @@ import retrofit2.Response;
 public class FoodActivity extends AppCompatActivity {
     private ActivityFoodBinding binding;
     private ArrayList<Product> list;
+    private List<Rating> listRating;
 
+
+    private ListRatingAdapter listRatingAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,10 @@ public class FoodActivity extends AppCompatActivity {
         binding.imgBackDetail.setOnClickListener(view -> {
             onBackPressed();
         });
+
+
+        listRatingAdapter = new ListRatingAdapter(listRating);
+        binding.rvRating.setAdapter(listRatingAdapter);
     }
 
     @SuppressLint("CheckResult")
@@ -58,8 +69,32 @@ public class FoodActivity extends AppCompatActivity {
         binding.tvPriceDetail.setText(String.valueOf(product.getPrice()));
         binding.tvDescriptionD.setText(product.getDescribe());
         binding.btnAddcart.setOnClickListener(view -> AddCart(product));
+        binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), AddRatingActivity.class);
+                startActivity(i);
+            }
+        });
+        getListRating(product.getName());
     }
 
+
+    void getListRating(String id_product){
+        ApiService.API_SERVICER.getListRating(id_product).enqueue(new Callback<List<Rating>>() {
+            @Override
+            public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
+                List<Rating> list = response.body();
+                listRating.addAll(list);
+                listRatingAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Rating>> call, Throwable t) {
+                Log.d("aaaaaa", "onFailure: " + t);
+            }
+        });
+    }
 
     private void AddCart(Product product) {
         CartModel model = null;

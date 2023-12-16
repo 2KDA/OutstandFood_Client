@@ -152,8 +152,8 @@ public class HomeFragment extends Fragment {
                         list.add(listProduct.getProduct().get(i));
                 }
                 assert listProduct != null;
-
-                for(int i=0;i<3;i++){
+                int size = list.size();
+                for(int i=size-1;i>size-4;i--){
                     Product product = list.get(i);
                     lis_food.add(new Food(product.getImage(),product.getName(),1.8,4.8,1,product.getPrice(),2.00));
                 }

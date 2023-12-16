@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
+import android.outstandfood_client.view.Introducts;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.outstandfood_client.R;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -35,6 +37,7 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<Product> list;
     private ListProduct listProduct;
+    private Button btnandress_home;
 
 
     private EditText edt_home_ActionMenu_home_Craving;
@@ -70,6 +73,7 @@ public class HomeFragment extends Fragment {
 //        recyclerView_home_ActionMenu_home_Discout = view.findViewById(R.id.home_ActionMenu_home_Discount);
         recyclerView_home_ActionMenu_home_Recommended = view.findViewById(R.id.home_ActionMenu_home_Recommended);
         recyclerView_home_ActionMenu_Special_banner = view.findViewById(R.id.home_ActionMenu_Special_banner);
+        btnandress_home = view.findViewById(R.id.btnandress_home);
     }
 
     public static HomeFragment newInstance() {
@@ -116,7 +120,18 @@ public class HomeFragment extends Fragment {
 
 
         initData();
+        nextandress();
 
+    }
+
+    private void nextandress() {
+        btnandress_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Introducts.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

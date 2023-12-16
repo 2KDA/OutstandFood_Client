@@ -1,6 +1,8 @@
 package android.outstandfood_client.view.screen.adapter;
 
+import android.annotation.SuppressLint;
 import android.outstandfood_client.R;
+import android.outstandfood_client.models.Product;
 import android.outstandfood_client.models.Rating;
 import android.outstandfood_client.models.User;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListRatingAdapter extends RecyclerView.Adapter<ListRatingAdapter.ListRatingViewHolder> {
@@ -19,6 +22,12 @@ public class ListRatingAdapter extends RecyclerView.Adapter<ListRatingAdapter.Li
 
     public ListRatingAdapter(List<Rating> listRating) {
         this.listRating = listRating;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setData(List<Rating> list) {
+        this.listRating = list;
+        notifyDataSetChanged();
     }
 
     @NonNull

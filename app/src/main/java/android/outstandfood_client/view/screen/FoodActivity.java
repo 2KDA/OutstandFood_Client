@@ -9,6 +9,7 @@ import android.outstandfood_client.Utils;
 import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.ActivityFoodBinding;
+import android.outstandfood_client.interfaceApi.ApiRating;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.ListProduct;
@@ -39,7 +40,9 @@ import retrofit2.Response;
 public class FoodActivity extends OutstandActivity {
     private ActivityFoodBinding binding;
     private ArrayList<Product> list;
-    private List<Rating> listRating;
+    List<Rating> listRating;
+
+    List<Rating> list1;
     private DetailAdapter detailAdapter;
     Product product;
 
@@ -51,14 +54,12 @@ public class FoodActivity extends OutstandActivity {
         binding = ActivityFoodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
-        getDataImage();
+//        getDataImage();
         binding.imgBack.setOnClickListener(view -> {
             onBackPressed();
         });
 
 
-        listRatingAdapter = new ListRatingAdapter(listRating);
-        binding.rvRating.setAdapter(listRatingAdapter);
     }
 
     @SuppressLint("CheckResult")
@@ -74,28 +75,19 @@ public class FoodActivity extends OutstandActivity {
         binding.tvPriceDetail.setText(String.valueOf(product.getPrice()));
         binding.tvDescriptionD.setText(product.getDescribe());
         binding.btnAddcart.setOnClickListener(view -> AddCart(product));
-        binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getBaseContext(), AddRatingActivity.class);
-                startActivity(i);
-            }
-        });
-        getListRating(product.getName());
-    }
-    private void getDataImage(){
-        detailAdapter=new DetailAdapter(this,product.getImageDetail(),R.layout.imgother_item);
-        binding.RecyImg.setAdapter(detailAdapter);
-    }
 
-
-    void getListRating(String id_product){
-        ApiService.API_SERVICER.getListRating(id_product).enqueue(new Callback<List<Rating>>() {
+        ApiRating.apiRating.getListRating().enqueue(new Callback<List<Rating>>() {
             @Override
             public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
-                List<Rating> list = response.body();
-                listRating.addAll(list);
-                listRatingAdapter.notifyDataSetChanged();
+                list1 = response.body();
+
+                for (Rating objRating : list1){
+                    if (objRating.getProduct_name().equals(product.getName())){
+                        listRatingAdapter.setData(list1);
+                        Log.d("aaaaaa", "OBJRating: " + objRating.getProduct_name() + "Product: " + product.getName());
+                    }
+                }
+                Log.d("aaaaaaa", "onResponse: " + list1);
             }
 
             @Override
@@ -103,6 +95,31 @@ public class FoodActivity extends OutstandActivity {
                 Log.d("aaaaaa", "onFailure: " + t);
             }
         });
+
+//        getListRating();
+
+        listRatingAdapter = new ListRatingAdapter(listRating);
+
+        binding.rvRating.setAdapter(listRatingAdapter);
+//        binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getBaseContext(), AddRatingActivity.class);
+//                startActivity(i);
+//            }
+//        });
+
+    }
+    private void getDataImage(){
+        detailAdapter=new DetailAdapter(this,product.getImageDetail(),R.layout.imgother_item);
+        binding.RecyImg.setAdapter(detailAdapter);
+    }
+
+
+    void getListRating(){
+        Intent intent = getIntent();
+        Product product = (Product) intent.getSerializableExtra("FOOD");
+
     }
 
     private void AddCart(Product product) {

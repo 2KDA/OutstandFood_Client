@@ -45,11 +45,7 @@ public interface ApiService {
     @GET("product/list")
     Call<ListProduct> getProductList(@Query("id_category") String categoryId);
 
-    @GET("rating/list")
-    Call<List<Rating>> getListRating(@Query("id_product") String id_product);
 
-    @POST("rating/add")
-    Call<Rating> addRating(@Body Rating objRating);
 
     // This is API for get all product include food, drink ...etc.
     @GET("product/list")

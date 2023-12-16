@@ -13,6 +13,7 @@ import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
+import android.outstandfood_client.view.screen.adapter.DetailAdapter;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +34,8 @@ import retrofit2.Response;
 
 public class FoodActivity extends OutstandActivity {
     private ActivityFoodBinding binding;
-    private ArrayList<Product> list;
+    private DetailAdapter detailAdapter;
+    Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class FoodActivity extends OutstandActivity {
         binding = ActivityFoodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
+        getDataImage();
         binding.imgBack.setOnClickListener(view -> {
             onBackPressed();
         });
@@ -49,7 +52,7 @@ public class FoodActivity extends OutstandActivity {
     @SuppressLint("CheckResult")
     private void initView() {
         Intent intent = getIntent();
-        Product product = (Product) intent.getSerializableExtra("FOOD");
+        product = (Product) intent.getSerializableExtra("FOOD");
         if (product==null){
             return;
         }
@@ -60,7 +63,10 @@ public class FoodActivity extends OutstandActivity {
         binding.tvDescriptionD.setText(product.getDescribe());
         binding.btnAddcart.setOnClickListener(view -> AddCart(product));
     }
-
+    private void getDataImage(){
+        detailAdapter=new DetailAdapter(this,product.getImageDetail(),R.layout.imgother_item);
+        binding.RecyImg.setAdapter(detailAdapter);
+    }
 
     private void AddCart(Product product) {
         CartModel model = null;

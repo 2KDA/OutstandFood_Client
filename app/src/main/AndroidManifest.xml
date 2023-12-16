@@ -12,16 +12,19 @@
     <application
         android:name=".App"
         android:allowBackup="true"
+        android:allowClearUserData="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_logo_app"
         android:label="@string/app_name"
-        android:allowClearUserData="true"
         android:roundIcon="@mipmap/ic_logo_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.OutstandFood_client."
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".view.screen.FoodHistoryActivity"
+            android:exported="false" />
         <activity
             android:name=".view.ship"
             android:exported="false" />
@@ -75,10 +78,11 @@
             android:exported="false" />
         <activity
             android:name=".view.screen.Login_screen"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_api_key" />

@@ -3,13 +3,11 @@ package android.outstandfood_client.view.screen.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.outstandfood_client.R;
-import android.outstandfood_client.databinding.ItemCategoryBinding;
 import android.outstandfood_client.databinding.ItemProductBinding;
 import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.Product;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;

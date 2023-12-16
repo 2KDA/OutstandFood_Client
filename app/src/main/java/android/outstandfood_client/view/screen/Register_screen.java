@@ -1,12 +1,16 @@
 package android.outstandfood_client.view.screen;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
+import android.outstandfood_client.object.CommonActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,10 +35,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class Register_screen extends AppCompatActivity {
+public class Register_screen extends OutstandActivity {
     private EditText edtFullName, edtUserName, edtPassWord, edtPassWord1, edtPhone, edtEmail;
     private Button btnDangKy;
     private ImageView register_back;
+    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +58,11 @@ public class Register_screen extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logup("http://192.168.0.119:3000/api/user/logup");
+                progressDialog = new ProgressDialog(Register_screen.this);
+                progressDialog.setMessage("Vui lòng đợi...");
+                progressDialog.show();
+
+                logup("https://outstanfood-com.onrender.com/api/user/logup");
             }
         });
 
@@ -175,13 +185,19 @@ public class Register_screen extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(Register_screen.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                CommonActivity.createAlertDialog(Register_screen.this,"Đăng kí thành công.", "Outstand'Food",
+                                v ->{
+                                    startActivity(new Intent(Register_screen.this, Login_screen.class));
+                                }
+                                ).show();
                             }
                         });
                     } else if (responseCode == HttpURLConnection.HTTP_UNAUTHORIZED) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                progressDialog.dismiss();
                                 Toast.makeText(Register_screen.this, "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -195,7 +211,7 @@ public class Register_screen extends AppCompatActivity {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-
+                progressDialog.dismiss();
             }
         });
     }

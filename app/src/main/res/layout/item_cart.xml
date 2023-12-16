@@ -1,151 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/ryn80uh636dp"
+<androidx.cardview.widget.CardView android:id="@+id/ryn80uh636dp"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:gravity="center_vertical"
     android:layout_margin="16dp"
+    app:cardCornerRadius="10sp"
     android:orientation="horizontal"
+    android:padding="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imFood"
-        android:layout_width="90dp"
-        android:layout_height="match_parent"
-        app:riv_corner_radius="10dp"
-        android:src="@mipmap/ic_launcher"
-        android:scaleType="centerCrop"
-        />
     <LinearLayout
-        android:id="@+id/r9g7vzqvvb04"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imFood"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            app:riv_corner_radius_top_left="10dp"
+            app:riv_corner_radius_bottom_left="10dp"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
+            />
         <LinearLayout
-            android:id="@+id/rayxi8wu0kgp"
+            android:padding="10sp"
+            android:id="@+id/r9g7vzqvvb04"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tvName"
-                android:textColor="#181725"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Bell Pepper Red"
-                />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
             <LinearLayout
-                android:id="@+id/r341tb4s7orw"
+                android:id="@+id/rayxi8wu0kgp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/imDeleteCart"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/ic_remove"
-                android:scaleType="fitXY"
-                />
-        </LinearLayout>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-        <LinearLayout
-            android:id="@+id/rox05rn7a8u"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:id="@+id/r7ppyxlf0382"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:id="@+id/tvMinus"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tvMinusq"
-                        android:textColor="#B3B3B3"
-                        android:textSize="30sp"
-                        android:textStyle="bold"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:text="-"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    />
                 <TextView
-                    android:id="@+id/tvSL"
+                    android:id="@+id/tvName"
                     android:textColor="#181725"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:text="1"
-                    />
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:text="Bell Pepper Red"
                     />
                 <LinearLayout
-                    android:id="@+id/tvAdd"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:gravity="center"
+                    android:id="@+id/r341tb4s7orw"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
                     android:orientation="vertical">
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/imDeleteCart"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_remove"
+                    android:scaleType="fitXY"
+                    />
+            </LinearLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+            <LinearLayout
+                android:id="@+id/rox05rn7a8u"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/r7ppyxlf0382"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:id="@+id/tvMinus"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/tvMinusq"
+                            android:textColor="#B3B3B3"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:text="-"
+                            />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
                     <TextView
-                        android:id="@+id/tvAdd1"
-                        android:textColor="#53B175"
-                        android:textSize="30sp"
+                        android:id="@+id/tvSL"
+                        android:textColor="#181725"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="+"
+                        android:text="1"
                         />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        />
+                    <LinearLayout
+                        android:id="@+id/tvAdd"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/tvAdd1"
+                            android:textColor="#53B175"
+                            android:textSize="30sp"
+                            android:textStyle="bold"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:text="+"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/ssss"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:textColor="#181725"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="$4.99"
+                    />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/ssss"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-            </LinearLayout>
-            <TextView
-                android:id="@+id/tvPrice"
-                android:textColor="#181725"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="$4.99"
-                />
         </LinearLayout>
+
     </LinearLayout>
-</LinearLayout>
+</androidx.cardview.widget.CardView>

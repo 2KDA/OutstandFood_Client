@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.R;
+import android.outstandfood_client.Utils;
 import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.FragmentCartBinding;
@@ -13,6 +14,7 @@ import android.outstandfood_client.databinding.LayoutCheckoutBinding;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.models.OrderModel;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.CommonActivity;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.adapter.CartAdapter;
 import android.util.Log;
@@ -61,6 +63,7 @@ public class CartFragment extends OutstandFragment {
     private double totalPriceVnd = 100000;
     private double totalPriceUsd;
     private double usdExchangeRate = 24282;
+
     private User savedUser ;
 
     public CartFragment() {
@@ -122,44 +125,37 @@ public class CartFragment extends OutstandFragment {
                     CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
                     setDataSumMoney();
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle("DELETE");
-                    builder.setMessage("Do you want delete ?");
-                    builder.setNegativeButton("NO", null);
-                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                        @SuppressLint("NotifyDataSetChanged")
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
-                            list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
-                            cartAdapter.setData(list);
-                            cartAdapter.notifyDataSetChanged();
-                            setDataSumMoney();
-                        }
-                    });
-                    builder.show();
+                    CommonActivity.createDialog(getActivity(),
+                            "\n Xóa sản phẩm khỏi giỏ hàng \n",
+                            "Xác nhận",
+                            "Đồng ý",
+                            "Hủy",
+                            v ->{
+                                CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
+                                list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                                cartAdapter.setData(list);
+                                cartAdapter.notifyDataSetChanged();
+                                setDataSumMoney();
+                            },null).show();
                 }
                 cartAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void DeleteCart(CartModel cartModel) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("DELETE");
-                builder.setMessage("Do you want delete ?");
-                builder.setNegativeButton("NO", null);
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @SuppressLint("NotifyDataSetChanged")
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
-                        list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
-                        cartAdapter.setData(list);
-                        cartAdapter.notifyDataSetChanged();
-                        setDataSumMoney();
-                    }
-                });
-                builder.show();
+
+                CommonActivity.createDialog(getActivity(),
+                        "\n Xóa sản phẩm khỏi giỏ hàng \n",
+                        "Xác nhận",
+                        "Đồng ý",
+                        "Hủy",
+                        v ->{
+                            CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
+                            list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
+                            cartAdapter.setData(list);
+                            cartAdapter.notifyDataSetChanged();
+                            setDataSumMoney();
+                        },null).show();
             }
         });
         cartAdapter.setData(list);
@@ -254,7 +250,7 @@ public class CartFragment extends OutstandFragment {
                                     idProduct.add(list.get(i).getId());
                                 }
                                 OrderToServer(savedUser.get_id(), true, "DC019", "Đã thanh toán", quantity, idProduct,layoutCheckoutBinding);
-                                Toast.makeText(getContext(), "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
+                                Utils.showCustomToast(requireActivity(),"Đã thanh toán");
                             }
                         });
                     }

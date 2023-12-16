@@ -128,7 +128,7 @@ public class HomeFragment extends Fragment {
 
     private void initData() {
         list = new ArrayList<>();
-        ApiService.API_SERVICER.getListProduct().enqueue(new Callback<ListProduct>() {
+        ApiService.API_SERVICER.getProductList().enqueue(new Callback<ListProduct>() {
             @Override
             public void onResponse(Call<ListProduct> call, Response<ListProduct> response) {
                 Log.d("TAG", "onResponse: " +response.body());

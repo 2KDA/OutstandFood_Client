@@ -16,7 +16,7 @@
            android:textColor="@color/black"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintEnd_toEndOf="parent"
-           android:text="My Cart"/>
+           android:text="Giỏ hàng"/>
 
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/recyCart"
@@ -31,9 +31,8 @@
        <androidx.constraintlayout.widget.ConstraintLayout
            android:id="@+id/constraintAdd"
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:paddingVertical="15sp"
-           android:background="@drawable/bor_checkout"
+           android:layout_height="64sp"
+           android:background="@drawable/bg_btn_gree"
            android:layout_margin="20sp"
            app:layout_constraintBottom_toBottomOf="parent"
            app:layout_constraintStart_toStartOf="parent"
@@ -44,20 +43,20 @@
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintBottom_toBottomOf="parent"
-               android:text="Trang thanh toán"
-               android:textSize="18dp"
+               android:text="Thanh toán"
+               android:textSize="16sp"
                android:textColor="@color/white"
                app:layout_constraintTop_toBottomOf="@+id/tvSumPrice"/>
            <TextView
+               android:paddingTop="5sp"
                android:id="@+id/tvSumPrice"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toStartOf="parent"
                android:text="$2312"
-               android:textColor="#F00"
-               android:textSize="15dp"
-               android:layout_marginEnd="10sp"
+               android:textColor="#000000"
+               android:textSize="16sp"
                app:layout_constraintTop_toTopOf="parent"/>
        </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

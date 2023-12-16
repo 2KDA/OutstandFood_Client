@@ -1,5 +1,6 @@
 package android.outstandfood_client.view.screen.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.Utils;
 import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
@@ -16,6 +18,7 @@ import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
+import android.outstandfood_client.view.screen.FoodActivity;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DrinkFragment extends Fragment implements FoodInterface {
+public class DrinkFragment extends OutstandFragment implements FoodInterface {
     private FragmentDrinkBinding binding;
     private ListProductAdapter listProductAdapter;
 
@@ -92,7 +95,9 @@ public class DrinkFragment extends Fragment implements FoodInterface {
 
     @Override
     public void DetailFood(Product product) {
-
+        Intent intent = new Intent(requireActivity(), FoodActivity.class);
+        intent.putExtra("FOOD",product);
+        startActivity(intent);
     }
 
     private void AddCart(Product product) {

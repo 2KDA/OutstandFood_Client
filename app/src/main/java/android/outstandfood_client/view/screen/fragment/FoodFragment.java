@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.Utils;
 import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
@@ -37,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FoodFragment extends Fragment implements FoodInterface {
+public class FoodFragment extends OutstandFragment implements FoodInterface {
     private ListCateAdapter listCateAdapter;
     private FragmentFoodBinding binding;
     private ListProductAdapter listProductAdapter;
@@ -89,7 +90,7 @@ public class FoodFragment extends Fragment implements FoodInterface {
 
             @Override
             public void onFailure(Call<ListProduct> call, Throwable t) {
-
+                binding.progressCircular.setVisibility(View.GONE);
             }
         });
     }

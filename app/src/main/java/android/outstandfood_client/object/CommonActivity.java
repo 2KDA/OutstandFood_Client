@@ -2,6 +2,11 @@ package android.outstandfood_client.object;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
+import android.os.CountDownTimer;
 import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.view.View;
@@ -13,6 +18,8 @@ import android.widget.TextView;
 public class CommonActivity extends OutstandActivity {
 
     private static Dialog dialog;
+    private static final long CONNECTION_TIMEOUT = 5000;
+    private CountDownTimer connectionTimer;
 
     public static Dialog createAlertDialog(Activity act, String message, String title) {
         try {
@@ -29,7 +36,7 @@ public class CommonActivity extends OutstandActivity {
             tvMessage.setMaxLines(5);
             tvMessage.setText(message);
             Button btnLeft = (Button) dialog.findViewById(R.id.btnLeft);
-            btnLeft.setText("OK");
+            btnLeft.setText("Đồng ý");
             dialog.findViewById(R.id.btnRight).setVisibility(View.GONE);
             dialog.findViewById(R.id.btnView).setVisibility(View.GONE);
             dialog.setCancelable(false);
@@ -129,14 +136,4 @@ public class CommonActivity extends OutstandActivity {
         }
     }
 
-    /**
-     * @param act
-     * @param message
-     * @param title
-     * @param leftButtonText
-     * @param rightButtonText
-     * @param leftClick
-     * @param rightClick
-     * @return
-     */
 }

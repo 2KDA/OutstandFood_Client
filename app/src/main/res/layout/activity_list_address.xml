@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/imgBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/icon_back_24" />
 
@@ -55,6 +55,7 @@
             android:layout_width="300dp"
             android:background="@drawable/bg_btn_gree"
             android:layout_height="0dp"
+            android:textColor="@color/white"
             android:layout_weight="1"
             android:text="Thêm địa chỉ"
             android:layout_marginTop="20dp"

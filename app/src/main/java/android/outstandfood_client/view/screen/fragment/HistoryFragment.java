@@ -1,6 +1,7 @@
 package android.outstandfood_client.view.screen.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,9 +9,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.databinding.FragmentHistoryBinding;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.models.HistoryModel;
+import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.SharedPrefsManager;
+import android.outstandfood_client.view.screen.Login_screen;
 import android.outstandfood_client.view.screen.adapter.HistoryAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends OutstandFragment {
     private FragmentHistoryBinding binding;
     private ArrayList<HistoryModel> list;
     private HistoryAdapter historyAdapter;
@@ -42,6 +47,18 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(SharedPrefsManager.getUser(getContext()) != null){
+            binding.layoutRcv.setVisibility(View.VISIBLE);
+            binding.layoutBtnLogin.setVisibility(View.GONE);
+        }else{
+            binding.layoutRcv.setVisibility(View.GONE);
+            binding.layoutBtnLogin.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -63,22 +80,31 @@ public class HistoryFragment extends Fragment {
         historyAdapter=new HistoryAdapter();
         LinearLayoutManager manager=new LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL,false);
         binding.recyHistory.setLayoutManager(manager);
-        ApiService.API_SERVICER.getOrderById("KH005").enqueue(new Callback<List<HistoryModel>>() {
-            @SuppressLint("NotifyDataSetChanged")
+        User user = SharedPrefsManager.getUser(getContext());
+        if(user != null){
+            ApiService.API_SERVICER.getOrderById(user.get_id()).enqueue(new Callback<List<HistoryModel>>() {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onResponse(Call<List<HistoryModel>> call, Response<List<HistoryModel>> response) {
+                    list= (ArrayList<HistoryModel>) response.body();
+                    Log.d("TAG", "onResponse: "+list.size());
+                    historyAdapter.setData(list);
+                    historyAdapter.notifyDataSetChanged();
+                    binding.loading.setVisibility(View.GONE);
+                }
+                @Override
+                public void onFailure(Call<List<HistoryModel>> call, Throwable t) {
+                    binding.loading.setVisibility(View.GONE);
+                }
+            });
+        }
+        binding.recyHistory.setAdapter(historyAdapter);
+        binding.btnLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<List<HistoryModel>> call, Response<List<HistoryModel>> response) {
-                list= (ArrayList<HistoryModel>) response.body();
-                Log.d("TAG", "onResponse: "+list.size());
-                historyAdapter.setData(list);
-                historyAdapter.notifyDataSetChanged();
-                binding.loading.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFailure(Call<List<HistoryModel>> call, Throwable t) {
-                Toast.makeText(requireActivity(), "fail", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), Login_screen.class));
+                getActivity().finish();
             }
         });
-        binding.recyHistory.setAdapter(historyAdapter);
     }
 }

@@ -78,13 +78,15 @@ public class ListAddressActivity extends OutstandActivity {
                 startActivityForResult(intent, REQUEST_CODE_ADD_ADDRESS);
             }
         });
-        binding.imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
+        binding.imgBack.setOnClickListener(view -> {
+            onBackPressed();
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     @Override

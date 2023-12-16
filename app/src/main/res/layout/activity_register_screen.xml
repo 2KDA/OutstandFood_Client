@@ -153,13 +153,5 @@
         android:layout_below="@+id/layout_inputConformPassword"
         android:layout_marginTop="40dp"/>
 
-    <TextView
-        android:id="@+id/alreadyHaveAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bạn có sẵn sàng để tạo một tai khoản ?"
-        android:layout_below="@+id/btnRegister"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"/>
 
 </RelativeLayout>

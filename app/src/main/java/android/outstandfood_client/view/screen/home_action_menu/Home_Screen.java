@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 
 
@@ -23,7 +24,7 @@ import android.outstandfood_client.models.User;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Home_Screen extends AppCompatActivity {
+public class Home_Screen extends OutstandActivity {
 
     private ActivityHomeScreenBinding binding;
 

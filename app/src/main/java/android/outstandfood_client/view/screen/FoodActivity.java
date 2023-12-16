@@ -3,6 +3,7 @@ package android.outstandfood_client.view.screen;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.Utils;
 import android.outstandfood_client.data.CartDatabase;
@@ -14,6 +15,7 @@ import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
 import android.outstandfood_client.models.Rating;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.view.screen.adapter.DetailAdapter;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
 import android.outstandfood_client.view.screen.adapter.ListRatingAdapter;
 import android.util.Log;
@@ -34,10 +36,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FoodActivity extends AppCompatActivity {
+public class FoodActivity extends OutstandActivity {
     private ActivityFoodBinding binding;
     private ArrayList<Product> list;
     private List<Rating> listRating;
+    private DetailAdapter detailAdapter;
+    Product product;
 
 
     private ListRatingAdapter listRatingAdapter;
@@ -47,7 +51,8 @@ public class FoodActivity extends AppCompatActivity {
         binding = ActivityFoodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
-        binding.imgBackDetail.setOnClickListener(view -> {
+        getDataImage();
+        binding.imgBack.setOnClickListener(view -> {
             onBackPressed();
         });
 
@@ -77,6 +82,10 @@ public class FoodActivity extends AppCompatActivity {
             }
         });
         getListRating(product.getName());
+    }
+    private void getDataImage(){
+        detailAdapter=new DetailAdapter(this,product.getImageDetail(),R.layout.imgother_item);
+        binding.RecyImg.setAdapter(detailAdapter);
     }
 
 

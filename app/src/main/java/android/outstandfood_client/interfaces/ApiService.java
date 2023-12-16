@@ -50,4 +50,8 @@ public interface ApiService {
 
     @POST("rating/add")
     Call<Rating> addRating(@Body Rating objRating);
+
+    // This is API for get all product include food, drink ...etc.
+    @GET("product/list")
+    Call<ListProduct> getProductList();
 }

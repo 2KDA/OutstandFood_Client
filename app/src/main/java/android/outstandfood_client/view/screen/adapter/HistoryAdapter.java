@@ -49,8 +49,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
 
         holder.binding.tvMailU.setText(historyModel.getOrdered().getId_user().getUserEmail());
+        holder.binding.tvPhone.setText(historyModel.getOrdered().getPhone());
         holder.binding.tvNameU.setText(historyModel.getOrdered().getId_user().getName());
-        holder.binding.tvAdressU.setText(historyModel.getOrdered().getId_address().getAddress());
+        holder.binding.tvAdressU.setText(historyModel.getOrdered().getAddress());
         holder.binding.tvCode.setText(historyModel.getOrdered().get_id());
         if (historyModel.getListDetail().size()>=2){
             StringBuilder list= new StringBuilder();

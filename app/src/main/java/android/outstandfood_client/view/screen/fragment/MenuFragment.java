@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.FragmentMenuBinding;
 import android.outstandfood_client.interfaces.ApiService;
@@ -39,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MenuFragment extends Fragment implements FoodInterface {
+public class MenuFragment extends OutstandFragment implements FoodInterface {
     private ViewPagerMenuAdapter viewPagerMenuAdapter;
     private FragmentMenuBinding binding;
 

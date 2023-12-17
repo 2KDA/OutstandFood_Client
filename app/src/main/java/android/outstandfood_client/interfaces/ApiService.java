@@ -1,5 +1,6 @@
 package android.outstandfood_client.interfaces;
 
+import android.outstandfood_client.models.AddressResponse;
 import android.outstandfood_client.models.Category;
 import android.outstandfood_client.models.HistoryModel;
 import android.outstandfood_client.models.ListCategory;
@@ -50,4 +51,7 @@ public interface ApiService {
     // This is API for get all product include food, drink ...etc.
     @GET("product/list")
     Call<ListProduct> getProductList();
+
+    @GET("address/list")
+    Call<AddressResponse> getAddressList(@Query("id_user") String userId);
 }

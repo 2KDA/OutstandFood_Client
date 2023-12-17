@@ -1,6 +1,8 @@
 package android.outstandfood_client.models;
 
-public class ListDetail {
+import java.io.Serializable;
+
+public class ListDetail implements Serializable {
     private String _id;
     private ProductOrdered id_product;
     private Double quantity;

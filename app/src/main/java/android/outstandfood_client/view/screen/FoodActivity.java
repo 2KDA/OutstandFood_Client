@@ -111,7 +111,9 @@ public class FoodActivity extends OutstandActivity {
 
     }
     private void getDataImage(){
-        detailAdapter=new DetailAdapter(this,product.getImageDetail(),R.layout.imgother_item);
+        GridLayoutManager manager=new GridLayoutManager(this,2,RecyclerView.VERTICAL,false);
+        binding.RecyImg.setLayoutManager(manager);
+        detailAdapter=new DetailAdapter(this,product.getImageDetail());
         binding.RecyImg.setAdapter(detailAdapter);
     }
 

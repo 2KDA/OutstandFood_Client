@@ -12,7 +12,11 @@ import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.FragmentCartBinding;
 import android.outstandfood_client.databinding.LayoutCheckoutBinding;
 import android.outstandfood_client.interfaces.ApiService;
+import android.outstandfood_client.models.AddressModel;
+import android.outstandfood_client.models.AddressResponse;
+import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.OrderModel;
+import android.outstandfood_client.models.Product;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.object.CommonActivity;
 import android.outstandfood_client.object.SharedPrefsManager;
@@ -23,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -50,6 +55,7 @@ import com.paypal.checkout.paymentbutton.PaymentButtonContainer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,16 +69,15 @@ public class CartFragment extends OutstandFragment {
     private double totalPriceVnd = 100000;
     private double totalPriceUsd;
     private double usdExchangeRate = 24282;
+    ArrayAdapter<AddressModel> adapter;
 
-    private User savedUser ;
+    private User savedUser;
+
+    List<AddressModel> addressModels;
+    private ArrayList<Product> products = new ArrayList<>();
 
     public CartFragment() {
         // Required empty public constructor
-    }
-
-    public static CartFragment newInstance(String param1, String param2) {
-        CartFragment fragment = new CartFragment();
-        return fragment;
     }
 
     @Override
@@ -93,6 +98,8 @@ public class CartFragment extends OutstandFragment {
         super.onViewCreated(view, savedInstanceState);
         initData();
         initView();
+        setDataSumMoney();
+
     }
 
     private void initData() {
@@ -102,7 +109,6 @@ public class CartFragment extends OutstandFragment {
 
     @SuppressLint("SetTextI18n")
     private void initView() {
-        setDataSumMoney();
         savedUser = SharedPrefsManager.getUser(getActivity());
         LinearLayoutManager manager = new LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false);
         binding.recyCart.setLayoutManager(manager);
@@ -110,17 +116,39 @@ public class CartFragment extends OutstandFragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void UpdateCart(CartModel cartModel) {
-                cartModel.setQuantityFood(cartModel.getQuantityFood() + 1);
-                CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
-                cartAdapter.notifyDataSetChanged();
-                setDataSumMoney();
+                ApiService.API_SERVICER.getProductList().enqueue(new Callback<ListProduct>() {
+                    @Override
+                    public void onResponse(Call<ListProduct> call, Response<ListProduct> response) {
+                        ListProduct listProduct = response.body();
+                        products = listProduct.getProduct();
+                        for (int i = 0; i < products.size(); i++) {
+                            if (products.get(i).get_id().equals(cartModel.getId())) {
+                                if (products.get(i).getQuantity() <= cartModel.getQuantityFood()) {
+                                    Utils.showCustomToast(requireActivity(), "Hết hàng");
+                                    return;
+                                }
+                                cartModel.setQuantityFood(cartModel.getQuantityFood() + 1);
+                                CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
+                                cartAdapter.notifyDataSetChanged();
+                                setDataSumMoney();
+                                break;
+                            }
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ListProduct> call, Throwable t) {
+                    }
+                });
             }
 
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void RemoveCart(CartModel cartModel) {
                 if (cartModel.getQuantityFood() > 1) {
-                    Log.d("TAG12", "RemoveCart: "+cartModel.getQuantityFood());
+                    Log.d("TAG12", "RemoveCart: " + cartModel.getQuantityFood());
                     cartModel.setQuantityFood(cartModel.getQuantityFood() - 1);
                     CartDatabase.getInstance(getActivity()).cartDao().UpdateCart(cartModel);
                     setDataSumMoney();
@@ -130,13 +158,13 @@ public class CartFragment extends OutstandFragment {
                             "Xác nhận",
                             "Đồng ý",
                             "Hủy",
-                            v ->{
+                            v -> {
                                 CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
                                 list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
                                 cartAdapter.setData(list);
                                 cartAdapter.notifyDataSetChanged();
                                 setDataSumMoney();
-                            },null).show();
+                            }, null).show();
                 }
                 cartAdapter.notifyDataSetChanged();
             }
@@ -149,13 +177,13 @@ public class CartFragment extends OutstandFragment {
                         "Xác nhận",
                         "Đồng ý",
                         "Hủy",
-                        v ->{
+                        v -> {
                             CartDatabase.getInstance(getActivity()).cartDao().DeleteCart(cartModel);
                             list = (ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart();
                             cartAdapter.setData(list);
                             cartAdapter.notifyDataSetChanged();
                             setDataSumMoney();
-                        },null).show();
+                        }, null).show();
             }
         });
         cartAdapter.setData(list);
@@ -171,11 +199,37 @@ public class CartFragment extends OutstandFragment {
             }
             BottomSheetDialog sheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
             LayoutCheckoutBinding layoutCheckoutBinding = LayoutCheckoutBinding.inflate(getLayoutInflater());
+
             InitPaypal(layoutCheckoutBinding);
             sheetDialog.setContentView(layoutCheckoutBinding.getRoot());
             Window window = sheetDialog.getWindow();
             assert window != null;
             window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            setDataSumMoney();
+            layoutCheckoutBinding.imBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sheetDialog.dismiss();
+                }
+            });
+            ApiService.API_SERVICER.getAddressList(savedUser.get_id()).enqueue(new Callback<AddressResponse>() {
+                @Override
+                public void onResponse(Call<AddressResponse> call, Response<AddressResponse> response) {
+                    AddressResponse addressResponse = response.body();
+                    if (addressResponse == null) {
+                        return;
+                    }
+                    addressModels = addressResponse.getAddress();
+                    adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, addressModels);
+                    Log.d("TAG11", "onResponse: " + addressModels.size());
+                    layoutCheckoutBinding.spinnerCity.setAdapter(adapter);
+                }
+
+                @Override
+                public void onFailure(Call<AddressResponse> call, Throwable t) {
+
+                }
+            });
             layoutCheckoutBinding.tvSumPrice.setText((int) Math.round(CartDatabase.getInstance(getActivity()).cartDao().sumMoney()) + " VNĐ");
             layoutCheckoutBinding.checkoutButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -189,7 +243,11 @@ public class CartFragment extends OutstandFragment {
                         quantity.add(list.get(i).getQuantityFood());
                         idProduct.add(list.get(i).getId());
                     }
-                    OrderToServer(savedUser.get_id(), false, "DC019", "Chua thanh toán", quantity, idProduct,layoutCheckoutBinding);
+                    AddressModel addressModel = (AddressModel) layoutCheckoutBinding.spinnerCity.getSelectedItem();
+                    if (addressModel == null) {
+                        Utils.showCustomToast(requireActivity(), "Chọn địa chỉ");
+                    }
+                    OrderToServer(savedUser.get_id(), false, addressModel.getId(), "Chua thanh toán", quantity, idProduct, layoutCheckoutBinding);
                 }
             });
             sheetDialog.show();
@@ -249,8 +307,12 @@ public class CartFragment extends OutstandFragment {
                                     quantity.add(list.get(i).getQuantityFood());
                                     idProduct.add(list.get(i).getId());
                                 }
-                                OrderToServer(savedUser.get_id(), true, "DC019", "Đã thanh toán", quantity, idProduct,layoutCheckoutBinding);
-                                Utils.showCustomToast(requireActivity(),"Đã thanh toán");
+                                AddressModel addressModel = (AddressModel) layoutCheckoutBinding.spinnerCity.getSelectedItem();
+                                if (addressModel == null) {
+                                    Utils.showCustomToast(requireActivity(), "Hãy chọn địa chỉ");
+                                }
+                                OrderToServer(savedUser.get_id(), true, addressModel.getId(), "Đã thanh toán", quantity, idProduct, layoutCheckoutBinding);
+                                Utils.showCustomToast(requireActivity(), "Đã thanh toán");
                             }
                         });
                     }

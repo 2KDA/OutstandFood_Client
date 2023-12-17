@@ -1,9 +1,11 @@
 package android.outstandfood_client.models;
 
-public class ProductOrdered {
+import java.io.Serializable;
+
+public class ProductOrdered implements Serializable {
     private String _id;
     private String name;
-    private Double price;
+    private int price;
     private String image;
     private String describe;
     private int __v;
@@ -12,7 +14,7 @@ public class ProductOrdered {
 
     private String category_name;
 
-    public ProductOrdered(String _id, String name, Double price, String image, String describe, int __v, int quantity, String id_category, String category_name) {
+    public ProductOrdered(String _id, String name, int price, String image, String describe, int __v, int quantity, String id_category, String category_name) {
         this._id = _id;
         this.name = name;
         this.price = price;
@@ -48,11 +50,11 @@ public class ProductOrdered {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.databinding.FragmentHistoryBinding;
 import android.outstandfood_client.interfaces.ApiService;
-import android.outstandfood_client.interfaces.HisAdapter;
+import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.HistoryModel;
-import android.outstandfood_client.models.ListDetail;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.Login_screen;
@@ -34,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HistoryFragment extends OutstandFragment implements HisAdapter {
+public class HistoryFragment extends OutstandFragment implements HisAdapter, FoodInterface {
     private FragmentHistoryBinding binding;
     private ArrayList<HistoryModel> list;
     private HistoryAdapter historyAdapter;
@@ -62,6 +61,13 @@ public class HistoryFragment extends OutstandFragment implements HisAdapter {
             binding.layoutRcv.setVisibility(View.GONE);
             binding.layoutBtnLogin.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void addRating(User user) {
+        Intent i = new Intent(requireActivity(), AddRatingActivity.class);
+        i.putExtra("User", user);
+        startActivity(i);
     }
 
     @Override
@@ -112,9 +118,21 @@ public class HistoryFragment extends OutstandFragment implements HisAdapter {
     }
 
     @Override
-    public void hisAdapter(ListDetail listDetail) {
-//        Intent intent=new Intent(requireActivity(), FoodHistoryActivity.class);
-//        intent.putExtra("list", (Serializable) listDetail);
-//        startActivity(intent);
+    public void showFood(String id, String name) {
+
     }
+
+    @Override
+    public void addFood(Product product) {
+
+    }
+
+    @Override
+    public void DetailFood(Product product) {
+
+    }
+
+
+
+
 }

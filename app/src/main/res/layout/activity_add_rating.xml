@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:gravity="center"
     tools:context=".view.screen.AddRatingActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_userComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Người dùng"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/tv_emailComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email: "
+        android:textSize="15dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nội dung:"
+        android:textSize="15dp"/>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/ed_comment"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:textSize="20dp"/>
+    <Button
+        android:id="@+id/btn_submitComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_margin="10sp"
+        android:textSize="18sp"
+        android:background="@drawable/border_btn"
+        android:text="Gửi bình luận"/>
+
+
+</LinearLayout>

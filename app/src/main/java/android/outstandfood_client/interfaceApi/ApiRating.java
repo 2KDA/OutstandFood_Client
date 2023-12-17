@@ -30,4 +30,5 @@ public interface ApiRating {
 
     @POST("rating/add")
     Call<Rating> addRating(@Body Rating objRating);
+
 }

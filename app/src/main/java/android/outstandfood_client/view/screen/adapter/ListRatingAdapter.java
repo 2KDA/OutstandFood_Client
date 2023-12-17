@@ -20,13 +20,16 @@ public class ListRatingAdapter extends RecyclerView.Adapter<ListRatingAdapter.Li
 
     private List<Rating> listRating;
 
+    String id_product;
+
     public ListRatingAdapter(List<Rating> listRating) {
         this.listRating = listRating;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setData(List<Rating> list) {
+    public void setData(List<Rating> list, String id_product) {
         this.listRating = list;
+        this.id_product = id_product;
         notifyDataSetChanged();
     }
 
@@ -44,8 +47,10 @@ public class ListRatingAdapter extends RecyclerView.Adapter<ListRatingAdapter.Li
             return;
         }
 
-        holder.tv_user.setText(objRating.getUser_name());
-        holder.tv_rating.setText(objRating.getRating());
+        if(objRating.getProduct_name().equals(id_product)){
+            holder.tv_user.setText(objRating.getUser_name());
+            holder.tv_rating.setText(objRating.getRating());
+        }
     }
 
     @Override

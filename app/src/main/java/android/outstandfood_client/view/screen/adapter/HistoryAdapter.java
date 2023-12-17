@@ -2,8 +2,6 @@ package android.outstandfood_client.view.screen.adapter;
 
 import android.annotation.SuppressLint;
 import android.outstandfood_client.databinding.ItemHistoryBinding;
-import android.outstandfood_client.interfaces.HisAdapter;
-import android.outstandfood_client.interfaces.HistoryInter;
 import android.outstandfood_client.models.HistoryModel;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,6 +87,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
         return list.size();
     }
+
 
     public static class HistoryViewHolder extends RecyclerView.ViewHolder {
         private ItemHistoryBinding binding;

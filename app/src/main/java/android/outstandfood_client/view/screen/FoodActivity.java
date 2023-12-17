@@ -1,5 +1,7 @@
 package android.outstandfood_client.view.screen;
 
+import static java.security.AccessController.getContext;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
 import android.outstandfood_client.models.Rating;
 import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.adapter.DetailAdapter;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
 import android.outstandfood_client.view.screen.adapter.ListRatingAdapter;
@@ -47,7 +50,7 @@ public class FoodActivity extends OutstandActivity {
     Product product;
 
 
-    private ListRatingAdapter listRatingAdapter;
+    ListRatingAdapter listRatingAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,23 @@ public class FoodActivity extends OutstandActivity {
 
     }
 
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listRatingAdapter.notifyDataSetChanged();
+        if (SharedPrefsManager.getUser(getBaseContext())== null){
+            binding.btnAddRating.setText("Vui lòng đăng nhập");
+            binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getBaseContext(), Login_screen.class);
+                    startActivity(i);
+                }
+            });
+        };
+    }
     @SuppressLint("CheckResult")
     private void initView() {
         Intent intent = getIntent();
@@ -81,12 +101,17 @@ public class FoodActivity extends OutstandActivity {
             public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
                 list1 = response.body();
 
+                List<Rating> list = new ArrayList<>();
                 for (Rating objRating : list1){
                     if (objRating.getProduct_name().equals(product.getName())){
-                        listRatingAdapter.setData(list1);
+
+                        list.add(objRating);
+
                         Log.d("aaaaaa", "OBJRating: " + objRating.getProduct_name() + "Product: " + product.getName());
                     }
                 }
+                listRatingAdapter.setData(list, product.getName());
+                listRatingAdapter.notifyDataSetChanged();
                 Log.d("aaaaaaa", "onResponse: " + list1);
             }
 
@@ -101,13 +126,16 @@ public class FoodActivity extends OutstandActivity {
         listRatingAdapter = new ListRatingAdapter(listRating);
 
         binding.rvRating.setAdapter(listRatingAdapter);
-//        binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getBaseContext(), AddRatingActivity.class);
-//                startActivity(i);
-//            }
-//        });
+
+        binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), AddRatingActivity.class);
+                i.putExtra("id_product", product.get_id());
+                i.putExtra("product_name", product.getName());
+                startActivity(i);
+            }
+        });
 
     }
     private void getDataImage(){

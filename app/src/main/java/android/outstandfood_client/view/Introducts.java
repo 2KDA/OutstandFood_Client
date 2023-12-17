@@ -31,7 +31,6 @@ public class Introducts extends AppCompatActivity implements OnMapReadyCallback 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         spinner = findViewById(R.id.spinner);
-        spinner = findViewById(R.id.spinner);
         ArrayList<String> list = new ArrayList<>();
         list.add("Chế độ xem");
         list.add("Địa hình");

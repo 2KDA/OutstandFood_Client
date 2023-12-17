@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.databinding.FragmentHistoryBinding;
 import android.outstandfood_client.interfaces.ApiService;
+import android.outstandfood_client.interfaces.HisAdapter;
 import android.outstandfood_client.models.HistoryModel;
+import android.outstandfood_client.models.ListDetail;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.object.SharedPrefsManager;
 import android.outstandfood_client.view.screen.Login_screen;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 import android.outstandfood_client.R;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HistoryFragment extends OutstandFragment {
+public class HistoryFragment extends OutstandFragment implements HisAdapter {
     private FragmentHistoryBinding binding;
     private ArrayList<HistoryModel> list;
     private HistoryAdapter historyAdapter;
@@ -77,7 +80,7 @@ public class HistoryFragment extends OutstandFragment {
 
     private void initView() {
         binding.loading.setVisibility(View.VISIBLE);
-        historyAdapter=new HistoryAdapter();
+        historyAdapter=new HistoryAdapter(this::hisAdapter);
         LinearLayoutManager manager=new LinearLayoutManager(requireActivity(),LinearLayoutManager.VERTICAL,false);
         binding.recyHistory.setLayoutManager(manager);
         User user = SharedPrefsManager.getUser(getContext());
@@ -106,5 +109,12 @@ public class HistoryFragment extends OutstandFragment {
                 getActivity().finish();
             }
         });
+    }
+
+    @Override
+    public void hisAdapter(ListDetail listDetail) {
+//        Intent intent=new Intent(requireActivity(), FoodHistoryActivity.class);
+//        intent.putExtra("list", (Serializable) listDetail);
+//        startActivity(intent);
     }
 }

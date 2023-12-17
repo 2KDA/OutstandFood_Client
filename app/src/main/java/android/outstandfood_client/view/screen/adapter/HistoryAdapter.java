@@ -2,6 +2,8 @@ package android.outstandfood_client.view.screen.adapter;
 
 import android.annotation.SuppressLint;
 import android.outstandfood_client.databinding.ItemHistoryBinding;
+import android.outstandfood_client.interfaces.HisAdapter;
+import android.outstandfood_client.interfaces.HistoryInter;
 import android.outstandfood_client.models.HistoryModel;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +20,14 @@ import java.util.Locale;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
     private ArrayList<HistoryModel> list;
+
+    private HisAdapter historyInter;
     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+
+    public HistoryAdapter(HisAdapter historyInter) {
+        this.historyInter = historyInter;
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     public void setData(ArrayList<HistoryModel> list){
         this.list=list;
@@ -65,6 +74,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
         holder.binding.tvPT.setText(historyModel.getOrdered().getDelivery_status());
      holder.binding.SumMoney.setText(historyModel.getOrdered().getTotal_price()+" VNĐ");
+     holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             historyInter.hisAdapter(historyModel.getListDetail().get(position));
+         }
+     });
     }
 
     @Override

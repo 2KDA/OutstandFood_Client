@@ -15,8 +15,9 @@ public class Product implements Serializable {
     private Category id_category;
 
     private String category_name;
+    private Boolean display;
 
-    public Product(String _id, String name, int price, String describe, List<String> imageDetail, String image, int _v, int quantity, Category id_category, String category_name) {
+    public Product(String _id, String name, int price, String describe, List<String> imageDetail, String image, int _v, int quantity, Category id_category, String category_name, Boolean display) {
         this._id = _id;
         this.name = name;
         this.price = price;
@@ -27,6 +28,15 @@ public class Product implements Serializable {
         this.quantity = quantity;
         this.id_category = id_category;
         this.category_name = category_name;
+        this.display = display;
+    }
+
+    public Boolean getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Boolean display) {
+        this.display = display;
     }
 
     public String getDescribe() {

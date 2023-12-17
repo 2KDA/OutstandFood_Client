@@ -1,5 +1,7 @@
 package android.outstandfood_client.models;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -55,5 +57,11 @@ public class AddressModel implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return address;
     }
 }

@@ -113,6 +113,9 @@ public class FoodFragment extends OutstandFragment implements FoodInterface {
     }
 
     private void AddCart(Product product) {
+        if (product.getQuantity()<=0){
+            Utils.showCustomToast(requireActivity(),"Hết hàng");
+        }
         CartModel model = null;
         model = CartDatabase.getInstance(requireActivity()).cartDao().findByID(product.get_id());
         if (model == null) {

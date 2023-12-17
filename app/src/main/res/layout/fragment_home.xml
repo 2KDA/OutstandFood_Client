@@ -16,6 +16,7 @@
         android:paddingLeft="20dp">
 
         <RelativeLayout
+            android:id="@+id/recyHistor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp">
@@ -90,7 +91,7 @@
 <!--            android:autofillHints="craving"-->
 <!--            android:focusable="false"/>-->
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -101,17 +102,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Special Offers"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 style="@style/txtTieuDe" />
 
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_ActionMenu_Special_banner"
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/Vp_Home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/home_ActionMenu_Special_tvTitle"
+                android:layout_height="200dp"
+                app:layout_constraintTop_toBottomOf="@+id/home_ActionMenu_Special_tvTitle"
                 android:layout_marginTop="10dp" />
-
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/CrSlide"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/Vp_Home"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="5sp"
+                android:layout_gravity="center|bottom"/>
 <!--            <GridView-->
 <!--                android:id="@+id/home_ActionMenu_home_FoodType"-->
 <!--                android:layout_width="match_parent"-->
@@ -122,7 +131,7 @@
 
 
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

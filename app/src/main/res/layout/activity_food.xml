@@ -135,6 +135,25 @@
             android:textColor="@color/white"
             android:layout_margin="10sp"
             android:textSize="18sp"
-            android:background="@drawable/bg_btn_gree"/>
+            android:background="@drawable/border_btn"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="Đánh giá"/>
+<!--        <ScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="140dp">-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_rating"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+<!--        </ScrollView>-->
+
     </LinearLayout>
+
+
 </androidx.core.widget.NestedScrollView>

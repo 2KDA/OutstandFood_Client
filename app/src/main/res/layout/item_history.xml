@@ -219,6 +219,16 @@
                         android:text="Tiền mặt"
                         android:textSize="16sp"/>
                 </LinearLayout>
+<!--                <Button-->
+<!--                    android:layout_gravity="bottom"-->
+<!--                    android:id="@+id/btnAddRating"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Thêm đánh giá"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:layout_margin="10sp"-->
+<!--                    android:textSize="18sp"-->
+<!--                    android:background="@drawable/border_btn"/>-->
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

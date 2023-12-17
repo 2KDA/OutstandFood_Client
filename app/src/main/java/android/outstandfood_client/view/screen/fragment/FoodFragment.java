@@ -17,9 +17,12 @@ import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.FragmentFoodBinding;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
+import android.outstandfood_client.models.HistoryModel;
 import android.outstandfood_client.models.ListCategory;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
+import android.outstandfood_client.models.Rating;
+import android.outstandfood_client.models.User;
 import android.outstandfood_client.view.screen.FoodActivity;
 import android.outstandfood_client.view.screen.adapter.ListCateAdapter;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
@@ -111,6 +114,12 @@ public class FoodFragment extends OutstandFragment implements FoodInterface {
         intent.putExtra("FOOD",product);
         startActivity(intent);
     }
+
+    @Override
+    public void addRating(User user) {
+
+    }
+
 
     private void AddCart(Product product) {
         CartModel model = null;

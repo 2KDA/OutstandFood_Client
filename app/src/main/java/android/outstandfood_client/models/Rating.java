@@ -54,21 +54,21 @@ public class Rating {
         this.rating = rating;
     }
 
-//    public void setId_product(Object id_product) {
-//        this.id_product = id_product;
-//    }
-//
-//    public Object getId_user() {
-//        return id_user;
-//    }
-//
-//    public void setId_user(Object id_user) {
-//        this.id_user = id_user;
-//    }
-//
-//    public Object getId_product() {
-//        return id_product;
-//    }
+    public void setId_product(Object id_product) {
+        this.id_product = id_product;
+    }
+
+    public Object getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(Object id_user) {
+        this.id_user = id_user;
+    }
+
+    public Object getId_product() {
+        return id_product;
+    }
 
     public String getUser_username() {
         return user_username;

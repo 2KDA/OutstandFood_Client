@@ -47,7 +47,7 @@ public class FoodActivity extends OutstandActivity {
     Product product;
 
 
-    private ListRatingAdapter listRatingAdapter;
+    ListRatingAdapter listRatingAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +61,8 @@ public class FoodActivity extends OutstandActivity {
 
 
     }
+
+
 
     @SuppressLint("CheckResult")
     private void initView() {
@@ -81,12 +83,16 @@ public class FoodActivity extends OutstandActivity {
             public void onResponse(Call<List<Rating>> call, Response<List<Rating>> response) {
                 list1 = response.body();
 
+                List<Rating> list = new ArrayList<>();
                 for (Rating objRating : list1){
                     if (objRating.getProduct_name().equals(product.getName())){
-                        listRatingAdapter.setData(list1);
+
+                        list.add(objRating);
+
                         Log.d("aaaaaa", "OBJRating: " + objRating.getProduct_name() + "Product: " + product.getName());
                     }
                 }
+                listRatingAdapter.setData(list, product.getName());
                 Log.d("aaaaaaa", "onResponse: " + list1);
             }
 
@@ -101,13 +107,15 @@ public class FoodActivity extends OutstandActivity {
         listRatingAdapter = new ListRatingAdapter(listRating);
 
         binding.rvRating.setAdapter(listRatingAdapter);
-//        binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getBaseContext(), AddRatingActivity.class);
-//                startActivity(i);
-//            }
-//        });
+        binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), AddRatingActivity.class);
+                i.putExtra("id_product", product.get_id());
+                i.putExtra("product_name", product.getName());
+                startActivity(i);
+            }
+        });
 
     }
     private void getDataImage(){

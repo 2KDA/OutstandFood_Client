@@ -12,9 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.databinding.FragmentHistoryBinding;
 import android.outstandfood_client.interfaces.ApiService;
+import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.HistoryModel;
+import android.outstandfood_client.models.Product;
+import android.outstandfood_client.models.Rating;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.object.SharedPrefsManager;
+import android.outstandfood_client.view.screen.AddRatingActivity;
 import android.outstandfood_client.view.screen.Login_screen;
 import android.outstandfood_client.view.screen.adapter.HistoryAdapter;
 import android.util.Log;
@@ -31,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HistoryFragment extends OutstandFragment {
+public class HistoryFragment extends OutstandFragment implements FoodInterface {
     private FragmentHistoryBinding binding;
     private ArrayList<HistoryModel> list;
     private HistoryAdapter historyAdapter;
@@ -59,6 +63,13 @@ public class HistoryFragment extends OutstandFragment {
             binding.layoutRcv.setVisibility(View.GONE);
             binding.layoutBtnLogin.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void addRating(User user) {
+        Intent i = new Intent(requireActivity(), AddRatingActivity.class);
+        i.putExtra("User", user);
+        startActivity(i);
     }
 
     @Override
@@ -107,4 +118,23 @@ public class HistoryFragment extends OutstandFragment {
             }
         });
     }
+
+    @Override
+    public void showFood(String id, String name) {
+
+    }
+
+    @Override
+    public void addFood(Product product) {
+
+    }
+
+    @Override
+    public void DetailFood(Product product) {
+
+    }
+
+
+
+
 }

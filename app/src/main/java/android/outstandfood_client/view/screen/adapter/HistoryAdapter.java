@@ -1,8 +1,15 @@
 package android.outstandfood_client.view.screen.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.outstandfood_client.databinding.ItemHistoryBinding;
+import android.outstandfood_client.interfaces.FoodInterface;
 import android.outstandfood_client.models.HistoryModel;
+import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.SharedPrefsManager;
+import android.outstandfood_client.view.screen.AddRatingActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +25,8 @@ import java.util.Locale;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
     private ArrayList<HistoryModel> list;
+
+    FoodInterface foodInterface;
     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
     @SuppressLint("NotifyDataSetChanged")
     public void setData(ArrayList<HistoryModel> list){
@@ -35,6 +44,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
         HistoryModel historyModel=list.get(position);
+        User user = SharedPrefsManager.getUser(holder.itemView.getContext());
         if (historyModel==null){
             return;
         }
@@ -65,7 +75,26 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
         holder.binding.tvPT.setText(historyModel.getOrdered().getDelivery_status());
      holder.binding.SumMoney.setText(historyModel.getOrdered().getTotal_price()+" VNĐ");
+     if (!historyModel.getOrdered().getDelivery_status().equals("Đã giao")){
+//         holder.binding.btnAddRating.setVisibility(View.GONE);
+     }
+//        if (user!=null){
+//            holder.binding.btnAddRating.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+////                    user1.setName(user.getName());
+////                Log.d("aaaaaaa", "onClick: " + user1.getName() + " + " + user1.getUsername());
+////                    foodInterface.addRating(user1);
+//                    Intent i = new Intent(holder.itemView.getContext(), AddRatingActivity.class);
+//                    i.putExtra("User", user);
+//                    holder.itemView.getContext().startActivity(i);
+//                }
+//            });
+//            holder.binding.btnAddRating.setOnClickListener(view -> foodInterface.addRating(user));
+//        }
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -74,6 +103,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         }
         return list.size();
     }
+
 
     public static class HistoryViewHolder extends RecyclerView.ViewHolder {
         private ItemHistoryBinding binding;

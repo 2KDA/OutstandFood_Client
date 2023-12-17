@@ -1,5 +1,6 @@
 package android.outstandfood_client.view.screen.MyDetail;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -15,6 +16,10 @@ import android.outstandfood_client.object.SharedPrefsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,34 +63,44 @@ public class SetNewPassActivity extends OutstandActivity {
     }
     private void changePassword(String username, String oldPassword, String newPassword ) {
         ApiServiceUser apiService = ApiClient.getClient().create(ApiServiceUser.class);
-
-        Call<User> call = apiService.changePassword(username, oldPassword, newPassword );
-        call.enqueue(new Callback<User>() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                hideWaitProgress();
-                if (response.isSuccessful()) {
-                    User newUser = response.body();
-                    SharedPrefsManager.clearUser(SetNewPassActivity.this);
-                    SharedPrefsManager.saveUser(SetNewPassActivity.this, newUser);
-                    CommonActivity.createAlertDialog(SetNewPassActivity.this,"Đổi mật khẩu thành công",
-                            "Outstand'Food",new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    finish();
-                                }
-                            }
-                    ).show();
-                } else {
-                    show("Outsand'Food", "Lỗi đổi mật khẩu.");
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w("TAG", "Failed to get FCM registration token", task.getException());
+                    return;
                 }
-            }
+                String deviceToken = task.getResult();
+                Call<User> call = apiService.changePassword(username, oldPassword, newPassword, deviceToken);
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        hideWaitProgress();
+                        if (response.isSuccessful()) {
+                            User newUser = response.body();
+                            SharedPrefsManager.clearUser(SetNewPassActivity.this);
+                            SharedPrefsManager.saveUser(SetNewPassActivity.this, newUser);
+                            CommonActivity.createAlertDialog(SetNewPassActivity.this,"Đổi mật khẩu thành công",
+                                    "Outstand'Food",new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            finish();
+                                        }
+                                    }
+                            ).show();
+                        } else {
+                            show("Outsand'Food", "Lỗi đổi mật khẩu.");
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                hideWaitProgress();
-                show("Outstand'Food", "Lỗi : " + t.getMessage());
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        hideWaitProgress();
+                        show("Outstand'Food", "Lỗi : " + t.getMessage());
+                    }
+                });
             }
         });
+
     }
 }

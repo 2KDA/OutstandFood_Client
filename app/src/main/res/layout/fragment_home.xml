@@ -132,7 +132,148 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/backgroundintro"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:text="Mở cửa"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Thứ 2"
+                        android:textSize="17sp"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="7h-23h"
+                        android:textSize="17sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Thứ 3"
+                        android:textSize="17sp"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="7h-23h"
+                        android:textSize="17sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Thứ 4"
+                        android:textSize="17sp"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="7h-23h"
+                        android:textSize="17sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Thứ 5"
+                        android:textSize="17sp"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="7h-23h"
+                        android:textSize="17sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Thứ 6"
+                        android:textSize="17sp"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="7h-23h"
+                        android:textSize="17sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Thứ 7"
+                        android:textSize="17sp"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="9h-24h"
+                        android:textSize="17sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="CN"
+                        android:textSize="17sp"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:text="9h-24h"
+                        android:textSize="17sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:id="@+id/btnandress_home"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:text="Địa chỉ cửa hàng"
+                    android:background="@drawable/backandress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+        </LinearLayout>
 
 
         <RelativeLayout

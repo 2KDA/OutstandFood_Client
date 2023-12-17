@@ -10,6 +10,7 @@ import android.os.Looper;
 import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.outstandfood_client.R;
@@ -30,6 +31,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,6 +50,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class Login_screen extends OutstandActivity {
@@ -130,7 +136,8 @@ public class Login_screen extends OutstandActivity {
                     JSONObject jsonObject = new JSONObject();
                     jsonObject.put("username", username.getText().toString());
                     jsonObject.put("password", password.getText().toString());
-
+                    String deviceTokenBody = getDeviceToken();
+                    jsonObject.put("deviceToken", deviceTokenBody);
 
                     http.setRequestProperty("Content-Type", "application/json");
                     //Tạo đối tượng out dữ liệu ra khỏi ứng dụng để gửi lên server
@@ -169,11 +176,12 @@ public class Login_screen extends OutstandActivity {
                         String userEmail= userJson.optString("userEmail");
                         String returnedimage= userJson.optString("image");
                         String returnedphone= userJson.optString("phone");
+                        String deviceToken= userJson.optString("deviceToken");
                         boolean returnedisActive= userJson.getBoolean("isActive");
 
                         // Tạo đối tượng UserData để truyền sang màn hình Home
                         User user = new User(userId,returnedUsername,returnedFullname,
-                                returnedPassword,returnedRole,userEmail, returnedimage,returnedphone,returnedisActive);
+                                returnedPassword,returnedRole,userEmail, returnedimage,returnedphone,returnedisActive,deviceToken);
 
                         SharedPrefsManager.saveUser(Login_screen.this, user);
 
@@ -233,19 +241,29 @@ public class Login_screen extends OutstandActivity {
         });
     }
 
-    private void showDialog(String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(Login_screen.this);
-        builder.setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+    private String getDeviceToken() {
+        Semaphore semaphore = new Semaphore(0);
+        AtomicReference<String> deviceToken = new AtomicReference<>();
 
-                    }
-                })
-                .setCancelable(false)
-                .show();
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w("TAG", "Failed to get FCM registration token", task.getException());
+                    semaphore.release();
+                    return;
+                }
+                deviceToken.set(task.getResult());
+                semaphore.release();
+            }
+        });
+
+        try {
+            semaphore.acquire();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        return deviceToken.get();
     }
-
-
 }

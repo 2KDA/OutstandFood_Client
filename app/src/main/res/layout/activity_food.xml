@@ -24,8 +24,8 @@
 
             <ImageView
                 android:id="@+id/imgBack"
-                android:layout_width="35dp"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:background="@drawable/icon_back_24" />
 
@@ -134,22 +134,28 @@
             android:text="Thêm vào giỏ hàng"
             android:textColor="@color/white"
             android:layout_margin="10sp"
-            android:textSize="18sp"
-            android:background="@drawable/border_btn"/>
+            android:background="@drawable/bg_btn_gree"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:text="Đánh giá"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.5sp"
+            android:layout_marginHorizontal="50sp"
+            android:layout_marginVertical="5sp"
+            android:background="@color/black"
+            />
 <!--        <ScrollView-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="140dp">-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_rating"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         <Button
@@ -160,8 +166,7 @@
             android:text="Thêm đánh giá"
             android:textColor="@color/white"
             android:layout_margin="10sp"
-            android:textSize="18sp"
-            android:background="@drawable/border_btn"/>
+            android:background="@drawable/bg_btn_gree"/>
 <!--        </ScrollView>-->
 
     </LinearLayout>

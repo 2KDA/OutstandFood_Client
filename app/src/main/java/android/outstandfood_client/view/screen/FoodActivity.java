@@ -57,7 +57,7 @@ public class FoodActivity extends OutstandActivity {
         binding = ActivityFoodBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initView();
-//        getDataImage();
+        getDataImage();
         binding.imgBack.setOnClickListener(view -> {
             onBackPressed();
         });
@@ -85,7 +85,7 @@ public class FoodActivity extends OutstandActivity {
     @SuppressLint("CheckResult")
     private void initView() {
         Intent intent = getIntent();
-        Product product = (Product) intent.getSerializableExtra("FOOD");
+        product = (Product) intent.getSerializableExtra("FOOD");
         if (product==null){
             return;
         }

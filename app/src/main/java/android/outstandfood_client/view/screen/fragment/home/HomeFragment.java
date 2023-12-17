@@ -16,6 +16,7 @@ import android.os.Looper;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
+import android.outstandfood_client.view.Introducts;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
 import android.outstandfood_client.view.screen.adapter.SlideAdapter;
 import android.util.Log;
@@ -23,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.outstandfood_client.R;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -44,7 +46,7 @@ public class HomeFragment extends Fragment {
     private ListProduct listProduct;
     ViewPager VpSlide;
     CircleIndicator CrSlide;
-
+    private Button btnandress_home;
     SlideAdapter slideAdapter;
     Timer mTimer;
     private EditText edt_home_ActionMenu_home_Craving;
@@ -68,7 +70,7 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> imageFood;
     private ArrayList<Integer> lis_bannerSale = new ArrayList<>();
     private Adapter_Special_offers adapter_special_offers;
-
+    private RecyclerView recyclerView_home_ActionMenu_Special_banner;
 
     public void AnhXa(View view) {
 //        edt_home_ActionMenu_home_Craving = view.findViewById(R.id.home_ActionMenu_home_Craving);
@@ -79,26 +81,18 @@ public class HomeFragment extends Fragment {
 //        gridView_home_ActionMenu_home_FoodType = view.findViewById(R.id.home_ActionMenu_home_FoodType);
 //        recyclerView_home_ActionMenu_home_Discout = view.findViewById(R.id.home_ActionMenu_home_Discount);
         recyclerView_home_ActionMenu_home_Recommended = view.findViewById(R.id.home_ActionMenu_home_Recommended);
+        btnandress_home = view.findViewById(R.id.btnandress_home);
     }
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
     }
-
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
     }
 
     @Override
@@ -111,11 +105,6 @@ public class HomeFragment extends Fragment {
         adapter_special_offers = new Adapter_Special_offers(getContext());
         adapter_special_offers.setData(lis_bannerSale);
 
-        lis_bannerSale.add(R.drawable.banner);
-//        lis_bannerSale.add(R.drawable.banner_one);
-//        lis_bannerSale.add(R.drawable.banner)
-//        lis_bannerSale.add(R.drawable.banner);
-//        lis_bannerSale.add(R.drawable.banner_one);
         //Recommended Food
         adapter_recommended = new Adapter_Recommended(getContext());
         slideAdapter = new SlideAdapter(requireActivity());
@@ -124,8 +113,17 @@ public class HomeFragment extends Fragment {
         CrSlide.setViewPager(VpSlide);
         slideAdapter.registerDataSetObserver(CrSlide.getDataSetObserver());
         autoSlide();
+        nextandress();
     }
-
+    private void nextandress() {
+        btnandress_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Introducts.class);
+                startActivity(intent);
+            }
+        });
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

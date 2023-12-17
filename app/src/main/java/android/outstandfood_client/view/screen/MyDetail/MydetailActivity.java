@@ -1,5 +1,6 @@
 package android.outstandfood_client.view.screen.MyDetail;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -29,7 +30,12 @@ import com.bumptech.glide.Glide;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -167,49 +173,61 @@ public class MydetailActivity extends OutstandActivity {
         return imagePath;
     }
 
-    private void updateUser(String userId, String name, String phone,String userEmail ,File imageFile) {
+    private void updateUser(String userId, String name, String phone, String userEmail, File imageFile) {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.connectTimeout(30, TimeUnit.SECONDS); // Thiết lập thời gian kết nối tối đa
         httpClient.readTimeout(30, TimeUnit.SECONDS); // Thiết lập thời gian đọc dữ liệu tối đa
 
-        ApiServiceUser apiService = ApiClient.getClient().create(ApiServiceUser.class);
-
-        RequestBody userEmailBody = RequestBody.create(MediaType.parse("text/plain"), userEmail);
-        RequestBody nameBody = RequestBody.create(MediaType.parse("text/plain"), name);
-        RequestBody phoneBody = RequestBody.create(MediaType.parse("text/plain"), phone);
-
-        MultipartBody.Part imagePart = null;
-        if (imageFile != null) {
-            RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
-            imagePart = MultipartBody.Part.createFormData("image", imageFile.getName(), imageBody);
-        }
-
-        Call<User> call = apiService.updateUser(userId, nameBody, phoneBody, userEmailBody, imagePart);
-        call.enqueue(new Callback<User>() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                hideWaitProgress();
-                if (response.isSuccessful() && response.body() != null) {
-                    User newUser = response.body();
-                    Log.d("TAG", "onResponse: " + response.body());
-                    SharedPrefsManager.clearUser(MydetailActivity.this);
-                    SharedPrefsManager.saveUser(MydetailActivity.this, newUser);
-                   CommonActivity.createAlertDialog(MydetailActivity.this,"Đổi thông tin thành công",
-                           "Outstand'Food",new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                        finish();
-                                    }
-                                }
-                            ).show();
-                } else {
-                    show("Outsand'Food", "Lỗi cập nhật thông tin.");
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w("TAG", "Failed to get FCM registration token", task.getException());
+                    return;
                 }
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                hideWaitProgress();
-                show("Outstand'Food", "Lỗi : " + t.getMessage());
+                String deviceToken = task.getResult();
+
+                ApiServiceUser apiService = ApiClient.getClient().create(ApiServiceUser.class);
+
+                RequestBody userEmailBody = RequestBody.create(MediaType.parse("text/plain"), userEmail);
+                RequestBody nameBody = RequestBody.create(MediaType.parse("text/plain"), name);
+                RequestBody phoneBody = RequestBody.create(MediaType.parse("text/plain"), phone);
+                RequestBody deviceTokenBody = RequestBody.create(MediaType.parse("text/plain"), deviceToken);
+
+                MultipartBody.Part imagePart = null;
+                if (imageFile != null) {
+                    RequestBody imageBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
+                    imagePart = MultipartBody.Part.createFormData("image", imageFile.getName(), imageBody);
+                }
+
+                Call<User> call = apiService.updateUser(userId, nameBody, phoneBody, userEmailBody, deviceTokenBody, imagePart);
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        hideWaitProgress();
+                        if (response.isSuccessful() && response.body() != null) {
+                            User newUser = response.body();
+                            Log.d("TAG", "onResponse: " + response.body());
+                            SharedPrefsManager.clearUser(MydetailActivity.this);
+                            SharedPrefsManager.saveUser(MydetailActivity.this, newUser);
+                            CommonActivity.createAlertDialog(MydetailActivity.this, "Đổi thông tin thành công",
+                                    "Outstand'Food", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            finish();
+                                        }
+                                    }).show();
+                        } else {
+                            show("Outsand'Food", "Lỗi cập nhật thông tin.");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        hideWaitProgress();
+                        show("Outstand'Food", "Lỗi : " + t.getMessage());
+                    }
+                });
             }
         });
     }

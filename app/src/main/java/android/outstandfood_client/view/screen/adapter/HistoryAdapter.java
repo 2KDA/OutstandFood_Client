@@ -2,7 +2,11 @@ package android.outstandfood_client.view.screen.adapter;
 
 import android.annotation.SuppressLint;
 import android.outstandfood_client.databinding.ItemHistoryBinding;
+import android.outstandfood_client.interfaces.FoodInterface;
+import android.outstandfood_client.interfaces.HisAdapter;
 import android.outstandfood_client.models.HistoryModel;
+import android.outstandfood_client.models.User;
+import android.outstandfood_client.object.SharedPrefsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +25,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
     private HisAdapter historyInter;
     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
-
+    FoodInterface foodInterface;
     public HistoryAdapter(HisAdapter historyInter) {
         this.historyInter = historyInter;
     }
@@ -42,6 +46,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
         HistoryModel historyModel=list.get(position);
+        User user = SharedPrefsManager.getUser(holder.itemView.getContext());
         if (historyModel==null){
             return;
         }

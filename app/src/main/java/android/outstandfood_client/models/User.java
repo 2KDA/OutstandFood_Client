@@ -24,8 +24,10 @@ public class User implements Parcelable {
     private String phone;
     @SerializedName("isActive")
     private boolean isActive;
+    @SerializedName("deviceToken")
+    private String deviceToken;
 
-    public User(String _id, String username, String name, String password, String role, String userEmail, String image, String phone, boolean isActive) {
+    public User(String _id, String username, String name, String password, String role, String userEmail, String image, String phone, boolean isActive, String deviceToken) {
         this._id = _id;
         this.username = username;
         this.name = name;
@@ -35,6 +37,7 @@ public class User implements Parcelable {
         this.image = image;
         this.phone = phone;
         this.isActive = isActive;
+        this.deviceToken = deviceToken;
     }
 
     public User() {
@@ -117,6 +120,14 @@ public class User implements Parcelable {
         this.userEmail = userEmail;
     }
 
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
+    }
+
     protected User(Parcel in) {
         username = in.readString();
         password = in.readString();
@@ -126,6 +137,7 @@ public class User implements Parcelable {
         role = in.readString();
         userEmail = in.readString();
         image = in.readString();
+        deviceToken = in.readString();
         isActive = in.readInt() == 1; // Đọc giá trị boolean từ int
     }
 
@@ -156,6 +168,7 @@ public class User implements Parcelable {
         dest.writeString(userEmail);
         dest.writeString(image);
         dest.writeString(phone);
-        dest.writeInt(isActive ? 1 : 0); // Ghi giá trị boolean dưới dạng int
+        dest.writeInt(isActive ? 1 : 0);
+        dest.writeString(deviceToken);
     }
 }

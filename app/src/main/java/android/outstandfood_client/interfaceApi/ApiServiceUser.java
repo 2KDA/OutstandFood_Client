@@ -22,7 +22,8 @@ import retrofit2.http.Path;
         Call<User> changePassword(
                 @Field("userName") String userName,
                 @Field("password") String oldPassword,
-                @Field("newPassword") String newPassword
+                @Field("newPassword") String newPassword,
+                @Field("deviceToken") String deviceToken
         );
         @Multipart
         @PUT("user/edit/{id}")
@@ -31,6 +32,7 @@ import retrofit2.http.Path;
                 @Part("name") RequestBody name,
                 @Part("phone") RequestBody phone,
                 @Part("userEmail") RequestBody userEmail,
+                @Part("deviceToken") RequestBody deviceToken,
                 @Part MultipartBody.Part image
         );
     }

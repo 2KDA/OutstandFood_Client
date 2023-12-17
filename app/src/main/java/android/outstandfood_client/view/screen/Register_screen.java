@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Handler;
@@ -11,12 +12,17 @@ import android.os.Looper;
 import android.outstandfood_client.OutstandActivity;
 import android.outstandfood_client.R;
 import android.outstandfood_client.object.CommonActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -158,6 +164,22 @@ public class Register_screen extends OutstandActivity {
                     jsonObject.put("name", fullname);
                     jsonObject.put("userEmail", Email);
                     jsonObject.put("phone", phone);
+                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w("TAG", "Failed to get FCM registration token", task.getException());
+                                return;
+                            }
+                            String deviceToken = task.getResult();
+
+                            try {
+                                jsonObject.put("deviceToken", deviceToken);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    });
 
                     http.setRequestProperty("Content-Type", "application/json");
                     OutputStream outputStream = http.getOutputStream();

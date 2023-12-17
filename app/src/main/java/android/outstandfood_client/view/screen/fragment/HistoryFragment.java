@@ -13,9 +13,13 @@ import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.databinding.FragmentHistoryBinding;
 import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.interfaces.FoodInterface;
+import android.outstandfood_client.interfaces.HisAdapter;
 import android.outstandfood_client.models.HistoryModel;
+import android.outstandfood_client.models.ListDetail;
+import android.outstandfood_client.models.Product;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.object.SharedPrefsManager;
+import android.outstandfood_client.view.screen.AddRatingActivity;
 import android.outstandfood_client.view.screen.Login_screen;
 import android.outstandfood_client.view.screen.adapter.HistoryAdapter;
 import android.util.Log;
@@ -133,6 +137,8 @@ public class HistoryFragment extends OutstandFragment implements HisAdapter, Foo
     }
 
 
+    @Override
+    public void hisAdapter(ListDetail listDetail) {
 
-
+    }
 }

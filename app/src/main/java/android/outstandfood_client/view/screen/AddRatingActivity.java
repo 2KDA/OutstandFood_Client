@@ -52,16 +52,21 @@ public class AddRatingActivity extends AppCompatActivity {
         btn_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Rating rating = new Rating();
+                if (ed_comment.getText().toString().length() == 0){
+                    Toast.makeText(AddRatingActivity.this, "Không để trống đánh giá", Toast.LENGTH_SHORT).show();
+                } else {
+                    Rating rating = new Rating();
 
-                rating.setUser_name(user.getName());
-                rating.setUser_username(user.getUsername());
-                rating.setProduct_name(product_name);
-                rating.setId_user(user.get_id());
-                rating.setId_product(id_product);
-                rating.setRating(ed_comment.getText().toString());
+                    rating.setUser_name(user.getName());
+                    rating.setUser_username(user.getUsername());
+                    rating.setProduct_name(product_name);
+                    rating.setId_user(user.get_id());
+                    rating.setId_product(id_product);
+                    rating.setRating(ed_comment.getText().toString());
 
-                postComment(rating);
+                    postComment(rating);
+                }
+
 
             }
         });

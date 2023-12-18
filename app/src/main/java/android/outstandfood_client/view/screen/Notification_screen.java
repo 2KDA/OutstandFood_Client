@@ -16,6 +16,7 @@ import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,7 +43,7 @@ public class Notification_screen extends OutstandActivity implements Notificatio
 
         binding.rcvNotification.setLayoutManager(new LinearLayoutManager(this));
 
-        notificationAdapter = new NotificationAdapter(notificationList,this);
+        notificationAdapter = new NotificationAdapter(notificationList, this);
         notificationAdapter.setOnNotificationClickListener(this);
         binding.rcvNotification.setAdapter(notificationAdapter);
         if (savedUser != null) {
@@ -53,7 +54,6 @@ public class Notification_screen extends OutstandActivity implements Notificatio
         binding.imgback.setOnClickListener(view -> {
             onBackPressed();
         });
-
     }
     @Override
     public void onBackPressed() {
@@ -77,6 +77,7 @@ public class Notification_screen extends OutstandActivity implements Notificatio
                 if (response.isSuccessful()) {
                         notificationList.clear();
                         notificationList = (ArrayList<Notification>) response.body();
+                        Collections.reverse(notificationList);
                         notificationAdapter.setData(notificationList);
                 }
             }

@@ -5,42 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:gravity="center"
     tools:context=".view.screen.AddRatingActivity">
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cChinh"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tv_userComment"
+        <ImageView
+            android:id="@+id/imgback"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/icon_back_24" />
+
+        <TextView
+            android:paddingLeft="20dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="Thông tin tài khoản"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginHorizontal="20sp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Người dùng"
-        android:textStyle="bold"
-        android:textSize="20dp"/>
-    <TextView
-        android:id="@+id/tv_emailComment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email: "
-        android:textSize="15dp"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nội dung:"
-        android:textSize="15dp"/>
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/ed_comment"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:textSize="20dp"/>
-    <Button
-        android:id="@+id/btn_submitComment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_margin="10sp"
-        android:textSize="18sp"
-        android:background="@drawable/border_btn"
-        android:text="Gửi bình luận"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="10sp"
+        >
+        <TextView
+            android:id="@+id/tv_userComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Người dùng"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/tv_emailComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:textSize="15dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nội dung:"
+            android:textSize="15dp"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_comment"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:textSize="20dp"/>
+        <Button
+            android:id="@+id/btn_submitComment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_margin="10sp"
+            android:background="@drawable/bg_btn_gree"
+            android:text="Gửi bình luận"/>
+    </LinearLayout>
 
 
 </LinearLayout>

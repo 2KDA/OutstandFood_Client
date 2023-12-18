@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.outstandfood_client.OutstandFragment;
 import android.outstandfood_client.R;
 import android.outstandfood_client.Utils;
+import android.outstandfood_client.data.CartDao;
 import android.outstandfood_client.data.CartDatabase;
 import android.outstandfood_client.data.CartModel;
 import android.outstandfood_client.databinding.FragmentCartBinding;
@@ -20,6 +21,7 @@ import android.outstandfood_client.models.Product;
 import android.outstandfood_client.models.User;
 import android.outstandfood_client.object.CommonActivity;
 import android.outstandfood_client.object.SharedPrefsManager;
+import android.outstandfood_client.view.screen.Notification_screen;
 import android.outstandfood_client.view.screen.adapter.CartAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,6 +77,7 @@ public class CartFragment extends OutstandFragment {
 
     List<AddressModel> addressModels;
     private ArrayList<Product> products = new ArrayList<>();
+    BottomSheetDialog sheetDialog;
 
     public CartFragment() {
         // Required empty public constructor
@@ -197,7 +200,7 @@ public class CartFragment extends OutstandFragment {
                 Toast.makeText(requireActivity(), "không có sản phẩm", Toast.LENGTH_SHORT).show();
                 return;
             }
-            BottomSheetDialog sheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
+            sheetDialog = new BottomSheetDialog(requireActivity(), R.style.BottomSheetDialogTheme);
             LayoutCheckoutBinding layoutCheckoutBinding = LayoutCheckoutBinding.inflate(getLayoutInflater());
 
             InitPaypal(layoutCheckoutBinding);
@@ -247,7 +250,7 @@ public class CartFragment extends OutstandFragment {
                     if (addressModel == null) {
                         Utils.showCustomToast(requireActivity(), "Chọn địa chỉ");
                     }
-                    OrderToServer(savedUser.get_id(), false, addressModel.getId(), "Chua thanh toán", quantity, idProduct, layoutCheckoutBinding);
+                    OrderToServer(savedUser.get_id(), false, addressModel.getId(), "Chưa thanh toán", quantity, idProduct, layoutCheckoutBinding);
                 }
             });
             sheetDialog.show();
@@ -325,13 +328,24 @@ public class CartFragment extends OutstandFragment {
         ApiService.API_SERVICER.addOrder(orderModel).enqueue(new Callback<OrderModel>() {
             @Override
             public void onResponse(@NonNull Call<OrderModel> call, @NonNull Response<OrderModel> response) {
-                Toast.makeText(requireActivity(), "Thanh cong", Toast.LENGTH_SHORT).show();
+                CommonActivity.createAlertDialog(getActivity(),"Đặt thành công",
+                        "Outstand'Food",new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                CartDatabase.getInstance(getActivity()).cartDao().DeleteAll();
+                                cartAdapter.setData((ArrayList<CartModel>) CartDatabase.getInstance(getActivity()).cartDao().getAllCart());
+                                cartAdapter.notifyDataSetChanged();
+                                sheetDialog.dismiss();
+                            }
+                        }
+                ).show();
                 layoutCheckoutBinding.loading.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(@NonNull Call<OrderModel> call, @NonNull Throwable t) {
-                Toast.makeText(requireActivity(), "Fail", Toast.LENGTH_SHORT).show();
+                CommonActivity.createAlertDialog(getActivity(),"Thất bại",
+                        "Outstand'Food",null).show();
             }
         });
     }

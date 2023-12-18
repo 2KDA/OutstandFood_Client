@@ -70,6 +70,7 @@ public class FoodActivity extends OutstandActivity {
     @Override
     public void onResume() {
         super.onResume();
+        initView();
         listRatingAdapter.notifyDataSetChanged();
         if (SharedPrefsManager.getUser(getBaseContext())== null){
             binding.btnAddRating.setText("Vui lòng đăng nhập");

@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.facebook.crypto.BuildConfig;
 
 public class ProfileFragment extends OutstandFragment {
     private FragmentProfileBinding binding;
@@ -119,6 +120,31 @@ public class ProfileFragment extends OutstandFragment {
             }
         });
 
+        binding.layoutShare.setOnClickListener(v ->{
+            share(getContext());
+        });
+
         return binding.getRoot();
         }
+
+
+    public void share(Context context) {
+        String appPackageName = BuildConfig.APPLICATION_ID;
+        String appName = context.getString(R.string.app_name);
+        String appDesc = context.getString(R.string.facebook_app_id);
+        String shareBodyText = appDesc + "\n https://play.google.com/store/apps/details?id=" + appPackageName;
+
+        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TITLE, appName);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
+
+        // Check if there's an activity that can handle the intent
+        if (sendIntent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(Intent.createChooser(sendIntent, null));
+        } else {
+            // Handle the case where no activity can handle the intent
+            Toast.makeText(context, "No app found to handle the share action", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

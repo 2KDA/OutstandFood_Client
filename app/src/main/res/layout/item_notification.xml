@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:layout_margin="16dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8sp"
     app:cardCornerRadius="10sp"
     android:orientation="horizontal"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,8 +17,8 @@
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imFood"
             android:layout_gravity="center"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             app:riv_corner_radius_top_left="10dp"
             app:riv_corner_radius_bottom_left="10dp"
             android:src="@mipmap/ic_logo_app"
@@ -43,7 +44,14 @@
                 android:text=""
                 android:layout_marginTop="5dp"
                 android:id="@+id/tvMessage"/>
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thời gian"
+                android:paddingLeft="15sp"
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/tvTime"/>
         </LinearLayout>
 
     </LinearLayout>

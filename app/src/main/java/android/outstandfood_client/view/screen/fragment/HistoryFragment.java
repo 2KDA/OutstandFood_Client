@@ -26,10 +26,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+
 import com.orhanobut.hawk.Hawk;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -102,6 +103,7 @@ public class HistoryFragment extends OutstandFragment implements HisAdapter, Foo
                 public void onResponse(Call<List<HistoryModel>> call, Response<List<HistoryModel>> response) {
                     list = (ArrayList<HistoryModel>) response.body();
                     Log.d("TAG15", "onResponse: " + list.size());
+                    Collections.reverse(list);
                     historyAdapter.setData(list);
                     historyAdapter.notifyDataSetChanged();
                     binding.loading.setVisibility(View.GONE);

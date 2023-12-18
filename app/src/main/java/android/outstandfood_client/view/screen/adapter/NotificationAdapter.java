@@ -58,6 +58,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             return;
         }
         holder.binding.tvMessage.setText(notification.getMessage());
+        holder.binding.tvTime.setText(notification.getCreatedAt());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

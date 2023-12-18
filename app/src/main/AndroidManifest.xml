@@ -29,6 +29,9 @@
             android:name=".view.screen.FoodHistoryActivity"
             android:exported="false" />
         <activity
+            android:name=".view.FoodActivityDetail"
+            android:exported="false" />
+        <activity
             android:name=".view.ship"
             android:exported="false" />
         <activity

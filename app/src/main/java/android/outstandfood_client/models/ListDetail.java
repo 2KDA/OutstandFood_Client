@@ -1,6 +1,7 @@
 package android.outstandfood_client.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class ListDetail implements Serializable {
     private String _id;

@@ -65,5 +65,7 @@ dependencies {
     implementation "com.paypal.checkout:android-sdk:1.0.0"
 
     implementation 'me.relex:circleindicator:2.1.6'
+
+    implementation "com.orhanobut:hawk:2.0.1"
 }
 

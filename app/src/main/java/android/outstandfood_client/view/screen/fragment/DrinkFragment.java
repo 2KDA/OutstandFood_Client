@@ -28,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.outstandfood_client.R;
+import android.widget.SearchView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,6 +63,29 @@ public class DrinkFragment extends OutstandFragment implements FoodInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+        binding.SearchFood.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                listProductAdapter.getFilter().filter(s);
+//                if (listProductAdapter.getItemCount() == 0) {
+//                   binding.tvResult.setVisibility(View.VISIBLE);
+//                } else {
+//                    binding.tvResult.setVisibility(View.GONE);
+//                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                listProductAdapter.getFilter().filter(s);
+//                if (listProductAdapter.getItemCount() == 0) {
+//                    binding.tvResult.setVisibility(View.VISIBLE);
+//                } else {
+//                    binding.tvResult.setVisibility(View.GONE);
+//                }
+                return false;
+            }
+        });
     }
 
     private void initView() {

@@ -31,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.outstandfood_client.R;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -94,6 +95,29 @@ public class FoodFragment extends OutstandFragment implements FoodInterface {
             @Override
             public void onFailure(Call<ListProduct> call, Throwable t) {
                 binding.progressCircular.setVisibility(View.GONE);
+            }
+        });
+        binding.SearchFood.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                listProductAdapter.getFilter().filter(s);
+//                if (listProductAdapter.getItemCount() == 0) {
+//                   binding.tvResult.setVisibility(View.VISIBLE);
+//                } else {
+//                    binding.tvResult.setVisibility(View.GONE);
+//                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                listProductAdapter.getFilter().filter(s);
+//                if (listProductAdapter.getItemCount() == 0) {
+//                    binding.tvResult.setVisibility(View.VISIBLE);
+//                } else {
+//                    binding.tvResult.setVisibility(View.GONE);
+//                }
+                return false;
             }
         });
     }

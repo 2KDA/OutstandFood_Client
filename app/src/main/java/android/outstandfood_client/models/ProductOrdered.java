@@ -1,6 +1,7 @@
 package android.outstandfood_client.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ProductOrdered implements Serializable {
     private String _id;
@@ -14,7 +15,9 @@ public class ProductOrdered implements Serializable {
 
     private String category_name;
 
-    public ProductOrdered(String _id, String name, int price, String image, String describe, int __v, int quantity, String id_category, String category_name) {
+    private List<String> imageDetail;
+
+    public ProductOrdered(String _id, String name, int price, String image, String describe, int __v, int quantity, String id_category, String category_name, List<String> imageDetail) {
         this._id = _id;
         this.name = name;
         this.price = price;
@@ -24,6 +27,15 @@ public class ProductOrdered implements Serializable {
         this.quantity = quantity;
         this.id_category = id_category;
         this.category_name = category_name;
+        this.imageDetail = imageDetail;
+    }
+
+    public List<String> getImageDetail() {
+        return imageDetail;
+    }
+
+    public void setImageDetail(List<String> imageDetail) {
+        this.imageDetail = imageDetail;
     }
 
     public String getDescribe() {

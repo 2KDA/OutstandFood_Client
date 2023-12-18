@@ -77,7 +77,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
      holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-             historyInter.hisAdapter(historyModel.getListDetail().get(position));
+             historyInter.hisAdapter(historyModel.getListDetail());
          }
      });
     }

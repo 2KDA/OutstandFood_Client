@@ -4,4 +4,6 @@ import android.outstandfood_client.models.ProductOrdered;
 
 public interface HistoryInter {
     void FoodHistory(ProductOrdered ordered);
+
+    void IntenDetail(ProductOrdered ordered);
 }

@@ -78,25 +78,26 @@ public class SetNewPassActivity extends OutstandActivity {
                         hideWaitProgress();
                         if (response.isSuccessful()) {
                             User newUser = response.body();
-                            SharedPrefsManager.clearUser(SetNewPassActivity.this);
-                            SharedPrefsManager.saveUser(SetNewPassActivity.this, newUser);
-                            CommonActivity.createAlertDialog(SetNewPassActivity.this,"Đổi mật khẩu thành công",
-                                    "Outstand'Food",new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            finish();
-                                        }
-                                    }
-                            ).show();
+                            if (newUser != null) {
+                                SharedPrefsManager.clearUser(SetNewPassActivity.this);
+                                SharedPrefsManager.saveUser(SetNewPassActivity.this, newUser);
+                                CommonActivity.createAlertDialog(SetNewPassActivity.this, "Đổi mật khẩu thành công",
+                                        "Outstand'Food", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                finish();
+                                            }
+                                        }).show();
+                            }
                         } else {
-                            show("Outsand'Food", "Lỗi đổi mật khẩu.");
+                            show("Outstand'Food", "Đổi mật khẩu thất bại.");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
                         hideWaitProgress();
-                        show("Outstand'Food", "Lỗi : " + t.getMessage());
+                        show("Outstand'Food", "Đổi mật khẩu thất bại.");
                     }
                 });
             }

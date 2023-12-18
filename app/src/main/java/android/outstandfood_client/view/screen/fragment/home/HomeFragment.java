@@ -17,6 +17,7 @@ import android.outstandfood_client.interfaces.ApiService;
 import android.outstandfood_client.models.ListProduct;
 import android.outstandfood_client.models.Product;
 import android.outstandfood_client.view.Introducts;
+import android.outstandfood_client.view.screen.Notification_screen;
 import android.outstandfood_client.view.screen.adapter.ListProductAdapter;
 import android.outstandfood_client.view.screen.adapter.SlideAdapter;
 import android.util.Log;
@@ -168,6 +169,10 @@ public class HomeFragment extends Fragment {
             }
         });
         slideAdapter.setData(imageFood);
+
+        img_home_ActionMenu_home_MyCart.setOnClickListener(v ->{
+            startActivity(new Intent(getActivity(), Notification_screen.class));
+        });
     }
 
     private void autoSlide() {

@@ -23,12 +23,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        // Xử lý thông báo đến từ server và hiển thị chúng dưới dạng notification
         if (remoteMessage.getNotification() != null) {
             String title = remoteMessage.getNotification().getTitle();
             String body = remoteMessage.getNotification().getBody();
 
-            // Hiển thị thông báo trên thiết bị
             showNotification(title, body);
         }
     }

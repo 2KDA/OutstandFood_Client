@@ -2,6 +2,7 @@ package android.outstandfood_client.interfaceApi;
 
 import android.outstandfood_client.models.AddressModel;
 import android.outstandfood_client.models.AddressResponse;
+import android.outstandfood_client.models.Notification;
 
 import java.util.List;
 
@@ -19,6 +20,13 @@ import retrofit2.http.Query;
 public interface ApiServiceAddress {
     @GET("address/list")
     Call<AddressResponse> getAddressList(@Query("id_user") String userId);
+
+    @GET("notification/list")
+    Call<List<Notification>> getNotification(@Query("userId") String userId);
+
+    @GET("notification/delete")
+    Call<Void> deleteNotification(@Query("id") String userId);
+
     @FormUrlEncoded
     @POST("address/add")
     Call<AddressModel> addAddress(

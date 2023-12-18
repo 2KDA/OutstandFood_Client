@@ -7,18 +7,18 @@
 
     <item
         android:id="@+id/home_menu_muasam"
-        android:icon="@drawable/ic_list_24"
+        android:icon="@drawable/ic_shopping_bag_24"
         android:title="@string/sOrders"/>
 
     <item
         android:id="@+id/home_menu_giohang"
-        android:icon="@drawable/ic_list_24"
+        android:icon="@drawable/baseline_shopping_cart_24"
         android:title="@string/sMessage"/>
 
 
     <item
         android:id="@+id/home_menu_lichsu"
-        android:icon="@drawable/ic_wallet_24"
+        android:icon="@drawable/baseline_history_24"
         android:title="@string/sHistory"/>
 
     <item
